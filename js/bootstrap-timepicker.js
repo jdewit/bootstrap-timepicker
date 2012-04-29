@@ -153,9 +153,9 @@
 			} else {
 				this.element.prop('value', input);
 			}
-            $('.timepicker td#timepickerHour').text(this.hour);
-            $('.timepicker td#timepickerMinute').text(this.minute < 10 ? '0' + this.minute : this.minute);
-            $('.timepicker td#timepickerMeridian').text(this.meridian);
+            $('.bootstrap-timepicker td#timepickerHour').text(this.hour);
+            $('.bootstrap-timepicker td#timepickerMinute').text(this.minute < 10 ? '0' + this.minute : this.minute);
+            $('.bootstrap-timepicker td#timepickerMeridian').text(this.meridian);
 		},
         
         setValues: function(time) {

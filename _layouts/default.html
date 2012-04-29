@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" type="text/css" media="screen" />
+    <link href="assets/pygments.css" type="text/css" rel="stylesheet" />
+    <link href="assets/prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <link href="css/timepicker.css" type="text/css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+            position: relative;
+            padding-top: 50px;
+        } 
+    </style>
+    <title>{{ page.title }}</title>
+</head>
+<body onload="prettyPrint()" data-target=".subnav" data-spy="scroll" data-twttr-rendered="true" >
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="http://jdewit.github.com/bootstrap-timepicker">Bootstrap-Timepicker</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="index.html">Documentation</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container">
+        {{ content }}
+    </div> <!-- /container -->
+    <hr />
+
+    <footer class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>Created by <a href="http://twitter.com/joris_dewit" target="_blank">Joris de Wit</a></p> 
+    </footer>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/prettify/prettify.js"></script>
+    <script type="text/javascript" src="js/bootstrap-timepicker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () { 
+                $('.time-picker').timepicker({
+                    defaultTime: 'current',
+                    step: 15
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,63 +1,48 @@
-/*!
- * Timepicker for Bootstrap
- *
- * Copyright 2012 Joris de Wit, Stefan Petre, Andrew Rowls
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- */
-.timepicker {
-  top: 0;
-  left: 0;
-  padding: 4px;
-  margin-top: 1px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+.bootstrap-timepicker {
+    border-radius: 4px 4px 4px 4px;
+    left: 0;
+    margin-top: 1px;
+    padding: 4px;
+    top: 0;
 }
-.timepicker:before {
-  content: '';
-  display: inline-block;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid #ccc;
-  border-bottom-color: rgba(0, 0, 0, 0.2);
-  position: absolute;
-  top: -7px;
-  left: 6px;
+.bootstrap-timepicker:before {
+    border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    content: "";
+    display: inline-block;
+    left: 6px;
+    position: absolute;
+    top: -7px;
 }
-.timepicker:after {
-  content: '';
-  display: inline-block;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 6px solid #ffffff;
-  position: absolute;
-  top: -6px;
-  left: 7px;
+.bootstrap-timepicker:after {
+    border-bottom: 6px solid #FFFFFF;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    content: "";
+    display: inline-block;
+    left: 7px;
+    position: absolute;
+    top: -6px;
 }
-.timepicker table {
-  width: 100%;
-  margin: 0;
+.bootstrap-timepicker table {
+    margin: 0;
+    width: 100%;
 }
-.timepicker td,
-.timepicker th {
-  text-align: center;
-  height: 20px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+.bootstrap-timepicker td, .bootstrap-timepicker th {
+    border-radius: 4px 4px 4px 4px;
+    height: 20px;
+    text-align: center;
 }
-.timepicker td.separator {
+.bootstrap-timepicker td.separator {
     width: 1px;
 }
-.timepicker a {
-    border: 1px transparent solid;
+.bootstrap-timepicker a {
+    border: 1px solid transparent;
 }
-.timepicker a:hover {
-    background-color: #eee;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    border-color: #ddd;
+.bootstrap-timepicker a:hover {
+    background-color: #EEEEEE;
+    border-color: #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
 }
+

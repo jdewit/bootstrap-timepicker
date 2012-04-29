@@ -23,7 +23,7 @@
 	var Timepicker = function(element, options){
 		this.element = $(element);
         this.step = options.step||this.element.data('time-step')||1;
-		this.picker = $('<div class="timepicker dropdown-menu">'+
+		this.picker = $('<div class="bootstrap-timepicker dropdown-menu">'+
 							'<div class="timepicker-container">'+
                                 '<table>'+
                                     '<tr>'+
@@ -33,10 +33,10 @@
                                         '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-up"></i></a></td>'+
                                     '</tr>'+
                                     '<tr>'+
-                                        '<td id="timepicker-hour"></td> '+
+                                        '<td id="timepickerHour"></td> '+
                                         '<td class="separator">:</td>'+
-                                        '<td id="timepicker-minute"></td> '+
-                                        '<td id="timepicker-meridian"></td>'+
+                                        '<td id="timepickerMinute"></td> '+
+                                        '<td id="timepickerMeridian"></td>'+
                                     '</tr>'+
                                     '<tr>'+
                                         '<td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>'+
@@ -87,6 +87,7 @@
 		constructor: Timepicker,
 
 		show: function(e) {
+            this.setValue(this.getTime());
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
@@ -153,9 +154,9 @@
 			} else {
 				this.element.prop('value', input);
 			}
-            $('.timepicker td#timepicker-hour').text(this.hour);
-            $('.timepicker td#timepicker-minute').text(this.minute < 10 ? '0' + this.minute : this.minute);
-            $('.timepicker td#timepicker-meridian').text(this.meridian);
+            $('.bootstrap-timepicker td#timepickerHour').text(this.hour);
+            $('.bootstrap-timepicker td#timepickerMinute').text(this.minute < 10 ? '0' + this.minute : this.minute);
+            $('.bootstrap-timepicker td#timepickerMeridian').text(this.meridian);
 		},
         
         setValues: function(time) {

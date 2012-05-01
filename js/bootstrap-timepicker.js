@@ -21,21 +21,21 @@
 
     "use strict"; // jshint ;_;
 
-	/* TIMEPICKER PUBLIC CLASS DEFINITION
+    /* TIMEPICKER PUBLIC CLASS DEFINITION
      * ================================== */
-	var Timepicker = function(element, options) {
-		this.$element = $(element);
+    var Timepicker = function(element, options) {
+        this.$element = $(element);
         this.options = $.extend({}, $.fn.timepicker.defaults, options);
         this.minuteStep = this.options.minuteStep || this.minuteStep;
-		this.$widget = $(this.options.widget).appendTo('body');
+        this.$widget = $(this.options.widget).appendTo('body');
         this.shown = false;
         this.listen();
-		this.setDefaultTime(this.options.defaultTime || this.defaultTime);
-	};
+        this.setDefaultTime(this.options.defaultTime || this.defaultTime);
+    };
 
-	Timepicker.prototype = {
+    Timepicker.prototype = {
 
-		constructor: Timepicker
+        constructor: Timepicker
 
         , listen: function () {
             this.$element
@@ -45,7 +45,7 @@
             this.$widget.on('click', $.proxy(this.click, this));
         }
 
-		, show: function() {
+        , show: function() {
             this.$element.trigger('show');
             var pos = $.extend({}, this.$element.offset(), {
                 height: this.$element[0].offsetHeight
@@ -57,21 +57,21 @@
             })
 
             this.$widget.show();
-            this.shown = true; 
+            this.shown = true;
             this.$element.trigger('shown');
 
             return this;
-		}
+        }
 
-		, hide: function(e){
-			this.$element.trigger('hide');
-			this.$widget.hide();
+        , hide: function(e){
+            this.$element.trigger('hide');
+            this.$widget.hide();
             this.shown = false;
-			this.$element.trigger('hidden');
+            this.$element.trigger('hidden');
 
             return this;
-		}
-        
+        }
+
         , setValues: function(time) {
             var meridian = time.replace('/am/i', '');
             if (!meridian) {
@@ -84,7 +84,7 @@
             this.minute = timeArray[1];
         }
 
-		, setDefaultTime: function(defaultTime){
+        , setDefaultTime: function(defaultTime){
             if (defaultTime) {
                 if (defaultTime === 'current') {
                     var dTime = new Date();
@@ -108,8 +108,8 @@
                 this.update();
                 this.$element.change();
             }
-		}
-        
+        }
+
         , formatTime: function(hour, minute, meridian) {
             hour = hour < 10 ? '0' + hour : hour;
             minute = minute < 10 ? '0' + minute : minute;
@@ -117,29 +117,29 @@
             return hour + ':' + minute + ' ' + meridian;
         }
 
-		, setTime: function(input) {
+        , setTime: function(input) {
             this.$element.val(input);
             $('.bootstrap-timepicker td#timepickerHour').text(this.hour);
             $('.bootstrap-timepicker td#timepickerMinute').text(this.minute < 10 ? '0' + this.minute : this.minute);
             $('.bootstrap-timepicker td#timepickerMeridian').text(this.meridian);
-		}
+        }
 
         , getTime: function() {
             return this.formatTime(this.hour, this.minute, this.meridian);
         }
 
-		, update: function() {
+        , update: function() {
             this.setTime(this.getTime());
-		}
+        }
 
-		, click: function(e) {
+        , click: function(e) {
             this.$element.focus();
-			e.stopPropagation();
-			e.preventDefault();
+            e.stopPropagation();
+            e.preventDefault();
             clearTimeout(this.timer);
 
             var action = $(e.target).closest('a').data('action');
-			if (action) {
+            if (action) {
                 switch(action) {
                     case 'incrementHour':
                         this.incrementHour();
@@ -160,36 +160,36 @@
                 this.update();
             }
 
-		}
-        
+        }
+
         , blur: function(e) {
-			e.stopPropagation();
-			e.preventDefault();
+            e.stopPropagation();
+            e.preventDefault();
             var that = this;
             this.timer = setTimeout(function() {
                 that.hide()
             }, 100);
         }
 
-		, incrementHour: function() {
+        , incrementHour: function() {
             if (this.hour === 12) {
                 this.hour = 1;
                 this.toggleMeridian();
             } else {
                 this.hour = this.hour + 1;
             }
-		}
+        }
 
-		, decrementHour: function() {
+        , decrementHour: function() {
             if (this.hour === 1) {
                 this.hour = 12;
                 this.toggleMeridian();
             } else {
                 this.hour = this.hour - 1;
             }
-		}
+        }
 
-		, incrementMinute: function() {
+        , incrementMinute: function() {
             var newVal = this.minute + this.minuteStep;
             if (newVal > 59) {
                 this.incrementHour();
@@ -197,9 +197,9 @@
             } else {
                 this.minute = newVal;
             }
-		}
+        }
 
-		, decrementMinute: function() {
+        , decrementMinute: function() {
             var newVal = this.minute - this.minuteStep;
             if (newVal < 0) {
                 this.decrementHour();
@@ -207,7 +207,7 @@
             } else {
                 this.minute = newVal;
             }
-		}
+        }
 
         , toggleMeridian: function() {
             if (this.meridian == 'am') {
@@ -218,7 +218,7 @@
 
             this.update();
         }
-	};
+    };
 
 
     /* TYPEAHEAD PLUGIN DEFINITION

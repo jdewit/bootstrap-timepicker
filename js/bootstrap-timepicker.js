@@ -73,15 +73,16 @@
         }
 
         , setValues: function(time) {
-            var meridian = time.replace('/am/i', '');
-            if (!meridian) {
-                meridian = time.replace('/pm/i', '');
+            var meridian, match = time.match(/(am|pm)/i);
+            if (match) {
+                meridian = match[1];
             }
+            time = $.trim( time.replace(/(pm|am)/i, '') );
             var timeArray = time.split(':');
 
             this.meridian = meridian;
-            this.hour = timeArray[0];
-            this.minute = timeArray[1];
+            this.hour = parseInt(timeArray[0]);
+            this.minute = parseInt(timeArray[1]);
         }
 
         , setDefaultTime: function(defaultTime){

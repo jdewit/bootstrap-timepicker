@@ -191,7 +191,7 @@
         }
 
         , incrementMinute: function() {
-            var newVal = this.minute + this.minuteStep;
+            var newVal = this.minute + this.minuteStep - (this.minute % this.minuteStep);
             if (newVal > 59) {
                 this.incrementHour();
                 this.minute = newVal - 60;

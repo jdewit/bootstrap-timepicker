@@ -40,8 +40,9 @@
         , listen: function () {
             this.$element
                 .on('click', $.proxy(this.show, this))
-                .on('blur', $.proxy(this.blur, this));
-
+                .on('blur', $.proxy(this.blur, this))
+                .on('keyup', $.proxy(this.updateFromElementVal, this))
+            ;
             this.$widget.on('click', $.proxy(this.click, this));
         }
 
@@ -55,6 +56,8 @@
                 top: pos.top + pos.height
                 , left: pos.left
             })
+
+            this.updateFromElementVal();
 
             this.$widget.show();
             this.shown = true;
@@ -118,19 +121,32 @@
             return hour + ':' + minute + ' ' + meridian;
         }
 
-        , setTime: function(input) {
+        , getTime: function() {
+            return this.formatTime(this.hour, this.minute, this.meridian);
+        }
+
+        , updateElement: function(input) {
             this.$element.val(input);
+        }
+
+        , updateWidget: function(input) {
             $('.bootstrap-timepicker td#timepickerHour').text(this.hour);
             $('.bootstrap-timepicker td#timepickerMinute').text(this.minute < 10 ? '0' + this.minute : this.minute);
             $('.bootstrap-timepicker td#timepickerMeridian').text(this.meridian);
         }
 
-        , getTime: function() {
-            return this.formatTime(this.hour, this.minute, this.meridian);
+        , update: function() {
+            var time = this.getTime();
+            this.updateElement(time);
+            this.updateWidget(time);
         }
 
-        , update: function() {
-            this.setTime(this.getTime());
+        , updateFromElementVal: function () {
+            var elemVal = this.$element.val();
+            if (elemVal) {
+                this.setValues(elemVal);
+                this.updateWidget();
+            }
         }
 
         , click: function(e) {

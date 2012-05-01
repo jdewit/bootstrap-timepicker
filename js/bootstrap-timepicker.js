@@ -2,7 +2,7 @@
  * bootstrap-timepicker.js
  * http://www.github.com/jdewit/bootstrap-timepicker
  * =========================================================
- * Copyright 2012 Joris de Wit, Stefan Petre, and Andrew Rowls
+ * Copyright 2012 Joris de Wit
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,149 +17,62 @@
  * limitations under the License.
  * ========================================================= */
 
-!function( $ ) {
+!function($) {
 
-	// Picker object
-	var Timepicker = function(element, options){
-		this.element = $(element);
-        this.step = options.step||this.element.data('time-step')||1;
-		this.picker = $('<div class="bootstrap-timepicker dropdown-menu">'+
-							'<div class="timepicker-container">'+
-                                '<table>'+
-                                    '<tr>'+
-                                        '<td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>'+
-                                        '<td></td>'+
-                                        '<td><a href="#" data-action="incrementMinute"><i class="icon-chevron-up"></i></a></td>'+
-                                        '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-up"></i></a></td>'+
-                                    '</tr>'+
-                                    '<tr>'+
-                                        '<td id="timepickerHour"></td> '+
-                                        '<td class="separator">:</td>'+
-                                        '<td id="timepickerMinute"></td> '+
-                                        '<td id="timepickerMeridian"></td>'+
-                                    '</tr>'+
-                                    '<tr>'+
-                                        '<td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>'+
-                                        '<td></td>'+
-                                        '<td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>'+
-                                        '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-down"></i></a></td>'+
-                                    '</tr>'+
-                                '</table>' +
-							'</div>'+
-						'</div>')
-            .appendTo('body')
-            .on({
-                click: $.proxy(this.click, this),
-                mousedown: $.proxy(this.mousedown, this)
-            });
-		this.isInput = this.element.is('input');
-		this.component = this.element.is('.time') ? this.element.find('.add-on') : false;
+    "use strict"; // jshint ;_;
 
-		if (this.component && this.component.length === 0) {
-			this.component = false;
-        }
-
-		if (this.isInput) {
-			this.element.on({
-				focus: $.proxy(this.show, this),
-				blur: $.proxy(this._hide, this),
-				keyup: $.proxy(this.update, this),
-				keydown: $.proxy(this.keydown, this)
-			});
-		} else {
-			if (this.component){
-				this.component.on('click', $.proxy(this.show, this));
-				var element = this.element.find('input');
-				element.on({
-					blur: $.proxy(this._hide, this)
-				})
-			} else {
-				this.element.on('click', $.proxy(this.show, this));
-			}
-		}
-
-		this.setDefaultTime(options.defaultTime||this.element.data('time-default-time'));
-
-		this.update();
+	/* TIMEPICKER PUBLIC CLASS DEFINITION
+     * ================================== */
+	var Timepicker = function(element, options) {
+		this.$element = $(element);
+        this.options = $.extend({}, $.fn.timepicker.defaults, options);
+        this.minuteStep = this.options.minuteStep || this.minuteStep;
+		this.$widget = $(this.options.widget).appendTo('body');
+        this.shown = false;
+        this.listen();
+		this.setDefaultTime(this.options.defaultTime || this.defaultTime);
 	};
 
 	Timepicker.prototype = {
-		constructor: Timepicker,
 
-		show: function(e) {
-            this.setValue(this.getTime());
-			this.picker.show();
-			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
-			this.place();
-			$(window).on('resize', $.proxy(this.place, this));
-			if (e ) {
-				e.stopPropagation();
-				e.preventDefault();
-			}
-			if (!this.isInput) {
-				$(document).on('mousedown', $.proxy(this.hide, this));
-			}
-			this.element.trigger({
-				type: 'show',
-				time: this.time
-			});
-		},
+		constructor: Timepicker
 
-		_hide: function(e){
-			// When going from the input to the picker, IE handles the blur/click
-			// events differently than other browsers, in such a way that the blur
-			// event triggers a hide before the click event can stop propagation.
-			if ($.browser.msie) {
-				var t = this, args = arguments;
+        , listen: function () {
+            this.$element
+                .on('click', $.proxy(this.show, this))
+                .on('blur', $.proxy(this.blur, this));
 
-				function cancel_hide(){
-					clearTimeout(hide_timeout);
-					e.target.focus();
-					t.picker.off('click', cancel_hide);
-				}
+            this.$widget.on('click', $.proxy(this.click, this));
+        }
 
-				function do_hide(){
-					t.hide.apply(t, args);
-					t.picker.off('click', cancel_hide);
-				}
+		, show: function() {
+            this.$element.trigger('show');
+            var pos = $.extend({}, this.$element.offset(), {
+                height: this.$element[0].offsetHeight
+            });
 
-				this.picker.on('click', cancel_hide);
-				var hide_timeout = setTimeout(do_hide, 100);
-			} else {
-				return this.hide.apply(this, arguments);
-			}
-		},
+            this.$widget.css({
+                top: pos.top + pos.height
+                , left: pos.left
+            })
 
-		hide: function(e){
-			this.picker.hide();
-			$(window).off('resize', this.place);
-			if (!this.isInput) {
-				$(document).off('mousedown', this.hide);
-			}
-			if (e && e.currentTarget.value) {
-				this.setValue();
-            }
-			this.element.trigger({
-				type: 'hide',
-				time: this.getTime()
-			});
-		},
+            this.$widget.show();
+            this.shown = true; 
+            this.$element.trigger('shown');
 
-		setValue: function(input) {
-			if (!this.isInput) {
-				if (this.component){
-					this.element.find('input').prop('value', input);
-				}
-				this.element.data('time', input);
-			} else {
-				this.element.prop('value', input);
-			}
-            $('.bootstrap-timepicker td#timepickerHour').text(this.hour);
-            $('.bootstrap-timepicker td#timepickerMinute').text(this.minute < 10 ? '0' + this.minute : this.minute);
-            $('.bootstrap-timepicker td#timepickerMeridian').text(this.meridian);
-		},
+            return this;
+		}
+
+		, hide: function(e){
+			this.$element.trigger('hide');
+			this.$widget.hide();
+            this.shown = false;
+			this.$element.trigger('hidden');
+
+            return this;
+		}
         
-        setValues: function(time) {
+        , setValues: function(time) {
             var meridian = time.replace('/am/i', '');
             if (!meridian) {
                 meridian = time.replace('/pm/i', '');
@@ -169,64 +82,62 @@
             this.meridian = meridian;
             this.hour = timeArray[0];
             this.minute = timeArray[1];
-        },
+        }
 
-		setDefaultTime: function(defaultTime){
-            if (!defaultTime || defaultTime == 'current') {
-                var dTime = new Date();
-                var hours = dTime.getHours();
-                var minutes = Math.floor(dTime.getMinutes() / this.step) * this.step;
+		, setDefaultTime: function(defaultTime){
+            if (defaultTime) {
+                if (defaultTime === 'current') {
+                    var dTime = new Date();
+                    var hours = dTime.getHours();
+                    var minutes = Math.floor(dTime.getMinutes() / this.minuteStep) * this.minuteStep;
 
-                var meridian = "am";
-                if (hours > 12) {
-                    hours = hours - 12;
-                    meridian = "pm";
+                    var meridian = "am";
+                    if (hours > 12) {
+                        hours = hours - 12;
+                        meridian = "pm";
+                    } else {
+                       meridian = "am";
+                    }
+
+                    this.hour = hours;
+                    this.minute = minutes;
+                    this.meridian = meridian;
                 } else {
-                   meridian = "am";
+                    this.setValues(defaultTime);
                 }
-
-                this.hour = hours;
-                this.minute = minutes;
-                this.meridian = meridian;
-
-			    this.update();
-            } else {
-                this.setValues(defaultTime);
+                this.update();
+                this.$element.change();
             }
-		},
-
-		place: function(){
-			var offset = this.component ? this.component.offset() : this.element.offset();
-			this.picker.css({
-				top: offset.top + this.height,
-				left: offset.left
-			});
-		},
+		}
         
-        formatTime: function(hour, minute, meridian) {
+        , formatTime: function(hour, minute, meridian) {
             hour = hour < 10 ? '0' + hour : hour;
             minute = minute < 10 ? '0' + minute : minute;
 
             return hour + ':' + minute + ' ' + meridian;
-        },
+        }
 
-        getTime: function() {
+		, setTime: function(input) {
+            this.$element.val(input);
+            $('.bootstrap-timepicker td#timepickerHour').text(this.hour);
+            $('.bootstrap-timepicker td#timepickerMinute').text(this.minute < 10 ? '0' + this.minute : this.minute);
+            $('.bootstrap-timepicker td#timepickerMeridian').text(this.meridian);
+		}
+
+        , getTime: function() {
             return this.formatTime(this.hour, this.minute, this.meridian);
-        },
+        }
 
-		update: function(){
-			var time = this.getTime();
-            this.setValue(time);
+		, update: function() {
+            this.setTime(this.getTime());
+		}
 
-            this.element.trigger({
-                type: 'changeTime',
-                time: time
-            });
-		},
-
-		click: function(e) {
+		, click: function(e) {
+            this.$element.focus();
 			e.stopPropagation();
 			e.preventDefault();
+            clearTimeout(this.timer);
+
             var action = $(e.target).closest('a').data('action');
 			if (action) {
                 switch(action) {
@@ -246,61 +157,59 @@
                         this.toggleMeridian();
                     break;
                 }
+                this.update();
             }
 
-		},
-
-		mousedown: function(e){
+		}
+        
+        , blur: function(e) {
 			e.stopPropagation();
 			e.preventDefault();
-		},
+            var that = this;
+            this.timer = setTimeout(function() {
+                that.hide()
+            }, 100);
+        }
 
-		incrementHour: function(){
+		, incrementHour: function() {
             if (this.hour === 12) {
                 this.hour = 1;
                 this.toggleMeridian();
             } else {
                 this.hour = this.hour + 1;
             }
-            this.update();
-		},
+		}
 
-		decrementHour: function(){
+		, decrementHour: function() {
             if (this.hour === 1) {
                 this.hour = 12;
                 this.toggleMeridian();
             } else {
                 this.hour = this.hour - 1;
             }
+		}
 
-            this.update();
-		},
-
-		incrementMinute: function(){
-            var newVal = this.minute + this.step;
+		, incrementMinute: function() {
+            var newVal = this.minute + this.minuteStep;
             if (newVal > 59) {
                 this.incrementHour();
                 this.minute = newVal - 60;
             } else {
                 this.minute = newVal;
             }
+		}
 
-            this.update();
-		},
-
-		decrementMinute: function() {
-            var newVal = this.minute - this.step;
+		, decrementMinute: function() {
+            var newVal = this.minute - this.minuteStep;
             if (newVal < 0) {
                 this.decrementHour();
                 this.minute = newVal + 60;
             } else {
                 this.minute = newVal;
             }
+		}
 
-            this.update();
-		},
-
-        toggleMeridian: function() {
+        , toggleMeridian: function() {
             if (this.meridian == 'am') {
                 this.meridian = 'pm';
             } else {
@@ -308,62 +217,71 @@
             }
 
             this.update();
-        },
-
-		keydown: function(e){
-			if (this.picker.is(':not(:visible)')){
-				if (e.keyCode == 27) // allow escape to hide and re-show picker
-					this.show();
-				return;
-			}
-			var timeChanged = false,
-				dir, day, hour;
-			switch(e.keyCode){
-				case 27: // escape
-					this.hide();
-					e.preventDefault();
-					break;
-				case 37: // left
-				case 39: // right
-				case 38: // up
-				case 40: // down
-				case 13: // enter
-					this.hide();
-					e.preventDefault();
-					break;
-			}
-			if (timeChanged){
-				this.element.trigger({
-					type: 'changeTime',
-					time: this.time
-				});
-				var element;
-				if (this.isInput) {
-					element = this.element;
-				} else if (this.component){
-					element = this.element.find('input');
-				}
-				if (element) {
-					element.change();
-				}
-			}
-		},
+        }
 	};
 
-	$.fn.timepicker = function ( option ) {
-		var args = Array.apply(null, arguments);
-		args.shift();
-		return this.each(function () {
-			var $this = $(this),
-				data = $this.data('timepicker'),
-				options = typeof option == 'object' && option;
-			if (!data) {
-				$this.data('timepicker', (data = new Timepicker(this, $.extend({}, $.fn.timepicker.defaults,options))));
-			}
-			if (typeof option == 'string') data[option].apply(data, args);
-		});
-	};
 
-	$.fn.timepicker.Constructor = Timepicker;
-}( window.jQuery )
+    /* TYPEAHEAD PLUGIN DEFINITION
+     * =========================== */
+
+    $.fn.timepicker = function (option) {
+        return this.each(function () {
+            var $this = $(this)
+            , data = $this.data('timepicker')
+            , options = typeof option == 'object' && option;
+            if (!data) {
+                $this.data('timepicker', (data = new Timepicker(this, options)));
+            }
+            if (typeof option == 'string') {
+                data[option]();
+            }
+        })
+    }
+
+    $.fn.timepicker.defaults = {
+      minuteStep: 1
+    , widget: '<div class="bootstrap-timepicker dropdown-menu">'+
+                '<div class="timepicker-container">'+
+                    '<table>'+
+                        '<tr>'+
+                            '<td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>'+
+                            '<td></td>'+
+                            '<td><a href="#" data-action="incrementMinute"><i class="icon-chevron-up"></i></a></td>'+
+                            '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-up"></i></a></td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td id="timepickerHour"></td> '+
+                            '<td class="separator">:</td>'+
+                            '<td id="timepickerMinute"></td> '+
+                            '<td id="timepickerMeridian"></td>'+
+                        '</tr>'+
+                        '<tr>'+
+                            '<td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>'+
+                            '<td></td>'+
+                            '<td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>'+
+                            '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-down"></i></a></td>'+
+                        '</tr>'+
+                    '</table>' +
+                '</div>'+
+            '</div>'
+    }
+
+    $.fn.timepicker.Constructor = Timepicker
+
+
+    /* TIMEPICKER DATA-API
+     * ================== */
+
+    $(function () {
+        $('body').on('focus.timepicker.data-api', '[data-provide="timepicker"]', function (e) {
+            var $this = $(this);
+            if ($this.data('timepicker')) {
+                return;
+            }
+            e.preventDefault();
+            $this.timepicker($this.data());
+        })
+    })
+}(window.jQuery);
+
 

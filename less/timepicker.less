@@ -14,10 +14,14 @@
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
+    display: none;
+
+    &.open {
+        display: inline-block;
+    }
 
     &:before {
         content: '';
-        display: inline-block;
         border-left: 7px solid transparent;
         border-right: 7px solid transparent;
         border-bottom: 7px solid #ccc;
@@ -29,7 +33,6 @@
 
     &:after {
         content: '';
-        display: inline-block;
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
         border-bottom: 6px solid #ffffff;

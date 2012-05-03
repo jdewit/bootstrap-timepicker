@@ -2,7 +2,11 @@
  * bootstrap-timepicker.js
  * http://www.github.com/jdewit/bootstrap-timepicker
  * =========================================================
- * Copyright 2012 Joris de Wit
+ * Copyright 2012 
+ *
+ * Created By:
+ * Joris de Wit @joris_dewit
+ * Gilbert @mindeavor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +31,9 @@
         this.$element = $(element);
         this.options = $.extend({}, $.fn.timepicker.defaults, options);
         this.minuteStep = this.options.minuteStep || this.minuteStep;
-        this.$widget = $(this.options.widget).appendTo('body');
-        this.shown = false;
+        this.disableFocus = this.options.disableFocus || this.disableFocus;
+        this.$widget = $(this.options.template).appendTo('body');
+        this.open = false;
         this.listen();
         this.setDefaultTime(this.options.defaultTime || this.defaultTime);
     };
@@ -38,16 +43,25 @@
         constructor: Timepicker
 
         , listen: function () {
+            $('html').on('click.timepicker.data-api', $.proxy(this.hide, this));
+
             this.$element
                 .on('click', $.proxy(this.show, this))
-                .on('blur', $.proxy(this.blur, this))
                 .on('keyup', $.proxy(this.updateFromElementVal, this))
             ;
             this.$widget.on('click', $.proxy(this.click, this));
         }
 
-        , show: function() {
+        , show: function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
             this.$element.trigger('show');
+
+            if (true === this.disableFocus) {
+                this.$element.blur();
+            }  
+
             var pos = $.extend({}, this.$element.offset(), {
                 height: this.$element[0].offsetHeight
             });
@@ -57,19 +71,23 @@
                 , left: pos.left
             })
 
-            this.updateFromElementVal();
+            if (!this.open) {
+                this.$widget.addClass('open');
+            }
 
-            this.$widget.show();
-            this.shown = true;
+            this.open = true;
             this.$element.trigger('shown');
 
             return this;
         }
 
         , hide: function(e){
+            e.stopPropagation();
+
             this.$element.trigger('hide');
-            this.$widget.hide();
-            this.shown = false;
+
+            this.$widget.removeClass('open');
+            this.open = false;
             this.$element.trigger('hidden');
 
             return this;
@@ -80,7 +98,7 @@
             if (match) {
                 meridian = match[1];
             }
-            time = $.trim( time.replace(/(pm|am)/i, '') );
+            time = $.trim(time.replace(/(pm|am)/i, ''));
             var timeArray = time.split(':');
 
             this.meridian = meridian;
@@ -110,7 +128,6 @@
                     this.setValues(defaultTime);
                 }
                 this.update();
-                this.$element.change();
             }
         }
 
@@ -125,35 +142,43 @@
             return this.formatTime(this.hour, this.minute, this.meridian);
         }
 
-        , updateElement: function(input) {
-            this.$element.val(input);
+        , setTime: function(time) {
+            this.setValues(time);
+            this.update();
         }
 
-        , updateWidget: function(input) {
+        , updateElement: function() {
+            var time = this.getTime();
+
+            this.$element.val(time);
+        }
+
+        , updateWidget: function() {
             $('.bootstrap-timepicker td#timepickerHour').text(this.hour);
             $('.bootstrap-timepicker td#timepickerMinute').text(this.minute < 10 ? '0' + this.minute : this.minute);
             $('.bootstrap-timepicker td#timepickerMeridian').text(this.meridian);
         }
 
         , update: function() {
-            var time = this.getTime();
-            this.updateElement(time);
-            this.updateWidget(time);
+            this.updateElement();
+            this.updateWidget();
         }
 
         , updateFromElementVal: function () {
-            var elemVal = this.$element.val();
-            if (elemVal) {
-                this.setValues(elemVal);
+            var time = this.$element.val();
+            if (time) {
+                this.setValues(time);
                 this.updateWidget();
             }
         }
 
         , click: function(e) {
-            this.$element.focus();
             e.stopPropagation();
             e.preventDefault();
-            clearTimeout(this.timer);
+
+            if (true !== this.disableFocus) {
+                this.$element.focus();
+            }
 
             var action = $(e.target).closest('a').data('action');
             if (action) {
@@ -177,15 +202,6 @@
                 this.update();
             }
 
-        }
-
-        , blur: function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            var that = this;
-            this.timer = setTimeout(function() {
-                that.hide()
-            }, 100);
         }
 
         , incrementHour: function() {
@@ -238,7 +254,7 @@
     };
 
 
-    /* TYPEAHEAD PLUGIN DEFINITION
+    /* TIMEPICKER PLUGIN DEFINITION
      * =========================== */
 
     $.fn.timepicker = function (option) {
@@ -256,9 +272,10 @@
     }
 
     $.fn.timepicker.defaults = {
-      minuteStep: 1
-    , widget: '<div class="bootstrap-timepicker dropdown-menu">'+
-                '<div class="timepicker-container">'+
+      minuteStep: 15
+    , disableFocus: false
+    , defaultTime: 'current'
+    , template: '<div class="bootstrap-timepicker dropdown-menu">'+
                     '<table>'+
                         '<tr>'+
                             '<td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>'+
@@ -278,13 +295,11 @@
                             '<td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>'+
                             '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-down"></i></a></td>'+
                         '</tr>'+
-                    '</table>' +
-                '</div>'+
+                    '</table>'+
             '</div>'
     }
 
     $.fn.timepicker.Constructor = Timepicker
-
 
     /* TIMEPICKER DATA-API
      * ================== */
@@ -300,5 +315,3 @@
         })
     })
 }(window.jQuery);
-
-

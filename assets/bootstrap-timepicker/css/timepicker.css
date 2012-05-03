@@ -1,16 +1,19 @@
 .bootstrap-timepicker {
     border-radius: 4px 4px 4px 4px;
+    display: none;
     left: 0;
     margin-top: 1px;
     padding: 4px;
     top: 0;
+}
+.bootstrap-timepicker.open {
+    display: inline-block;
 }
 .bootstrap-timepicker:before {
     border-bottom: 7px solid rgba(0, 0, 0, 0.2);
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
     content: "";
-    display: inline-block;
     left: 6px;
     position: absolute;
     top: -7px;
@@ -20,7 +23,6 @@
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     content: "";
-    display: inline-block;
     left: 7px;
     position: absolute;
     top: -6px;

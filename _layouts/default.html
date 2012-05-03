@@ -45,12 +45,13 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="assets/prettify/prettify.js"></script>
-    <script type="text/javascript" src="assets/bootstrap-timepicker/js/bootstrap-timepicker-0.1.js"></script>
+    <script type="text/javascript" src="assets/bootstrap-timepicker/js/bootstrap-timepicker-0.2.js"></script>
     <script type="text/javascript">
         $(document).ready(function () { 
             $('.timepicker').timepicker({
                 defaultTime: 'current',
-                minuteStep: 15
+                minuteStep: 15,
+                disableFocus: false
             });
         });
     </script>

@@ -13,12 +13,12 @@ title: Timepicker for Twitter Bootstrap
     <div class="row">
         <div class="span3 columns">
             <h3>About timepicker</h3>
-            <p>A streamlined, but flexible, take on the traditional javascript timepicker plugin with only the minimum required functionality and smart defaults.</p>
+            <p>A simple 12hr timepicker component that lets you pick a time conveniently.</p>
             <a href="https://github.com/jdewit/bootstrap-timepicker" target="_blank" class="btn">Download file</a>
         </div>
         <div class="span9 columns">
             <h2>Live demo</h2>
-            <p>Toggle a timepicker via javascript by clicking the input below.</p>
+            <p>Toggle the timepicker by clicking the input below.</p>
             <!-- sample timepicker content -->
             <form>
                 <input class="timepicker" type="text" />
@@ -30,9 +30,16 @@ title: Timepicker for Twitter Bootstrap
 <pre class="prettyprint linenums">
 $('.timepicker').timepicker({
     minuteStep: 15,
-    defaultTime: 'current'
+    defaultTime: 'current',
+    disableFocus: false
 });
 </pre>
+
+            <h3>Markup</h3>
+            <p>Add data attributes to register an element with timepicker functionality.</p>
+            <pre class="prettyprint linenums">
+                <input type="text" data-provide="timepicker"/>
+            </pre>
             
             <h3>Options</h3>
             <table class="table table-bordered table-striped">
@@ -48,7 +55,7 @@ $('.timepicker').timepicker({
                     <tr>
                         <td>minuteStep</td>
                         <td>integer</td>
-                        <td>1</td>
+                        <td>15</td>
                         <td>Specify a step for the minute field.</td>
                     </tr>
                     <tr>
@@ -56,6 +63,12 @@ $('.timepicker').timepicker({
                         <td>string</td>
                         <td>'current'</td>
                         <td>Set the initial time value. Setting it to 'current' sets it to the current time.</td>
+                    </tr>
+                    <tr>
+                        <td>disableFocus</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>Disables the input from focusing. This is useful for touch screen devices that display a keyboard on input focus.</td>
                     </tr>
                 </tbody>
             </table>

@@ -115,11 +115,11 @@
         }
 
         , setValues: function(time) {
-            var meridian, match = time.match(/(am|pm)/i);
+            var meridian, match = time.match(/(AM|PM)/i);
             if (match) {
                 meridian = match[1];
             }
-            time = $.trim(time.replace(/(pm|am)/i, ''));
+            time = $.trim(time.replace(/(PM|AM)/i, ''));
             var timeArray = time.split(':');
 
             this.meridian = meridian;
@@ -134,14 +134,14 @@
                     var hours = dTime.getHours();
                     var minutes = Math.floor(dTime.getMinutes() / this.minuteStep) * this.minuteStep;
 
-                    var meridian = "am";
+                    var meridian = "AM";
                     if (hours === 0) {
                         hours = 12;
                     } else if (hours > 12) {
                         hours = hours - 12;
-                        meridian = "pm";
+                        meridian = "PM";
                     } else {
-                       meridian = "am";
+                       meridian = "AM";
                     }
 
                     this.hour = hours;
@@ -251,7 +251,7 @@
         }
 
         , toggleMeridian: function() {
-            this.meridian = this.meridian === 'am' ? 'pm' : 'am';
+            this.meridian = this.meridian === 'AM' ? 'PM' : 'AM';
 
             this.update();
         }

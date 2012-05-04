@@ -21,20 +21,17 @@ title: Timepicker for Twitter Bootstrap
             <p>Toggle the timepicker by clicking the input below.</p>
             <!-- sample timepicker content -->
             <form>
-                <input class="timepicker" type="text" />
+                <input placeholder="Show as modal" class="modal-timepicker" type="text" />
+                <br />
+                <input placeholder="Show as dropdown" class="dropdown-timepicker" type="text" />
             </form>
 
             <hr>
             <h2>Using bootstrap-timepicker</h2>
             <p>Call the timepicker via javascript:</p>
 <pre class="prettyprint linenums">
-$('.timepicker').timepicker({
-    minuteStep: 15,
-    defaultTime: 'current',
-    disableFocus: true
-});
+$('.timepicker').timepicker();
 </pre>
-
             <h3>Markup</h3>
             <p>Add data attributes to register an element with timepicker functionality.</p>
 <pre class="prettyprint linenums">
@@ -52,6 +49,12 @@ $('.timepicker').timepicker({
                 </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>template</td>
+                        <td>string</td>
+                        <td>'modal'</td>
+                        <td>Specify the template to use. [modal, dropdown]</td>
+                    </tr>
                     <tr>
                         <td>minuteStep</td>
                         <td>integer</td>

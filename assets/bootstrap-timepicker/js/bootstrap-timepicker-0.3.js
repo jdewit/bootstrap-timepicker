@@ -32,24 +32,35 @@
         this.options = $.extend({}, $.fn.timepicker.defaults, options);
         this.minuteStep = this.options.minuteStep || this.minuteStep;
         this.disableFocus = this.options.disableFocus || this.disableFocus;
-        this.$widget = $(this.options.template).appendTo('body');
+        this.template = this.options.template || this.template;
         this.open = false;
-        this.listen();
-        this.setDefaultTime(this.options.defaultTime || this.defaultTime);
+        this.init();
     };
 
     Timepicker.prototype = {
 
         constructor: Timepicker
 
-        , listen: function () {
-            $('html').on('click.timepicker.data-api', $.proxy(this.hide, this));
+        , init: function () {
 
             this.$element
                 .on('click', $.proxy(this.show, this))
                 .on('keyup', $.proxy(this.updateFromElementVal, this))
             ;
+            
+            switch(this.options.template) {
+                case 'modal':
+                    this.$widget = $(this.options.modalTemplate).appendTo('body');
+                break;
+                case 'dropdown':
+                    this.$widget = $(this.options.dropdownTemplate).appendTo('body');
+                break;
+            }  
+
             this.$widget.on('click', $.proxy(this.click, this));
+            $('html').on('click.timepicker.data-api', $.proxy(this.hide, this));
+
+            this.setDefaultTime(this.options.defaultTime || this.defaultTime);
         }
 
         , show: function(e) {
@@ -66,13 +77,21 @@
                 height: this.$element[0].offsetHeight
             });
 
-            this.$widget.css({
-                top: pos.top + pos.height
-                , left: pos.left
-            })
+            if (this.options.template === 'modal') {
+//                this.$widget.css({
+//                    top: pos.top + pos.height
+//                })
 
-            if (!this.open) {
-                this.$widget.addClass('open');
+                this.$widget.modal('show');
+            } else {
+                this.$widget.css({
+                    top: pos.top + pos.height
+                    , left: pos.left
+                })
+
+                if (!this.open) {
+                    this.$widget.addClass('open');
+                }
             }
 
             this.open = true;
@@ -81,12 +100,14 @@
             return this;
         }
 
-        , hide: function(e){
-            e.stopPropagation();
-
+        , hide: function(){
             this.$element.trigger('hide');
-
-            this.$widget.removeClass('open');
+            
+            if (this.options.template === 'modal') {
+                this.$widget.modal('hide');
+            } else {
+                this.$widget.removeClass('open');
+            }
             this.open = false;
             this.$element.trigger('hidden');
 
@@ -94,11 +115,11 @@
         }
 
         , setValues: function(time) {
-            var meridian, match = time.match(/(am|pm)/i);
+            var meridian, match = time.match(/(AM|PM)/i);
             if (match) {
                 meridian = match[1];
             }
-            time = $.trim(time.replace(/(pm|am)/i, ''));
+            time = $.trim(time.replace(/(PM|AM)/i, ''));
             var timeArray = time.split(':');
 
             this.meridian = meridian;
@@ -113,14 +134,14 @@
                     var hours = dTime.getHours();
                     var minutes = Math.floor(dTime.getMinutes() / this.minuteStep) * this.minuteStep;
 
-                    var meridian = "am";
+                    var meridian = "AM";
                     if (hours === 0) {
                         hours = 12;
                     } else if (hours > 12) {
                         hours = hours - 12;
-                        meridian = "pm";
+                        meridian = "PM";
                     } else {
-                       meridian = "am";
+                       meridian = "AM";
                     }
 
                     this.hour = hours;
@@ -230,7 +251,7 @@
         }
 
         , toggleMeridian: function() {
-            this.meridian = this.meridian === 'am' ? 'pm' : 'am';
+            this.meridian = this.meridian === 'AM' ? 'PM' : 'AM';
 
             this.update();
         }
@@ -258,11 +279,12 @@
       minuteStep: 15
     , disableFocus: false
     , defaultTime: 'current'
-    , template: '<div class="bootstrap-timepicker dropdown-menu">'+
+    , template: 'dropdown'
+    , dropdownTemplate: '<div class="bootstrap-timepicker dropdown-menu">'+
                     '<table>'+
                         '<tr>'+
                             '<td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>'+
-                            '<td></td>'+
+                            '<td class="separator"></td>'+
                             '<td><a href="#" data-action="incrementMinute"><i class="icon-chevron-up"></i></a></td>'+
                             '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-up"></i></a></td>'+
                         '</tr>'+
@@ -274,12 +296,43 @@
                         '</tr>'+
                         '<tr>'+
                             '<td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>'+
-                            '<td></td>'+
+                            '<td class="separator"></td>'+
                             '<td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>'+
                             '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-down"></i></a></td>'+
                         '</tr>'+
                     '</table>'+
             '</div>'
+    , modalTemplate: '<div class="bootstrap-timepicker modal hide fade in" style="top: 30%; margin-top: 0; width: 200px; margin-left: -100px;" data-backdrop="false">'+
+                    '<div class="modal-header">'+
+                        '<a href="#" class="close" data-action="hide">×</a>'+
+                        '<h3>Pick a Time</h3>'+
+                    '</div>'+
+                    '<div class="modal-content">'+
+                        '<table>'+
+                            '<tr>'+
+                                '<td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>'+
+                                '<td class="separator"></td>'+
+                                '<td><a href="#" data-action="incrementMinute"><i class="icon-chevron-up"></i></a></td>'+
+                                '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-up"></i></a></td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td class="bootstrap-timepicker-hour"></td> '+
+                                '<td class="separator">:</td>'+
+                                '<td class="bootstrap-timepicker-minute"></td> '+
+                                '<td class="bootstrap-timepicker-meridian"></td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>'+
+                                '<td class="separator"></td>'+
+                                '<td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>'+
+                                '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-down"></i></a></td>'+
+                            '</tr>'+
+                        '</table>'+
+                    '</div>'+
+                    '<div class="modal-footer">'+
+                        '<a href="#" class="btn btn-primary" data-action="hide">Ok</a>'+
+                    '</div>'+
+                '</div>'
     }
 
     $.fn.timepicker.Constructor = Timepicker

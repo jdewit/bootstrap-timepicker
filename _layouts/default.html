@@ -48,11 +48,19 @@
     <script type="text/javascript" src="assets/bootstrap-timepicker/js/bootstrap-timepicker-0.3.js"></script>
     <script type="text/javascript">
         $(document).ready(function () { 
-            $('.timepicker').timepicker({
+            $('.modal-timepicker').timepicker({
                 defaultTime: 'current',
                 minuteStep: 15,
-                disableFocus: true
+                disableFocus: true,
+                template: 'modal'
             });
+            $('.dropdown-timepicker').timepicker({
+                defaultTime: 'current',
+                minuteStep: 15,
+                disableFocus: true,
+                template: 'dropdown'
+            });
+
         });
     </script>
 </body>

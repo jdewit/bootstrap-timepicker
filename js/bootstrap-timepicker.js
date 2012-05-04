@@ -2,7 +2,7 @@
  * bootstrap-timepicker.js
  * http://www.github.com/jdewit/bootstrap-timepicker
  * =========================================================
- * Copyright 2012 
+ * Copyright 2012
  *
  * Created By:
  * Joris de Wit @joris_dewit
@@ -60,7 +60,7 @@
 
             if (true === this.disableFocus) {
                 this.$element.blur();
-            }  
+            }
 
             var pos = $.extend({}, this.$element.offset(), {
                 height: this.$element[0].offsetHeight
@@ -154,9 +154,10 @@
         }
 
         , updateWidget: function() {
-            $('.bootstrap-timepicker td#timepickerHour').text(this.hour);
-            $('.bootstrap-timepicker td#timepickerMinute').text(this.minute < 10 ? '0' + this.minute : this.minute);
-            $('.bootstrap-timepicker td#timepickerMeridian').text(this.meridian);
+            this.$widget
+                .find('td.bootstrap-timepicker-hour').text(this.hour).end()
+                .find('td.bootstrap-timepicker-minute').text(this.minute < 10 ? '0' + this.minute : this.minute).end()
+                .find('td.bootstrap-timepicker-meridian').text(this.meridian);
         }
 
         , update: function() {
@@ -182,23 +183,7 @@
 
             var action = $(e.target).closest('a').data('action');
             if (action) {
-                switch(action) {
-                    case 'incrementHour':
-                        this.incrementHour();
-                    break;
-                    case 'decrementHour':
-                        this.decrementHour();
-                    break;
-                    case 'incrementMinute':
-                        this.incrementMinute();
-                    break;
-                    case 'decrementMinute':
-                        this.decrementMinute();
-                    break;
-                    case 'toggleMeridian':
-                        this.toggleMeridian();
-                    break;
-                }
+                this[action]();
                 this.update();
             }
 
@@ -243,11 +228,7 @@
         }
 
         , toggleMeridian: function() {
-            if (this.meridian == 'am') {
-                this.meridian = 'pm';
-            } else {
-                this.meridian = 'am';
-            }
+            this.meridian = this.meridian === 'am' ? 'pm' : 'am';
 
             this.update();
         }
@@ -284,10 +265,10 @@
                             '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-up"></i></a></td>'+
                         '</tr>'+
                         '<tr>'+
-                            '<td id="timepickerHour"></td> '+
+                            '<td class="bootstrap-timepicker-hour"></td> '+
                             '<td class="separator">:</td>'+
-                            '<td id="timepickerMinute"></td> '+
-                            '<td id="timepickerMeridian"></td>'+
+                            '<td class="bootstrap-timepicker-minute"></td> '+
+                            '<td class="bootstrap-timepicker-meridian"></td>'+
                         '</tr>'+
                         '<tr>'+
                             '<td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>'+

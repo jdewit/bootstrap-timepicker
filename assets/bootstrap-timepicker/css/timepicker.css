@@ -34,7 +34,10 @@
     width: 200px;
 }
 .bootstrap-timepicker.modal table {
-    margin: 10px 0;
+    margin-bottom: 10px;
+}
+.bootstrap-timepicker.modal table td {
+    margin-bottom: 10px;
 }
 .bootstrap-timepicker table {
     margin: 0;

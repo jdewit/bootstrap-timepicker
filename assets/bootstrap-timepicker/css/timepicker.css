@@ -33,11 +33,8 @@
     top: 30%;
     width: 200px;
 }
-.bootstrap-timepicker.modal table {
-    margin-bottom: 10px;
-}
-.bootstrap-timepicker.modal table td {
-    margin-bottom: 10px;
+.bootstrap-timepicker.modal .modal-content {
+    padding: 0;
 }
 .bootstrap-timepicker table {
     margin: 0;
@@ -53,7 +50,9 @@
 }
 .bootstrap-timepicker td a {
     border: 1px solid transparent;
-    padding: 4px 8px;
+    display: block;
+    margin: 4px;
+    padding: 4px 0;
 }
 .bootstrap-timepicker td a:hover {
     background-color: #EEEEEE;

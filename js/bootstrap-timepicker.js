@@ -105,7 +105,7 @@
         , hide: function(){
             this.$element.trigger('hide');
             
-            $('html').on('click.timepicker.data-api', $.proxy(this.hide, this));
+            $('html').off('click.timepicker.data-api', $.proxy(this.hide, this));
 
             if (this.options.template === 'modal') {
                 this.$widget.modal('hide');

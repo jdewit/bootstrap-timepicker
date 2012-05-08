@@ -33,6 +33,7 @@
         this.minuteStep = this.options.minuteStep || this.minuteStep;
         this.disableFocus = this.options.disableFocus || this.disableFocus;
         this.template = this.options.template || this.template;
+        this.defaultTime = this.options.defaultTime || this.defaultTime;
         this.open = false;
         this.init();
     };
@@ -58,9 +59,8 @@
             }  
 
             this.$widget.on('click', $.proxy(this.click, this));
-            $('html').on('click.timepicker.data-api', $.proxy(this.hide, this));
 
-            this.setDefaultTime(this.options.defaultTime || this.defaultTime);
+            this.setDefaultTime(this.defaultTime);
         }
 
         , show: function(e) {
@@ -68,6 +68,8 @@
             e.preventDefault();
 
             this.$element.trigger('show');
+
+            $('html').on('click.timepicker.data-api', $.proxy(this.hide, this));
 
             if (true === this.disableFocus) {
                 this.$element.blur();
@@ -103,6 +105,8 @@
         , hide: function(){
             this.$element.trigger('hide');
             
+            $('html').on('click.timepicker.data-api', $.proxy(this.hide, this));
+
             if (this.options.template === 'modal') {
                 this.$widget.modal('hide');
             } else {

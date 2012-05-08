@@ -29,7 +29,7 @@
      * ================================== */
     var Timepicker = function(element, options) {
         this.$element = $(element);
-        this.options = $.extend({}, $.fn.timepicker.defaults, options);
+        this.options = $.extend({}, $.fn.timepicker.defaults, options, this.$element.data());
         this.minuteStep = this.options.minuteStep || this.minuteStep;
         this.showMeridian = this.options.showMeridian || this.showMeridian;
         this.disableFocus = this.options.disableFocus || this.disableFocus;
@@ -211,20 +211,20 @@
         }
 
         , incrementHour: function() {
-            if ( this.showMeridian ){
+            if ( this.showMeridian ) {
                 if ( this.hour === 12 ) {
                     this.hour = 1;
                     return this.toggleMeridian();
                 }
             }
-            if ( this.hour === 23 ){
+            if ( this.hour === 23 ) {
                 return this.hour = 0;
             }
             this.hour = this.hour + 1;
         }
 
         , decrementHour: function() {
-            if ( this.showMeridian ){
+            if ( this.showMeridian ) {
                 if (this.hour === 1) {
                     this.hour = 12;
                     return this.toggleMeridian();

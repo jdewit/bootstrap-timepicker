@@ -171,7 +171,7 @@
         , updateElement: function() {
             var time = this.getTime();
 
-            this.$element.val(time);
+            this.$element.val(time).change();
         }
 
         , updateWidget: function() {

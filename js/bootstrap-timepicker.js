@@ -149,6 +149,9 @@
                     this.setValues(defaultTime);
                 }
                 this.update();
+            } else {
+                this.hour = 0;
+                this.minute = 0;
             }
         }
 

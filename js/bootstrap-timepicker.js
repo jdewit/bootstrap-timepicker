@@ -6,7 +6,13 @@
  *
  * Created By:
  * Joris de Wit @joris_dewit
+ *
+ * Contributions By:
  * Gilbert @mindeavor
+ * Koen Punt info@koenpunt.nl
+ * Nek
+ * Chris Martin
+ * Dominic Barnes contact@dominicbarnes.us
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,10 +80,6 @@
             });
 
             if (this.options.template === 'modal') {
-//                this.$widget.css({
-//                    top: pos.top + pos.height
-//                })
-
                 this.$widget.modal('show');
             } else {
                 this.$widget.css({
@@ -117,7 +119,6 @@
             if (match) {
                 meridian = match[1];
             }
-            // .split(/^([0-9]+):([0-9]+) (AM|PM)$/)
             time = $.trim(time.replace(/(PM|AM)/i, ''));
             var timeArray = time.split(':');
 

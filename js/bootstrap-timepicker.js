@@ -137,8 +137,10 @@
                     if ( this.showMeridian ) {
                         if (hours === 0) {
                             hours = 12;
-                        } else if (hours > 12) {
-                            hours = hours - 12;
+                        } else if (hours >= 12) {
+                            if (hours > 12) {
+                                hours = hours - 12;
+                            }
                             meridian = "PM";
                         } else {
                            meridian = "AM";

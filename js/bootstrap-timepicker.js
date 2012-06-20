@@ -31,6 +31,10 @@
 
     "use strict"; // jshint ;_;
 
+    //    Stores open dialog refs
+    //
+	var openDialogs = [];
+
     /* TIMEPICKER PUBLIC CLASS DEFINITION
      * ================================== */
     var Timepicker = function(element, options) {
@@ -356,6 +360,7 @@
             if (typeof option == 'string') {
                 data[option]();
             }
+            openDialogs.push($this.data('timepicker'));
         })
     }
 
@@ -375,6 +380,14 @@
 
     $(function () {
         $('body').on('focus.timepicker.data-api', '[data-provide="timepicker"]', function (e) {
+
+     		//	Close open dialogs on any new open
+ 			//
+			var i = openDialogs.length;
+			while(i--) {
+				openDialogs[i].hide();
+			}
+
             var $this = $(this);
             if ($this.data('timepicker')) {
                 return;

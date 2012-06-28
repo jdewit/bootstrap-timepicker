@@ -124,7 +124,15 @@
 
             this.meridian = meridian;
             this.hour = parseInt(timeArray[0], 10);
+            if (isNaN(this.hour)) {
+                this.hour = 0;
+                this.updateElement();
+            }
             this.minute = parseInt(timeArray[1], 10);
+            if (isNaN(this.minute)) {
+                this.minute = 0;
+                this.updateElement();
+            }
         }
 
         , setDefaultTime: function(defaultTime){

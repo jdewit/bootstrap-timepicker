@@ -240,9 +240,10 @@
 
         , incrementHour: function() {
             if ( this.showMeridian ) {
-                if ( this.hour === 12 ) {
+                if ( this.hour === 11 ) {
+                    this.toggleMeridian();
+                } else if ( this.hour === 12 ) {
                     this.hour = 1;
-                    return this.toggleMeridian();
                 }
             }
             if ( this.hour === 23 ) {

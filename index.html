@@ -8,24 +8,30 @@ title: Timepicker for Twitter Bootstrap
 ================================================== -->
 <section id="timepicker">
     <div class="page-header">
-        <h1>Timepicker <small>A simple widget to easily select a time for an input element</small></h1>
+        <h1>Timepicker <small>bootstrap-timepicker.js</small></h1>
     </div>
     <div class="row">
         <div class="span3 columns">
             <h3>About timepicker</h3>
-            <p>A simple 12hr timepicker component that lets you pick a time conveniently.</p>
+            <p>A simple widget to easily select a time for an text input.</p>
             <a href="https://github.com/jdewit/bootstrap-timepicker" target="_blank" class="btn">Download file</a>
         </div>
         <div class="span9 columns">
-            <h2>Live demo</h2>
+            <h2>Live demos</h2>
             <p>Toggle the timepicker by clicking the input below.</p>
             <!-- sample timepicker content -->
             <form>
-                <input class="modal-timepicker" type="text" />
-                <span class="help-inline">Show as modal.</span>
+                <div>
+                    <input placeholder="Show as dropdown" class="dropdown-timepicker input-small" type="text" />
+                    <i class="icon-time" style="margin: 2.5px 0 0 -20px; pointer-events: none; position: relative;"></i>
+                    <span class="help-inline">Show as default.</span>
+                </div>
                 <br />
-                <input placeholder="Show as dropdown" class="dropdown-timepicker" type="text" />
-                <span class="help-inline">Show as dropdown.</span>
+                <div>
+                    <input class="modal-timepicker input-small" type="text" />
+                    <i class="icon-time" style="margin: 2.5px 0 0 -20px; pointer-events: none; position: relative;"></i>
+                    <span class="help-inline">Show as modal with 24hr mode and seconds enabled.</span>
+                </div>
                 <br />
             </form>
 

@@ -69,6 +69,9 @@
             e.stopPropagation();
             e.preventDefault();
 
+            // fix for multiple timepicker elements  
+            $('html').click();
+
             this.$element.trigger('show');
 
             $('html').on('click.timepicker.data-api', $.proxy(this.hide, this));

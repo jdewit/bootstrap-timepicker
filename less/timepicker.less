@@ -67,22 +67,43 @@
         border-radius: 4px;
     }
 
-    td.separator {
-        width: 1px;
-    }
+    td { 
+        &.separator {
+            width: 1px;
+        }
+        &.spacer {
+            width: 1px;
+        }
+        a {
+            border: 1px transparent solid;
+            width: 90%;
+            margin: 0;
+            padding: 4px 0;
 
-    td a {
-        border: 1px transparent solid;
-        display: block;    
-        margin: 4px;
-        padding: 4px 0;
+            &:hover {
+                background-color: #eee;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                border-color: #ddd;
+            }
 
-        &:hover {
-            background-color: #eee;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-            border-color: #ddd;
+            i {
+                margin-top: 2px;
+            }
+        }
+        input {
+            width: 25px;
+            margin: 0;
         }
     }
 }
+.bootstrap-timepicker-component {
+    .add-on i {
+       display: block;
+       cursor: pointer;
+       width: 16px;
+       height: 16px;
+    }
+}
+

@@ -48,15 +48,30 @@
 .bootstrap-timepicker td.separator {
     width: 1px;
 }
+.bootstrap-timepicker td.spacer {
+    width: 1px;
+}
 .bootstrap-timepicker td a {
     border: 1px solid transparent;
-    display: block;
-    margin: 4px;
+    margin: 0;
     padding: 4px 0;
+    width: 90%;
 }
 .bootstrap-timepicker td a:hover {
     background-color: #EEEEEE;
     border-color: #DDDDDD;
     border-radius: 4px 4px 4px 4px;
 }
-
+.bootstrap-timepicker td a i {
+    margin-top: 2px;
+}
+.bootstrap-timepicker td input {
+    margin: 0;
+    width: 25px;
+}
+.bootstrap-timepicker-component .add-on i {
+    cursor: pointer;
+    display: block;
+    height: 16px;
+    width: 16px;
+}

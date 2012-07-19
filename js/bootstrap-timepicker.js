@@ -216,12 +216,8 @@
                     return this.updateWidget();
                 }
             }
-            if (hour < 10) {
-                //hour = '0' + hour;
-            }
 
             this.hour = hour;
-
             this.updateElement();
         }
 
@@ -234,7 +230,6 @@
             }
     
             this.minute = minute;
-
             this.updateElement();
         }
         
@@ -247,7 +242,6 @@
             }
 
             this.second = second;
-
             this.updateElement();
         }
 

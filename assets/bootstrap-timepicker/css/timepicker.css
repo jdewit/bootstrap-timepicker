@@ -78,6 +78,7 @@
 .bootstrap-timepicker table td input {
     margin: 0;
     width: 25px;
+    text-align: center;
 }
 .bootstrap-timepicker-component .add-on i {
     cursor: pointer;

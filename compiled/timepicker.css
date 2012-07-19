@@ -63,6 +63,7 @@
     border: 1px solid transparent;
     display: inline-block;
     margin: 0;
+    outline: 0 none;
     padding: 8px 0;
     width: 90%;
 }
@@ -76,6 +77,7 @@
 }
 .bootstrap-timepicker table td input {
     margin: 0;
+    text-align: center;
     width: 25px;
 }
 .bootstrap-timepicker-component .add-on i {

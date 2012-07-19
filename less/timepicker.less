@@ -55,46 +55,61 @@
     }
 
     table {
-      width: 100%;
-      margin: 0;
-    }
+        width: 100%;
+        margin: 0;
 
-    td, th {
-        text-align: center;
-        height: 20px;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        border-radius: 4px;
-    }
-
-    td { 
-        &.separator {
-            width: 1px;
-        }
-        &.spacer {
-            width: 1px;
-        }
-        a {
-            border: 1px transparent solid;
-            width: 90%;
+        td { 
+            text-align: center;
+            height: 30px;
+            width: 49%;
+            padding: 0;
             margin: 0;
-            padding: 4px 0;
 
-            &:hover {
-                background-color: #eee;
-                -webkit-border-radius: 4px;
-                -moz-border-radius: 4px;
-                border-radius: 4px;
-                border-color: #ddd;
-            }
+        }
 
-            i {
-                margin-top: 2px;
+        &.show-meridian, &.show-seconds {
+            td {
+                width: 32%;
             }
         }
-        input {
-            width: 25px;
-            margin: 0;
+
+        &.show-seconds.show-meridian {
+            td {
+                width: 23.5%;
+            }
+        }
+        
+        td {
+            &.separator {
+                width: 2% !important;
+            }
+            span {
+                width: 100%;
+            }
+            a {
+                border: 1px transparent solid;
+                width: 90%;
+                display: inline-block;
+                margin: 0;
+                padding: 8px 0;
+
+                &:hover {
+                    background-color: #eee;
+                    -webkit-border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    border-radius: 4px;
+                    border-color: #ddd;
+                }
+
+                i {
+                    margin-top: 2px;
+                }
+            }
+            input {
+                width: 25px;
+                margin: 0;
+            }
+
         }
     }
 }

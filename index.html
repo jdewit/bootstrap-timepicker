@@ -18,24 +18,21 @@ title: Timepicker for Twitter Bootstrap
         </div>
         <div class="span9 columns">
             <h2>Live Demo</h2>
-            <p>Default timepicker</p>
+            <p>Default timepicker as component</p>
             <!-- sample timepicker content -->
             <div class="well">
                 <div class="input-append bootstrap-timepicker-component">
-                    <input placeholder="Show as dropdown" class="dropdown-timepicker input-small" type="text" />
-                    <span class="add-on">
-                        <i class="icon-time"></i>
-                    </span>
+                    <input class="dropdown-timepicker input-small" type="text" /><span class="add-on"><i class="icon-time"></i></span>
                 </div>
             </div>
             <p>Shown inside a modal with 24hr mode and seconds enabled.</p>
             <div class="well">
-                <input class="modal-timepicker input-small" type="text" />
-                <i class="icon-time" style="margin: -2px 0 0 -20px; pointer-events: none; position: relative;"></i>
+                <input class="modal-timepicker" type="text" style="width: 75px;" />
+                <i class="icon-time" style="margin: -2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
             </div>
             <hr />
             <h2>Using bootstrap-timepicker</h2>
-            <p>Call the timepicker via javascript:</p>
+            <p>Call the timepicker:</p>
 <pre class="prettyprint linenums">
 $('.timepicker').timepicker({
     template : 'modal',
@@ -43,9 +40,14 @@ $('.timepicker').timepicker({
 });
 </pre>
             <h3>Markup</h3>
-            <p>Add data attributes to register an element with timepicker functionality.</p>
+            <p>Display as component:</p>
 <pre class="prettyprint linenums">
-&lt;input type="text" data-provide="timepicker"&gt;
+&lt;div class="input-append bootstrap-timepicker-component"&gt;
+    &lt;input type="text" class="timepicker input-small"&gt;
+    &lt;span class="add-on"&gt;
+        &lt;i class="icon-time"&gt;&lt;/i&gt;
+    &lt/span&gt;
+&lt;/div&gt;
 </pre>
             
             <h3>Options</h3>
@@ -99,7 +101,7 @@ $('.timepicker').timepicker({
                         <td>showInputs</td>
                         <td>boolean</td>
                         <td>true</td>
-                        <td>Displays the date as inside the widget as text.</td>
+                        <td>Set to false to disable the text inputs in the widget.</td>
                     </tr>
                     <tr>
                         <td>disableFocus</td>

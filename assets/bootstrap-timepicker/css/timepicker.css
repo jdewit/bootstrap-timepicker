@@ -43,6 +43,7 @@
 .bootstrap-timepicker table td {
     height: 30px;
     margin: 0;
+    padding: 2px;
     text-align: center;
     width: 49%;
 }
@@ -64,6 +65,7 @@
     margin: 0;
     padding: 8px 0;
     width: 90%;
+    outline: 0;
 }
 .bootstrap-timepicker table td a:hover {
     background-color: #EEEEEE;

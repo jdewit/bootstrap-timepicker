@@ -17,29 +17,30 @@ title: Timepicker for Twitter Bootstrap
             <a href="https://github.com/jdewit/bootstrap-timepicker" target="_blank" class="btn">Download file</a>
         </div>
         <div class="span9 columns">
-            <h2>Live demos</h2>
-            <p>Toggle the timepicker by clicking the input below.</p>
+            <h2>Live Demo</h2>
+            <p>Default timepicker</p>
             <!-- sample timepicker content -->
-            <form>
-                <div>
+            <div class="well">
+                <div class="input-append bootstrap-timepicker-component">
                     <input placeholder="Show as dropdown" class="dropdown-timepicker input-small" type="text" />
-                    <i class="icon-time" style="margin: -2px 0 0 -20px; pointer-events: none; position: relative;"></i>
-                    <span class="help-inline">Show as default.</span>
+                    <span class="add-on">
+                        <i class="icon-time"></i>
+                    </span>
                 </div>
-                <br />
-                <div>
-                    <input class="modal-timepicker input-small" type="text" />
-                    <i class="icon-time" style="margin: -2px 0 0 -20px; pointer-events: none; position: relative;"></i>
-                    <span class="help-inline">Show as modal with 24hr mode and seconds enabled.</span>
-                </div>
-                <br />
-            </form>
-
-            <hr>
+            </div>
+            <p>Shown inside a modal with 24hr mode and seconds enabled.</p>
+            <div class="well">
+                <input class="modal-timepicker input-small" type="text" />
+                <i class="icon-time" style="margin: -2px 0 0 -20px; pointer-events: none; position: relative;"></i>
+            </div>
+            <hr />
             <h2>Using bootstrap-timepicker</h2>
             <p>Call the timepicker via javascript:</p>
 <pre class="prettyprint linenums">
-$('.timepicker').timepicker();
+$('.timepicker').timepicker({
+    template : 'modal',
+    showInputs: false
+});
 </pre>
             <h3>Markup</h3>
             <p>Add data attributes to register an element with timepicker functionality.</p>

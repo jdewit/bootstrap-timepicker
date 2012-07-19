@@ -49,18 +49,16 @@
     <script type="text/javascript">
         $(document).ready(function () { 
             $('.modal-timepicker').timepicker({
-                defaultTime: 'current',
-                minuteStep: 15,
-                disableFocus: true,
+                minuteStep: 1,
+                secondStep: 5,
+                showInputs: false,
                 template: 'modal',
                 showSeconds: true,
                 showMeridian: false
             });
             $('.dropdown-timepicker').timepicker({
-                defaultTime: 'current',
-                minuteStep: 15,
+                minuteStep: 5,
                 disableFocus: true,
-                template: 'dropdown'
             });
 
         });

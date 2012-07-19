@@ -40,32 +40,41 @@
     margin: 0;
     width: 100%;
 }
-.bootstrap-timepicker td, .bootstrap-timepicker th {
-    border-radius: 4px 4px 4px 4px;
-    height: 20px;
-    text-align: center;
-}
-.bootstrap-timepicker td.separator {
-    width: 1px;
-}
-.bootstrap-timepicker td.spacer {
-    width: 1px;
-}
-.bootstrap-timepicker td a {
-    border: 1px solid transparent;
+.bootstrap-timepicker table td {
+    height: 30px;
     margin: 0;
-    padding: 4px 0;
+    padding: 0;
+    text-align: center;
+    width: 49%;
+}
+.bootstrap-timepicker table.show-meridian td, .bootstrap-timepicker table.show-seconds td {
+    width: 32%;
+}
+.bootstrap-timepicker table.show-seconds.show-meridian td {
+    width: 23.5%;
+}
+.bootstrap-timepicker table td.separator {
+    width: 2% !important;
+}
+.bootstrap-timepicker table td span {
+    width: 100%;
+}
+.bootstrap-timepicker table td a {
+    border: 1px solid transparent;
+    display: inline-block;
+    margin: 0;
+    padding: 8px 0;
     width: 90%;
 }
-.bootstrap-timepicker td a:hover {
+.bootstrap-timepicker table td a:hover {
     background-color: #EEEEEE;
     border-color: #DDDDDD;
     border-radius: 4px 4px 4px 4px;
 }
-.bootstrap-timepicker td a i {
+.bootstrap-timepicker table td a i {
     margin-top: 2px;
 }
-.bootstrap-timepicker td input {
+.bootstrap-timepicker table td input {
     margin: 0;
     width: 25px;
 }
@@ -75,3 +84,4 @@
     height: 16px;
     width: 16px;
 }
+

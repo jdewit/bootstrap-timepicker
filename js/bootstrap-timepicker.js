@@ -103,8 +103,8 @@
             if (this.showInputs) {
                 this.$widget.find('input').on({
                     click: function() { this.select(); },
-                    change: $.proxy(this.updateFromWidgetInput, this),
-                    keypress: $.proxy(this.keypress, this)
+                    keypress: $.proxy(this.keypress, this),
+                    change: $.proxy(this.updateFromWidgetInputs, this)
                 });
             } 
 
@@ -117,6 +117,8 @@
             var input = $(e.target).closest('input').attr('name');
 
             switch (e.keyCode) {
+                case 0: //input
+                break;
                 case 9: //tab
                 break;
                 case 27: // escape
@@ -137,6 +139,7 @@
                             this.toggleMeridian();
                         break;
                     }
+                    this.update();
                 break;
                 case 40: // down arrow
                     switch (input) {
@@ -153,11 +156,10 @@
                             this.toggleMeridian();
                         break;
                     }
+                    this.update();
                 break;
 
             }
-
-            this.update();
         }
         , hide: function(){
             this.$element.trigger('hide');
@@ -199,6 +201,67 @@
                 this.second = 0;
                 this.updateElement();
             }
+        }
+        
+        , setHour: function(hour) {
+            if (isNaN(hour)) {
+                return this.updateWidget();
+            }
+            if (this.showMeridian) {
+                if (hour < 1 || hour > 12) {
+                    return this.updateWidget();
+                }
+            } else {
+                if (hour < 0 || hour > 24) {
+                    return this.updateWidget();
+                }
+            }
+            if (hour < 10) {
+                //hour = '0' + hour;
+            }
+
+            this.hour = hour;
+
+            this.updateElement();
+        }
+
+        , setMinute: function(minute) {
+            if (isNaN(minute)) {
+                return this.updateWidget();
+            }
+            if (minute < 0 || minute > 60) {
+                return this.updateWidget();
+            }
+    
+            this.minute = minute;
+
+            this.updateElement();
+        }
+        
+        , setSecond: function(second) {
+            if (isNaN(second)) {
+                return this.updateWidget();
+            }
+            if (second < 0 || second > 60) {
+                return this.updateWidget();
+            }
+
+            this.second = second;
+
+            this.updateElement();
+        }
+
+        , setMeridian: function(meridian) {
+            if (meridian == 'a' || meridian == 'am' || meridian == 'AM' ) {
+                this.meridian = 'AM';
+            } else if (meridian == 'p' || meridian == 'pm' || meridian == 'PM' ) {
+                this.meridian = 'PM';
+            } else {
+                this.updateWidget();
+            }
+
+            this.updateElement();
+            this.updateWidget();
         }
 
         , setDefaultTime: function(defaultTime){
@@ -296,15 +359,13 @@
             }
         }
 
-        , updateFromWidgetInput: function () {
-            this.hour = $('input.bootstrap-timepicker-hour').val();
-            this.minute = $('input.bootstrap-timepicker-minute').val();
+        , updateFromWidgetInputs: function () {
+            this.setHour(parseInt($('input.bootstrap-timepicker-hour').val()));
+            this.setMinute(parseInt($('input.bootstrap-timepicker-minute').val()));
             if (true === this.showSeconds) {
-                this.second = $('input.bootstrap-timepicker-second').val();
+                this.setSecond(parseInt($('input.bootstrap-timepicker-second').val()));
             }
-            this.meridian = $('input.bootstrap-timepicker-meridian').val();
-
-            this.update();
+            this.setMeridian($('input.bootstrap-timepicker-meridian').val());
         }
 
         , click: function(e) {
@@ -401,10 +462,10 @@
                 return this.options.templates[this.options.template];
             }
             if (this.showInputs) {
-                var hourTemplate = '<input type="text" name="hour" class="bootstrap-timepicker-hour"/>';
-                var minuteTemplate = '<input type="text" name="minute" class="bootstrap-timepicker-minute"/>';
-                var secondTemplate = '<input type="text" name="second" class="bootstrap-timepicker-second"/>';
-                var meridianTemplate = '<input type="text" name="meridian" class="bootstrap-timepicker-meridian"/>';
+                var hourTemplate = '<input type="text" name="hour" class="bootstrap-timepicker-hour" maxlength="2"/>';
+                var minuteTemplate = '<input type="text" name="minute" class="bootstrap-timepicker-minute" maxlength="2"/>';
+                var secondTemplate = '<input type="text" name="second" class="bootstrap-timepicker-second" maxlength="2"/>';
+                var meridianTemplate = '<input type="text" name="meridian" class="bootstrap-timepicker-meridian" maxlength="2"/>';
             } else {
                 var hourTemplate = '<span class="bootstrap-timepicker-hour"></span>';
                 var minuteTemplate = '<span class="bootstrap-timepicker-minute"></span>';

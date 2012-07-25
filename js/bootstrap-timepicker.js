@@ -43,6 +43,7 @@
         this.showInputs = this.options.showInputs || this.showInputs;
         this.disableFocus = this.options.disableFocus || this.disableFocus;
         this.template = this.options.template || this.template;
+        this.modalBackdrop = this.options.modalBackdrop || this.modalBackdrop;
         this.defaultTime = this.options.defaultTime || this.defaultTime;
         this.open = false;
         this.init();
@@ -53,19 +54,44 @@
         constructor: Timepicker
 
         , init: function () {
-            var $trigger = this.$element.parent().hasClass('input-append') ? this.$element.parent().find('.add-on') : this.$element;
+            if (this.$element.parent().hasClass('input-append')) {
+                this.$element.parent('.input-append').find('.add-on').on('click', $.proxy(this.showWidget, this));
+                this.$element.on({
+                    focus: $.proxy(this.highlightUnit, this),
+                    click: $.proxy(this.highlightUnit, this),
+                    keypress: $.proxy(this.elementKeypress, this),
+                    blur: $.proxy(this.updateFromElementVal, this)
+                });
 
-            $trigger.on('click', $.proxy(this.showWidget, this));
+            } else {
+                if (this.template) {
+                    this.$element.on({
+                        focus: $.proxy(this.showWidget, this),
+                        click: $.proxy(this.showWidget, this),
+                        blur: $.proxy(this.updateFromElementVal, this)
+                    });
+                } else {
+                    this.$element.on({
+                        focus: $.proxy(this.highlightUnit, this),
+                        click: $.proxy(this.highlightUnit, this),
+                        keypress: $.proxy(this.elementKeypress, this),
+                        blur: $.proxy(this.updateFromElementVal, this)
+                    });
+                }
+            }
             
-            this.$element.on({
-                click: $.proxy(this.highlightUnit, this),
-                keypress: $.proxy(this.elementKeypress, this),
-                blur: $.proxy(this.updateFromElementVal, this)
-            });
 
             this.$widget = $(this.getTemplate()).appendTo('body');
             
             this.$widget.on('click', $.proxy(this.widgetClick, this));
+
+            if (this.showInputs) {
+                this.$widget.find('input').on({
+                    click: function() { this.select(); },
+                    keypress: $.proxy(this.widgetKeypress, this),
+                    change: $.proxy(this.updateFromWidgetInputs, this)
+                });
+            } 
 
             this.setDefaultTime(this.defaultTime);
         }
@@ -74,14 +100,13 @@
             e.stopPropagation();
             e.preventDefault();
 
-            // fix for multiple timepicker elements  
-            $('html').click();
+            if (this.open) {
+                return;
+            }
 
             this.$element.trigger('show');
 
-            $('html').on('click.timepicker.data-api', $.proxy(this.hideWidget, this));
-
-            if (this.disableFocus || this.showInputs) {
+            if (this.disableFocus) {
                 this.$element.blur();
             }
 
@@ -91,8 +116,12 @@
 
             this.updateFromElementVal();
 
-            if (this.options.template === 'modal') {
-                this.$widget.modal('show');
+            $('html')
+                .trigger('click.timepicker.data-api')
+                .one('click.timepicker.data-api', $.proxy(this.hideWidget, this));
+
+            if (this.template === 'modal') {
+                this.$widget.modal('show').on('hidden', $.proxy(this.hideWidget, this));
             } else {
                 this.$widget.css({
                     top: pos.top + pos.height
@@ -104,34 +133,20 @@
                 }
             }
 
-            if (this.showInputs) {
-                this.$widget.find('input').on({
-                    click: function() { this.select(); },
-                    keypress: $.proxy(this.widgetKeypress, this),
-                    change: $.proxy(this.updateFromWidgetInputs, this)
-                });
-            } 
-
             this.open = true;
             this.$element.trigger('shown');
-
-            return this;
         }
 
         , hideWidget: function(){
             this.$element.trigger('hide');
             
-            $('html').off('click.timepicker.data-api', $.proxy(this.hide, this));
-
-            if (this.options.template === 'modal') {
+            if (this.template === 'modal') {
                 this.$widget.modal('hide');
             } else {
                 this.$widget.removeClass('open');
             }
             this.open = false;
             this.$element.trigger('hidden');
-
-            return this;
         }
 
         , widgetClick: function(e) {
@@ -149,12 +164,25 @@
             var input = $(e.target).closest('input').attr('name');
 
             switch (e.keyCode) {
-                case 0: //input
-                break;
                 case 9: //tab
+                    if (this.showMeridian) {
+                        if (input == 'meridian') { 
+                            this.hideWidget();
+                        }
+                    } else {
+                        if (this.showSeconds) { 
+                            if (input == 'second') {
+                                this.hideWidget();
+                            }
+                        } else {
+                            if (input == 'minute') {
+                                this.hideWidget();
+                            }
+                        }
+                    }
                 break;
                 case 27: // escape
-                    return this.hide();
+                    this.hideWidget();
                 break;
                 case 38: // up arrow
                     switch (input) {
@@ -193,26 +221,6 @@
             }
         }
 
-        , highlightUnit: function () {
-            var input = this.$element.get(0);
-
-            this.position = this.getCursorPosition();
-
-            if (this.position >= 0 && this.position <= 2) {
-                this.highlightHour();
-            } else if (this.position >= 3 && this.position <= 5) {
-                this.highlightMinute();
-            } else if (this.position >= 6 && this.position <= 8) {
-                if (this.showSeconds) {
-                    this.highlightSecond();
-                } else {
-                    this.highlightMeridian();
-                }
-            } else if (this.position >= 9 && this.position <= 11) {
-                this.highlightMeridian();
-            }
-        }
-
         , elementKeypress: function(e) {
             var input = this.$element.get(0);
             switch (e.keyCode) {
@@ -220,7 +228,24 @@
                 break;
                 case 9: //tab
                     this.updateFromElementVal();
-                    this.highlightNextUnit();
+                    if (this.showMeridian) {
+                        if (this.highlightedUnit != 'meridian') {
+                            e.preventDefault();
+                            this.highlightNextUnit();
+                        }
+                    } else {
+                        if (this.showSeconds) { 
+                            if (this.highlightedUnit != 'second') {
+                                e.preventDefault();
+                                this.highlightNextUnit();
+                            }
+                        } else {
+                            if (this.highlightedUnit != 'minute') {
+                                e.preventDefault();
+                                this.highlightNextUnit();
+                            }
+                        }
+                    }
                 break;
                 case 27: // escape
                     this.updateFromElementVal();
@@ -269,7 +294,7 @@
                 break;
             }
             
-            if (e.keyCode !== 0 && e.keyCode !== 8 && e.keyCode !== 46) {
+            if (e.keyCode !== 0 && e.keyCode !== 8 && e.keyCode !== 9 && e.keyCode !== 46) {
                 e.preventDefault();
             }
         }
@@ -462,7 +487,7 @@
                         : '') +
                        (this.showMeridian ? 
                            ' ' + $('input.bootstrap-timepicker-meridian').val() 
-                        : '')
+                        : '');
 
             this.setValues(time);
         }
@@ -484,27 +509,22 @@
             }
         }
 
-        , highlightHour: function() {
-            this.highlightedUnit = 'hour';
-            this.$element.get(0).setSelectionRange(0,2); 
-        }
+        , highlightUnit: function () {
+            var input = this.$element.get(0);
 
-        , highlightMinute: function() {
-            this.highlightedUnit = 'minute';
-            this.$element.get(0).setSelectionRange(3,5); 
-        }
-
-        , highlightSecond: function() {
-            this.highlightedUnit = 'second';
-            this.$element.get(0).setSelectionRange(6,8); 
-        }
-
-        , highlightMeridian: function() {
-            this.highlightedUnit = 'meridian';
-            if (this.showSeconds) {
-                this.$element.get(0).setSelectionRange(9,11); 
-            } else {
-                this.$element.get(0).setSelectionRange(6,8); 
+            this.position = this.getCursorPosition();
+            if (this.position >= 0 && this.position <= 2) {
+                this.highlightHour();
+            } else if (this.position >= 3 && this.position <= 5) {
+                this.highlightMinute();
+            } else if (this.position >= 6 && this.position <= 8) {
+                if (this.showSeconds) {
+                    this.highlightSecond();
+                } else {
+                    this.highlightMeridian();
+                }
+            } else if (this.position >= 9 && this.position <= 11) {
+                this.highlightMeridian();
             }
         }
 
@@ -547,6 +567,30 @@
                         this.highlightMinute();
                     }
                 break;
+            }
+        }
+
+        , highlightHour: function() {
+            this.highlightedUnit = 'hour';
+            this.$element.get(0).setSelectionRange(0,2); 
+        }
+
+        , highlightMinute: function() {
+            this.highlightedUnit = 'minute';
+            this.$element.get(0).setSelectionRange(3,5); 
+        }
+
+        , highlightSecond: function() {
+            this.highlightedUnit = 'second';
+            this.$element.get(0).setSelectionRange(6,8); 
+        }
+
+        , highlightMeridian: function() {
+            this.highlightedUnit = 'meridian';
+            if (this.showSeconds) {
+                this.$element.get(0).setSelectionRange(9,11); 
+            } else {
+                this.$element.get(0).setSelectionRange(6,8); 
             }
         }
 
@@ -685,16 +729,16 @@
             var template;
             switch(this.options.template) {
                 case 'modal':
-                    template = '<div class="bootstrap-timepicker modal hide fade in" style="top: 30%; margin-top: 0; width: 200px; margin-left: -100px;" data-backdrop="false">'+
+                    template = '<div class="bootstrap-timepicker modal hide fade in" style="top: 30%; margin-top: 0; width: 200px; margin-left: -100px;" data-backdrop="'+ (this.modalBackdrop ? 'true' : 'false') +'">'+
                                    '<div class="modal-header">'+
-                                       '<a href="#" class="close" data-action="hide">×</a>'+
+                                       '<a href="#" class="close" data-dismiss="modal">×</a>'+
                                        '<h3>Pick a Time</h3>'+
                                    '</div>'+
                                    '<div class="modal-content">'+
                                         templateContent +
                                    '</div>'+
                                    '<div class="modal-footer">'+
-                                       '<a href="#" class="btn btn-primary" data-action="hide">Ok</a>'+
+                                       '<a href="#" class="btn btn-primary" data-dismiss="modal">Ok</a>'+
                                    '</div>'+
                                '</div>';
                     
@@ -737,22 +781,9 @@
     , showInputs: true
     , showMeridian: true
     , template: 'dropdown'
+    , modalBackdrop: false
     , templates: {} // set custom templates
     }
 
     $.fn.timepicker.Constructor = Timepicker
-
-    /* TIMEPICKER DATA-API
-     * ================== */
-
-    $(function () {
-        $('body').on('focus.timepicker.data-api', '[data-provide="timepicker"]', function (e) {
-            var $this = $(this);
-            if ($this.data('timepicker')) {
-                return;
-            }
-            e.preventDefault();
-            $this.timepicker($this.data());
-        })
-    })
 }(window.jQuery);

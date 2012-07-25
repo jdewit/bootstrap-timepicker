@@ -80,8 +80,10 @@
     width: 25px;
     text-align: center;
 }
-.bootstrap-timepicker-component .add-on i {
+.bootstrap-timepicker-component .add-on {
     cursor: pointer;
+}
+.bootstrap-timepicker-component .add-on i {
     display: block;
     height: 16px;
     width: 16px;

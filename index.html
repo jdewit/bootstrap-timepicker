@@ -13,59 +13,83 @@ title: Timepicker for Twitter Bootstrap
     <div class="row">
         <div class="span3 columns">
             <h3>About timepicker</h3>
-            <p>A simple widget to easily select a time for an text input.</p>
+            <p>A very cool widget to easily select a time for a text input using your mouse or arrow keys.</p>
             <a href="https://github.com/jdewit/bootstrap-timepicker" target="_blank" class="btn">Download file</a>
         </div>
         <div class="span9 columns">
-            <h2>Live Demo</h2>
-            <p>Default timepicker as component</p>
+            <div class="page-header" style="margin-top: 0;">
+                <h2>Demos</h2>
+            </div>
+            <p>Default timepicker.</p> 
             <!-- sample timepicker content -->
             <div class="well">
                 <div class="input-append bootstrap-timepicker-component">
-                    <input class="dropdown-timepicker input-small" type="text" /><span class="add-on"><i class="icon-time"></i></span>
+                    <input class="input-small timepicker-default" type="text"/><span class="add-on"><i class="icon-time"></i></span>
                 </div>
             </div>
-            <p>Shown inside a modal with 24hr mode and seconds enabled.</p>
+            <p>Inside a modal with 24hr mode and seconds enabled.</p>
             <div class="well">
-                <input class="modal-timepicker" type="text" style="width: 75px;" />
+                <div class="input-append bootstrap-timepicker-component">
+                    <input class="timepicker-1 input-small" type="text" /><span class="add-on"><i class="icon-time"></i></span>
+                </div>
+            </div>
+            <p>Without component markup and inputs disabled.</p>
+            <div class="well">
+                <input class="timepicker-2" type="text" style="width: 75px;" />
                 <i class="icon-time" style="margin: -2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
             </div>
-            <hr />
-            <h2>Using bootstrap-timepicker</h2>
-            <p>Call the timepicker:</p>
+            <p>Inside a modal with backdrop and inputs disabled.</p>
+            <div class="well">
+                <input class="timepicker-3" type="text" style="width: 75px;" />
+                <i class="icon-time" style="margin: -2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
+            </div>
+            <p>Without a template.</p>
+            <div class="well">
+                <input class="timepicker-4" type="text" style="width: 75px;" />
+            </div>
+            <div class="page-header">
+                <h2>Using bootstrap-timepicker</h2>
+            </div>
+            <h4>Javascript:</h4>
 <pre class="prettyprint linenums">
-$('.timepicker').timepicker({
-    template : 'modal',
-    showInputs: false
-});
+$('.timepicker-default').timepicker();
 </pre>
-            <h3>Markup</h3>
-            <p>Display as component:</p>
+            <h4>HTML:</h4>
 <pre class="prettyprint linenums">
 &lt;div class="input-append bootstrap-timepicker-component"&gt;
-    &lt;input type="text" class="timepicker input-small"&gt;
+    &lt;input type="text" class="timepicker-default input-small"&gt;
     &lt;span class="add-on"&gt;
         &lt;i class="icon-time"&gt;&lt;/i&gt;
     &lt/span&gt;
 &lt;/div&gt;
 </pre>
             
-            <h3>Options</h3>
+            <div class="page-header">
+                <h2>Options</h3>
+            </div>
             <table class="table table-bordered table-striped">
                 <thead>
-                <tr>
-                    <th style="width: 100px;">Name</th>
-                    <th style="width: 50px;">type</th>
-                    <th style="width: 50px;">default</th>
-                    <th>description</th>
-                </tr>
+                    <tr>
+                        <th style="width: 100px;">Name</th>
+                        <th style="width: 50px;">Type</th>
+                        <th style="width: 120px;">Default/Options</th>
+                        <th>Description</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>template</td>
                         <td>string</td>
-                        <td>'dropdown'</td>
-                        <td>Specify the template to use. [dropdown, modal]</td>
+                        <td>
+                            'dropdown' (default)<hr /> 
+                            'modal' <hr />
+                            false
+                        </td>
+                        <td>
+                            Show picker in a dropdown <hr />
+                            Show picker in a modal <hr />
+                            Don't show a widget
+                        </td>
                     </tr>
                     <tr>
                         <td>minuteStep</td>
@@ -88,26 +112,52 @@ $('.timepicker').timepicker({
                     <tr>
                         <td>defaultTime</td>
                         <td>string</td>
-                        <td>'current'</td>
-                        <td>Set the initial time value. Setting it to 'current' sets it to the current time.</td>
+                        <td>
+                            'current' (default) <hr />
+                            'value' <hr />
+                            false
+                        </td>
+                        <td>
+                            Set to the current time. <hr />
+                            Set to inputs current value <hr />
+                            Do not set a default time
+                        </td>
                     </tr>
                     <tr>
                         <td>showMeridian</td>
                         <td>boolean</td>
-                        <td>true</td>
-                        <td>12hr / 24hr clock toggle.</td>
+                        <td>
+                            true (default) <hr />
+                            false 
+                        </td>
+                        <td>
+                            12hr mode<hr />
+                            24hr mode
+                        </td>
                     </tr>
                     <tr>
                         <td>showInputs</td>
                         <td>boolean</td>
-                        <td>true</td>
-                        <td>Set to false to disable the text inputs in the widget.</td>
+                        <td>
+                            true (default) <hr />
+                            false 
+                        </td>
+                        <td>
+                            Shows the text inputs in the widget. <hr />
+                            Hide the text inputs in the widget
+                        </td>
                     </tr>
                     <tr>
                         <td>disableFocus</td>
                         <td>boolean</td>
                         <td>false</td>
                         <td>Disables the input from focusing. This is useful for touch screen devices that display a keyboard on input focus.</td>
+                    </tr>
+                    <tr>
+                        <td>modalBackdrop</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>Show modal backdrop.</td>
                     </tr>
                 </tbody>
             </table>

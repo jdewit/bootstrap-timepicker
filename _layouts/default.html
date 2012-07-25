@@ -13,6 +13,9 @@
             position: relative;
             padding-top: 50px;
         } 
+        hr {
+            margin: 3px 0 0 0;
+        }
     </style>
     <title>{{ page.title }}</title>
 </head>
@@ -48,19 +51,36 @@
     <script type="text/javascript" src="assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
     <script type="text/javascript">
         $(document).ready(function () { 
-            $('.modal-timepicker').timepicker({
+            $('.timepicker-default').timepicker();
+
+            $('.timepicker-1').timepicker({
                 minuteStep: 1,
-                secondStep: 5,
-                showInputs: false,
                 template: 'modal',
                 showSeconds: true,
                 showMeridian: false
             });
-            $('.dropdown-timepicker').timepicker({
+
+            $('.timepicker-2').timepicker({
                 minuteStep: 5,
-                disableFocus: true,
+                showInputs: false,
+                disableFocus: true
             });
 
+            $('.timepicker-3').timepicker({
+                minuteStep: 1,
+                secondStep: 5,
+                showInputs: false,
+                template: 'modal',
+                modalBackdrop: true,
+                showSeconds: true,
+                showMeridian: false
+            });
+
+            $('.timepicker-4').timepicker({
+                template: false,
+                showInputs: false,
+                minuteStep: 5
+            });
         });
     </script>
 </body>

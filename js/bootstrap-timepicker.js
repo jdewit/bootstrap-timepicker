@@ -336,11 +336,16 @@
                     this.meridian = 'AM';
                 }
             }
+            else {
+                if (this.hour >= 24) {
+                    this.hour = 0;
+                }
+            }
 
             if (this.minute < 0) {
                 this.minute = 0;
-            } else if (this.minute > 60) {
-                this.minute = 60;
+            } else if (this.minute >= 60) {
+                this.minute = 0;
             }
 
             if (this.showSeconds) {
@@ -348,8 +353,8 @@
                     this.second = 0;
                 } else if (this.second < 0) {
                     this.second = 0;
-                } else if (this.second > 60) {
-                    this.second = 60;
+                } else if (this.second >= 60) {
+                    this.second = 0;
                 }
             }
 
@@ -625,42 +630,39 @@
 
         , incrementMinute: function() {
             var newVal = this.minute + this.minuteStep - (this.minute % this.minuteStep);
+
             if (newVal > 59) {
                 this.incrementHour();
-                this.minute = newVal - 60;
-            } else {
-                this.minute = newVal;
             }
+
+            this.minute = newVal % 60;
         }
 
         , decrementMinute: function() {
             var newVal = this.minute - this.minuteStep;
             if (newVal < 0) {
                 this.decrementHour();
-                this.minute = newVal + 60;
-            } else {
-                this.minute = newVal;
             }
+
+            this.minute = newVal % 60;
         }
 
         , incrementSecond: function() {
             var newVal = this.second + this.secondStep - (this.second % this.secondStep);
             if (newVal > 59) {
                 this.incrementMinute();
-                this.second = newVal - 60;
-            } else {
-                this.second = newVal;
             }
+            
+            this.second = newVal % 60;
         }
 
         , decrementSecond: function() {
             var newVal = this.second - this.secondStep;
             if (newVal < 0) {
                 this.decrementMinute();
-                this.second = newVal + 60;
-            } else {
-                this.second = newVal;
             }
+            
+            this.second = newVal % 60;
         }
 
         , toggleMeridian: function() {

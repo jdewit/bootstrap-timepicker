@@ -16,6 +16,7 @@
         -moz-border-radius: 4px;
         border-radius: 4px;
         display: none;
+        min-width: 10px;
 
         &.open {
             display: inline-block;
@@ -61,33 +62,17 @@
         td { 
             text-align: center;
             height: 30px;
-            width: 49%;
             margin: 0;
             padding: 2px;
         }
 
-        &.show-meridian, &.show-seconds {
-            td {
-                width: 32%;
-            }
-        }
-
-        &.show-seconds.show-meridian {
-            td {
-                width: 23.5%;
-            }
-        }
-        
         td {
-            &.separator {
-                width: 2% !important;
-            }
             span {
                 width: 100%;
             }
             a {
                 border: 1px transparent solid;
-                width: 90%;
+                width: 3em;
                 display: inline-block;
                 margin: 0;
                 padding: 8px 0;

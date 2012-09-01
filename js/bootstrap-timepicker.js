@@ -313,7 +313,7 @@
             this.second = parseInt(timeArray[2], 10);
 
             if (isNaN(this.hour)) {
-                this.hour = 1;
+                this.hour = 0;
             } 
             if (isNaN(this.minute)) {
                 this.minute = 0;
@@ -335,12 +335,16 @@
                 if (this.meridian != 'AM' && this.meridian != 'PM') {
                     this.meridian = 'AM';
                 }
+            } else {
+                 if (this.hour >= 24) {
+                    this.hour = 23;
+                }
             }
 
             if (this.minute < 0) {
                 this.minute = 0;
-            } else if (this.minute > 60) {
-                this.minute = 60;
+            } else if (this.minute >= 60) {
+                this.minute = 59;
             }
 
             if (this.showSeconds) {
@@ -348,8 +352,8 @@
                     this.second = 0;
                 } else if (this.second < 0) {
                     this.second = 0;
-                } else if (this.second > 60) {
-                    this.second = 60;
+                } else if (this.second >= 60) {
+                    this.second = 59;
                 }
             }
 

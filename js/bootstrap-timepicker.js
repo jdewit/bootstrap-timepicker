@@ -338,6 +338,8 @@
             } else {
                  if (this.hour >= 24) {
                     this.hour = 23;
+                } else if (this.hour < 0) {
+                    this.hour = 0;
                 }
             }
 
@@ -489,13 +491,13 @@
         }
 
         , updateFromWidgetInputs: function () {
-            var time = $('input.bootstrap-timepicker-hour').val() + ':' + 
-                       $('input.bootstrap-timepicker-minute').val() +
+            var time = $('input.bootstrap-timepicker-hour', this.$widget).val() + ':' + 
+                       $('input.bootstrap-timepicker-minute', this.$widget).val() +
                        (this.showSeconds ? 
-                           ':' + $('input.bootstrap-timepicker-second').val() 
+                           ':' + $('input.bootstrap-timepicker-second', this.$widget).val() 
                         : '') +
                        (this.showMeridian ? 
-                           ' ' + $('input.bootstrap-timepicker-meridian').val() 
+                           ' ' + $('input.bootstrap-timepicker-meridian', this.$widget).val() 
                         : '');
 
             this.setValues(time);

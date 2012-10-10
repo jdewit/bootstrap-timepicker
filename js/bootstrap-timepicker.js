@@ -68,7 +68,8 @@
                     this.$element.on({
                         focus: $.proxy(this.showWidget, this),
                         click: $.proxy(this.showWidget, this),
-                        blur: $.proxy(this.blurElement, this)
+                        blur: $.proxy(this.blurElement, this),
+                        keydown:$.proxy(this.inputKeydown, this)
                     });
                 } else {
                     this.$element.on({
@@ -94,6 +95,15 @@
             } 
 
             this.setDefaultTime(this.defaultTime);
+
+            var that = this;
+
+            $(document).on('mousedown', function (e) {
+                // Clicked outside the timepicker, hide it
+                if ($(e.target).closest('.bootstrap-timepicker').length == 0) {
+                    that.hideWidget();
+                }
+            });
         }
 
         , showWidget: function(e) {
@@ -296,6 +306,22 @@
             
             if (e.keyCode !== 0 && e.keyCode !== 8 && e.keyCode !== 9 && e.keyCode !== 46) {
                 e.preventDefault();
+            }
+        }
+
+        , inputKeydown: function(e) {
+            switch (e.keyCode) {
+                case 0: //input
+                    break;
+                case 9: //tab
+                    this.hideWidget();
+                    break;
+                case 27: // escape
+                    this.hideWidget();
+                    break;
+                case 13: // enter
+                    this.hideWidget();
+                    break;
             }
         }
 

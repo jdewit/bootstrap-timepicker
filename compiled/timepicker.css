@@ -6,6 +6,7 @@
     padding: 4px;
     top: 0;
     min-width: 10px;
+    z-index: 99999;
 }
 .bootstrap-timepicker.dropdown-menu.open {
     display: inline-block;

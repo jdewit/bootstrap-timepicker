@@ -433,6 +433,9 @@
         }
 
         , update: function() {
+            if (this.showMeridian && this.meridian === undefined) {
+              this.meridian = 'AM';
+            }
             this.updateElement();
             this.updateWidget();
         }

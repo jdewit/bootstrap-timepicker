@@ -44,7 +44,7 @@
         this.disableFocus = this.options.disableFocus || this.disableFocus;
         this.template = this.options.template || this.template;
         this.modalBackdrop = this.options.modalBackdrop || this.modalBackdrop;
-        this.defaultTime = this.options.defaultTime || this.defaultTime;
+        this.defaultTime = this.options.time || this.options.defaultTime || this.defaultTime;
         this.open = false;
         this.init();
     };
@@ -60,7 +60,7 @@
                     focus: $.proxy(this.highlightUnit, this),
                     click: $.proxy(this.highlightUnit, this),
                     keypress: $.proxy(this.elementKeypress, this),
-                    blur: $.proxy(this.updateFromElementVal, this)
+                    blur: $.proxy(this.blurElement, this)
                 });
 
             } else {
@@ -68,14 +68,14 @@
                     this.$element.on({
                         focus: $.proxy(this.showWidget, this),
                         click: $.proxy(this.showWidget, this),
-                        blur: $.proxy(this.updateFromElementVal, this)
+                        blur: $.proxy(this.blurElement, this)
                     });
                 } else {
                     this.$element.on({
                         focus: $.proxy(this.highlightUnit, this),
                         click: $.proxy(this.highlightUnit, this),
                         keypress: $.proxy(this.elementKeypress, this),
-                        blur: $.proxy(this.updateFromElementVal, this)
+                        blur: $.proxy(this.blurElement, this)
                     });
                 }
             }
@@ -313,7 +313,7 @@
             this.second = parseInt(timeArray[2], 10);
 
             if (isNaN(this.hour)) {
-                this.hour = 1;
+                this.hour = 0;
             } 
             if (isNaN(this.minute)) {
                 this.minute = 0;
@@ -335,12 +335,18 @@
                 if (this.meridian != 'AM' && this.meridian != 'PM') {
                     this.meridian = 'AM';
                 }
+            } else {
+                 if (this.hour >= 24) {
+                    this.hour = 23;
+                } else if (this.hour < 0) {
+                    this.hour = 0;
+                }
             }
 
             if (this.minute < 0) {
                 this.minute = 0;
-            } else if (this.minute > 60) {
-                this.minute = 60;
+            } else if (this.minute >= 60) {
+                this.minute = 59;
             }
 
             if (this.showSeconds) {
@@ -348,8 +354,8 @@
                     this.second = 0;
                 } else if (this.second < 0) {
                     this.second = 0;
-                } else if (this.second > 60) {
-                    this.second = 60;
+                } else if (this.second >= 60) {
+                    this.second = 59;
                 }
             }
 
@@ -426,13 +432,22 @@
         , update: function() {
             this.updateElement();
             this.updateWidget();
+            this.$element.trigger({
+					    type: 'changeTime',
+					    time: this.time
+				    });
+        }
+
+        , blurElement: function() {
+          this.highlightedUnit = undefined;
+          this.updateFromElementVal();
         }
 
         , updateElement: function() {
             var time = this.getTime();
 
             this.$element.val(time).change();
-
+             
             switch (this.highlightedUnit) {
                 case 'hour':
                     this.highlightHour();
@@ -480,13 +495,13 @@
         }
 
         , updateFromWidgetInputs: function () {
-            var time = $('input.bootstrap-timepicker-hour').val() + ':' + 
-                       $('input.bootstrap-timepicker-minute').val() +
+            var time = $('input.bootstrap-timepicker-hour', this.$widget).val() + ':' + 
+                       $('input.bootstrap-timepicker-minute', this.$widget).val() +
                        (this.showSeconds ? 
-                           ':' + $('input.bootstrap-timepicker-second').val() 
+                           ':' + $('input.bootstrap-timepicker-second', this.$widget).val() 
                         : '') +
                        (this.showMeridian ? 
-                           ' ' + $('input.bootstrap-timepicker-meridian').val() 
+                           ' ' + $('input.bootstrap-timepicker-meridian', this.$widget).val() 
                         : '');
 
             this.setValues(time);

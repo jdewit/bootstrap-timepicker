@@ -43,9 +43,9 @@ title: Timepicker for Twitter Bootstrap
                 <input class="timepicker-3" type="text" style="width: 75px;" />
                 <i class="icon-time" style="margin: -2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
             </div>
-            <p>Without a template.</p>
+            <p>Without a template using data attribute for time.</p>
             <div class="well">
-                <input class="timepicker-4" type="text" style="width: 75px;" />
+                <input class="timepicker-4" type="text" style="width: 75px;" data-time="12:45 PM" />
             </div>
             <div class="page-header">
                 <h2>Using bootstrap-timepicker</h2>
@@ -62,6 +62,14 @@ $('.timepicker-default').timepicker();
         &lt;i class="icon-time"&gt;&lt;/i&gt;
     &lt/span&gt;
 &lt;/div&gt;
+</pre>
+
+<h4>Javascript with callback event</h4>
+<pre class="prettyprint linenums">
+$('.timepicker-default').timepicker()
+    .on('changeTime', function(ev) {
+      alert('time has changed')
+      });
 </pre>
             
             <div class="page-header">

@@ -13,6 +13,7 @@
  * Nek
  * Chris Martin
  * Dominic Barnes contact@dominicbarnes.us
+ * Olivier Louvignes @olouv
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +31,8 @@
 !function($) {
 
     "use strict"; // jshint ;_;
+
+    var isTouch = 'ontouchstart' in window;
 
     /* TIMEPICKER PUBLIC CLASS DEFINITION
      * ================================== */
@@ -59,7 +62,7 @@
                 this.$element.on({
                     focus: $.proxy(this.highlightUnit, this),
                     click: $.proxy(this.highlightUnit, this),
-                    keypress: $.proxy(this.elementKeypress, this),
+                    keydown: $.proxy(this.elementKeydown, this),
                     blur: $.proxy(this.blurElement, this)
                 });
 
@@ -74,7 +77,7 @@
                     this.$element.on({
                         focus: $.proxy(this.highlightUnit, this),
                         click: $.proxy(this.highlightUnit, this),
-                        keypress: $.proxy(this.elementKeypress, this),
+                        keydown: $.proxy(this.elementKeydown, this),
                         blur: $.proxy(this.blurElement, this)
                     });
                 }
@@ -88,7 +91,7 @@
             if (this.showInputs) {
                 this.$widget.find('input').on({
                     click: function() { this.select(); },
-                    keypress: $.proxy(this.widgetKeypress, this),
+                    keydown: $.proxy(this.widgetKeydown, this),
                     change: $.proxy(this.updateFromWidgetInputs, this)
                 });
             }
@@ -106,7 +109,7 @@
 
             this.$element.trigger('show');
 
-            if (this.disableFocus) {
+            if (isTouch || this.disableFocus) {
                 this.$element.blur();
             }
 
@@ -117,8 +120,8 @@
             this.updateFromElementVal();
 
             $('html')
-                .trigger('click.timepicker.data-api')
-                .one('click.timepicker.data-api', $.proxy(this.hideWidget, this));
+                .one(isTouch ? 'touchstart.timepicker.data-api' : 'click.timepicker.data-api', $.proxy(this.hideWidget, this))
+                .on(isTouch ? 'touchstart.timepicker.data-api' : 'click.timepicker.data-api', '.bootstrap-timepicker', function (e) { e.stopPropagation() });
 
             if (this.template === 'modal') {
                 this.$widget.modal('show').on('hidden', $.proxy(this.hideWidget, this));
@@ -160,7 +163,7 @@
             }
         }
 
-        , widgetKeypress: function(e) {
+        , widgetKeydown: function(e) {
             var input = $(e.target).closest('input').attr('name');
 
             switch (e.keyCode) {
@@ -221,7 +224,7 @@
             }
         }
 
-        , elementKeypress: function(e) {
+        , elementKeydown: function(e) {
             var input = this.$element.get(0);
             switch (e.keyCode) {
                 case 0: //input

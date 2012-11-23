@@ -108,7 +108,7 @@
 
             this.$element.trigger('show');
 
-            if (this.disableFocus) {
+            if (isTouch || this.disableFocus) {
                 this.$element.blur();
             }
 

@@ -61,7 +61,7 @@
                 this.$element.on({
                     focus: $.proxy(this.highlightUnit, this),
                     click: $.proxy(this.highlightUnit, this),
-                    keypress: $.proxy(this.elementKeypress, this),
+                    keydown: $.proxy(this.elementKeydown, this),
                     blur: $.proxy(this.blurElement, this)
                 });
 
@@ -76,7 +76,7 @@
                     this.$element.on({
                         focus: $.proxy(this.highlightUnit, this),
                         click: $.proxy(this.highlightUnit, this),
-                        keypress: $.proxy(this.elementKeypress, this),
+                        keydown: $.proxy(this.elementKeydown, this),
                         blur: $.proxy(this.blurElement, this)
                     });
                 }
@@ -90,7 +90,7 @@
             if (this.showInputs) {
                 this.$widget.find('input').on({
                     click: function() { this.select(); },
-                    keypress: $.proxy(this.widgetKeypress, this),
+                    keydown: $.proxy(this.widgetKeydown, this),
                     change: $.proxy(this.updateFromWidgetInputs, this)
                 });
             }
@@ -162,7 +162,7 @@
             }
         }
 
-        , widgetKeypress: function(e) {
+        , widgetKeydown: function(e) {
             var input = $(e.target).closest('input').attr('name');
 
             switch (e.keyCode) {
@@ -223,7 +223,7 @@
             }
         }
 
-        , elementKeypress: function(e) {
+        , elementKeydown: function(e) {
             var input = this.$element.get(0);
             switch (e.keyCode) {
                 case 0: //input

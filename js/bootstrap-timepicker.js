@@ -31,6 +31,8 @@
 
     "use strict"; // jshint ;_;
 
+    var isTouch = 'ontouchstart' in window;
+
     /* TIMEPICKER PUBLIC CLASS DEFINITION
      * ================================== */
     var Timepicker = function(element, options) {
@@ -117,8 +119,8 @@
             this.updateFromElementVal();
 
             $('html')
-                .trigger('click.timepicker.data-api')
-                .one('click.timepicker.data-api', $.proxy(this.hideWidget, this));
+                .one(isTouch ? 'touchstart.timepicker.data-api' : 'click.timepicker.data-api', $.proxy(this.hideWidget, this))
+                .on(isTouch ? 'touchstart.timepicker.data-api' : 'click.timepicker.data-api', '.bootstrap-timepicker', function (e) { e.stopPropagation() });
 
             if (this.template === 'modal') {
                 this.$widget.modal('show').on('hidden', $.proxy(this.hideWidget, this));

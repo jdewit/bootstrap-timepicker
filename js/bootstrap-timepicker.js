@@ -55,7 +55,7 @@
 
         , init: function () {
             if (this.$element.parent().hasClass('input-append')) {
-                this.$element.parent('.input-append').find('.add-on').on('click', $.proxy(this.showWidget, this));
+                this.$element.parent('.input-append').find('.add-on').on('click.timepicker', $.proxy(this.showWidget, this));
                 this.$element.on({
                     'focus.timepicker': $.proxy(this.highlightUnit, this),
                     'click.timepicker': $.proxy(this.highlightUnit, this),
@@ -101,6 +101,7 @@
           this.$widget.remove();
           $.removeData($element[0],'timepicker');
           $element.off('.timepicker');
+          $element.parent('.input-append').find('.add-on').off('.timepicker');
         }
 
         , showWidget: function(e) {

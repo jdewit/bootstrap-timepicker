@@ -57,25 +57,25 @@
             if (this.$element.parent().hasClass('input-append')) {
                 this.$element.parent('.input-append').find('.add-on').on('click', $.proxy(this.showWidget, this));
                 this.$element.on({
-                    focus: $.proxy(this.highlightUnit, this),
-                    click: $.proxy(this.highlightUnit, this),
-                    keypress: $.proxy(this.elementKeypress, this),
-                    blur: $.proxy(this.blurElement, this)
+                    'focus.timepicker': $.proxy(this.highlightUnit, this),
+                    'click.timepicker': $.proxy(this.highlightUnit, this),
+                    'keypress.timepicker': $.proxy(this.elementKeypress, this),
+                    'blur.timepicker': $.proxy(this.blurElement, this)
                 });
 
             } else {
                 if (this.template) {
                     this.$element.on({
-                        focus: $.proxy(this.showWidget, this),
-                        click: $.proxy(this.showWidget, this),
-                        blur: $.proxy(this.blurElement, this)
+                        'focus.timepicker': $.proxy(this.showWidget, this),
+                        'click.timepicker': $.proxy(this.showWidget, this),
+                        'blur.timepicker': $.proxy(this.blurElement, this)
                     });
                 } else {
                     this.$element.on({
-                        focus: $.proxy(this.highlightUnit, this),
-                        click: $.proxy(this.highlightUnit, this),
-                        keypress: $.proxy(this.elementKeypress, this),
-                        blur: $.proxy(this.blurElement, this)
+                        'focus.timepicker': $.proxy(this.highlightUnit, this),
+                        'click.timepicker': $.proxy(this.highlightUnit, this),
+                        'keypress.timepicker': $.proxy(this.elementKeypress, this),
+                        'blur.timepicker': $.proxy(this.blurElement, this)
                     });
                 }
             }
@@ -87,13 +87,20 @@
 
             if (this.showInputs) {
                 this.$widget.find('input').on({
-                    click: function() { this.select(); },
-                    keypress: $.proxy(this.widgetKeypress, this),
-                    change: $.proxy(this.updateFromWidgetInputs, this)
+                    'click.timepicker': function() { this.select(); },
+                    'keypress.timepicker': $.proxy(this.widgetKeypress, this),
+                    'change.timepicker': $.proxy(this.updateFromWidgetInputs, this)
                 });
             }
 
             this.setDefaultTime(this.defaultTime);
+        }
+        
+        , destroy: function() {
+          var $element = this.$element;
+          this.$widget.remove();
+          $.removeData($element[0],'timepicker');
+          $element.off('.timepicker');
         }
 
         , showWidget: function(e) {

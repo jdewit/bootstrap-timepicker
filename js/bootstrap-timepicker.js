@@ -786,6 +786,7 @@
             , data = $this.data('timepicker')
             , options = typeof option == 'object' && option;
             if (!data) {
+                if(option == 'destroy'){return;}
                 $this.data('timepicker', (data = new Timepicker(this, options)));
             }
             if (typeof option == 'string') {

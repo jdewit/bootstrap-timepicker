@@ -1,2 +1,4 @@
 *.swp
 _site/
+node_modules
+grunt.js

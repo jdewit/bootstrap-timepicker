@@ -12,10 +12,8 @@
             padding-bottom: 40px;
             position: relative;
             padding-top: 50px;
+            font-size: 16px;
         } 
-        hr {
-            margin: 3px 0 0 0;
-        }
     </style>
     <title>{{ page.title }}</title>
 </head>
@@ -51,22 +49,22 @@
     <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () { 
-            $('.timepicker-default').timepicker();
+            $('#timepicker1').timepicker();
 
-            $('.timepicker-1').timepicker({
+            $('#timepicker2').timepicker({
                 minuteStep: 1,
                 template: 'modal',
                 showSeconds: true,
                 showMeridian: false
             });
 
-            $('.timepicker-2').timepicker({
+            $('#timepicker3').timepicker({
                 minuteStep: 5,
                 showInputs: false,
                 disableFocus: true
             });
 
-            $('.timepicker-3').timepicker({
+            $('#timepicker4').timepicker({
                 minuteStep: 1,
                 secondStep: 5,
                 showInputs: false,
@@ -76,7 +74,7 @@
                 showMeridian: false
             });
 
-            $('.timepicker-4').timepicker({
+            $('#timepicker5').timepicker({
                 template: false,
                 showInputs: false,
                 minuteStep: 5

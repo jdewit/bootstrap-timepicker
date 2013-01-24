@@ -84,7 +84,7 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'min less exec');
+  grunt.registerTask('default', 'min');
 
 };
 

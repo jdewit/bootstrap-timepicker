@@ -1,9 +1,12 @@
 /*global module:false*/
 module.exports = function(grunt) {
+  'use strict';
 
   // Project configuration.
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-jasmine-runner');
   grunt.loadNpmTasks('grunt-exec');
+
   grunt.initConfig({
     meta: {
       version: '0.1.0',
@@ -14,7 +17,7 @@ module.exports = function(grunt) {
         'YOUR_NAME; Licensed MIT */'
     },
     lint: {
-      files: ['grunt.js', 'js/*.js']
+      files: ['js/bootstrap-timepicker.js', 'grunt.js']
     },
     qunit: {
       files: ['tests/**/*.html']
@@ -22,19 +25,19 @@ module.exports = function(grunt) {
     less: {
       development: {
         options: {
-          paths: ["css"]
+          paths: ['css']
         },
         files: {
-          "css/bootstrap-timepicker.css": "less/*.less"
+          'css/bootstrap-timepicker.css': 'less/*.less'
         }
       },
       production: {
         options: {
-          paths: ["css"],
+          paths: ['css'],
           yuicompress: true
         },
         files: {
-          "css/bootstrap-timepicker.min.css": "less/*.less"
+          'css/bootstrap-timepicker.min.css': 'less/*.less'
         }
       }
     },
@@ -44,37 +47,58 @@ module.exports = function(grunt) {
         dest: 'js/bootstrap-timepicker.min.js'
       }
     },
-    watch: {
-      files: 'js/bootstrap-timepicker.js',
-      tasks: 'lint qunit'
-    },
     jshint: {
       options: {
+        browser: true,
+        camelcase: true,
         curly: true,
         eqeqeq: true,
+        eqnull: true,
         immed: true,
         latedef: true,
         newcap: true,
         noarg: true,
+        quotmark: 'single',
         sub: true,
+        strict: true,
+        trailing: true,
         undef: true,
-        boss: true,
-        eqnull: true,
-        browser: true
+        unused: true
       },
       globals: {
         jQuery: true
       }
     },
     uglify: {},
+    watch: {
+      scripts: {
+        files: ['spec/js/*Spec.js', 'js/bootstrap-timepicker.js'],
+        tasks: 'jasmine',
+        options: {
+          interrupt: true
+        }
+      }
+    },
+    jasmine: {
+      src : ['spec/js/libs/*.js', 'js/bootstrap-timepicker.js'],
+      specs : 'spec/js/*Spec.js',
+      helpers : 'spec/js/helpers/*.js',
+      timeout : 100,
+      junit : {
+        output : 'junit/'
+      },
+      phantomjs : {
+        'ignore-ssl-errors' : true
+      }
+    },
     exec: {
-      checkout_ghPages: {
+      checkoutGhPages: {
         command: 'git checkout gh-pages -q'
       },
-      copy_css: {
+      copyCss: {
         command: 'git checkout master css/bootstrap-timepicker.min.css'
       },
-      copy_js: {
+      copyJs: {
         command: 'git checkout master js/bootstrap-timepicker.min.js'
       },
       notify: {
@@ -87,7 +111,3 @@ module.exports = function(grunt) {
   grunt.registerTask('default', 'min');
 
 };
-
-
-
-

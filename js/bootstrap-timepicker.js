@@ -34,47 +34,89 @@
 
         constructor: Timepicker,
 
-        init: function() {
-            if (this.$element.parent().hasClass('input-append')) {
-                this.$element.parent('.input-append').find('.add-on').on('click', $.proxy(this.showWidget, this));
-                this.$element.on({
-                    focus: $.proxy(this.highlightUnit, this),
-                    click: $.proxy(this.highlightUnit, this),
-                    keypress: $.proxy(this.elementKeypress, this),
-                    blur: $.proxy(this.blurElement, this)
-                });
+        events: [],
 
-            } else {
-                if (this.template) {
-                    this.$element.on({
-                        focus: $.proxy(this.showWidget, this),
-                        click: $.proxy(this.showWidget, this),
-                        blur: $.proxy(this.blurElement, this)
-                    });
-                } else {
-                    this.$element.on({
+        init: function() {
+            var self = this;
+
+            this.detachEvents();
+            if (this.$element.parent().hasClass('input-append')) {
+                this.events = [
+                    [this.$element.parent('.input-append').find('.add-on'), {
+                        click: $.proxy(this.showWidget, this)
+                    }],
+                    [this.$element, {
                         focus: $.proxy(this.highlightUnit, this),
                         click: $.proxy(this.highlightUnit, this),
                         keypress: $.proxy(this.elementKeypress, this),
                         blur: $.proxy(this.blurElement, this)
-                    });
+                    }]
+                ];
+            } else {
+                if (this.template) {
+                    this.events = [
+                        [this.$element, {
+                            focus: $.proxy(this.showWidget, this),
+                            click: $.proxy(this.showWidget, this),
+                            blur: $.proxy(this.blurElement, this)
+                        }]
+                    ];
+                } else {
+                    this.events = [
+                        [this.$element, {
+                            focus: $.proxy(this.highlightUnit, this),
+                            click: $.proxy(this.highlightUnit, this),
+                            keypress: $.proxy(this.elementKeypress, this),
+                            blur: $.proxy(this.blurElement, this)
+                        }]
+                    ];
                 }
             }
 
+            $(document).on('mousedown.timepicker', function (e) {
+                // Clicked outside the timepicker, hide it
+                if ($(e.target).closest('.bootstrap-timepicker').length === 0) {
+                    self.hideWidget();
+                }
+            });
 
             this.$widget = $(this.getTemplate()).appendTo('body');
 
             this.$widget.on('click', $.proxy(this.widgetClick, this));
 
             if (this.showInputs) {
-                this.$widget.find('input').on({
-                    click: function() { this.select(); },
-                    keypress: $.proxy(this.widgetKeypress, this),
-                    change: $.proxy(this.updateFromWidgetInputs, this)
-                });
+                this.events.concat([
+                    [this.$widget.find('input'), {
+                        click: function() { this.select(); },
+                        keypress: $.proxy(this.widgetKeypress, this),
+                        change: $.proxy(this.updateFromWidgetInputs, this)
+                    }]
+                ]);
+            }
+
+            // set events
+            for (var i=0, el, ev; i < this.events.length; i++) {
+                el = this.events[i][0];
+                ev = this.events[i][1];
+                el.on(ev);
             }
 
             this.setDefaultTime(this.defaultTime);
+        },
+
+        remove: function() {
+            this.detachEvents();
+            this.$widget.remove();
+            delete this.$element.data().timepicker;
+        },
+
+        detachEvents: function(){
+            for (var i=0, el, ev; i < this.events.length; i++) {
+                el = this.events[i][0];
+                ev = this.events[i][1];
+                el.off(ev);
+            }
+            this.events = [];
         },
 
         showWidget: function(e) {
@@ -97,10 +139,6 @@
 
             this.updateFromElementVal();
 
-            $('html')
-                .trigger('click.timepicker.data-api')
-                .one('click.timepicker.data-api', $.proxy(this.hideWidget, this));
-
             if (this.template === 'modal') {
                 this.$widget.modal('show').on('hidden', $.proxy(this.hideWidget, this));
             } else {
@@ -120,7 +158,7 @@
 
         hideWidget: function(){
             this.$element.trigger('hide');
-
+console.log('hide');
             if (this.template === 'modal') {
                 this.$widget.modal('hide');
             } else {
@@ -666,11 +704,6 @@
             this.meridian = this.meridian === 'AM' ? 'PM' : 'AM';
 
             this.update();
-        },
-
-    	remove: function() {
-            this.$widget.remove();
-            delete this.$element.data().timepicker;
         },
 
         getTemplate: function() {

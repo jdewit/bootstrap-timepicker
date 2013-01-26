@@ -129,6 +129,7 @@
             this.open = false;
             this.$element.trigger('hidden');
         },
+
         widgetClick: function(e) {
             e.stopPropagation();
             e.preventDefault();
@@ -362,11 +363,12 @@
         setDefaultTime: function(defaultTime){
             if (defaultTime) {
                 if (defaultTime === 'current') {
-                    var dTime = new Date();
-                    var hours = dTime.getHours();
-                    var minutes = Math.floor(dTime.getMinutes() / this.minuteStep) * this.minuteStep;
-                    var seconds = Math.floor(dTime.getSeconds() / this.secondStep) * this.secondStep;
-                    var meridian = 'AM';
+                    var dTime = new Date(),
+                        hours = dTime.getHours(),
+                        minutes = Math.floor(dTime.getMinutes() / this.minuteStep) * this.minuteStep,
+                        seconds = Math.floor(dTime.getSeconds() / this.secondStep) * this.secondStep,
+                        meridian = 'AM';
+
                     if (this.showMeridian) {
                         if (hours === 0) {
                             hours = 12;
@@ -379,6 +381,7 @@
                            meridian = 'AM';
                         }
                     }
+
                     this.hour = hours;
                     this.minute = minutes;
                     this.second = seconds;
@@ -663,6 +666,11 @@
             this.meridian = this.meridian === 'AM' ? 'PM' : 'AM';
 
             this.update();
+        },
+
+    	remove: function() {
+            this.$widget.remove();
+            delete this.$element.data().timepicker;
         },
 
         getTemplate: function() {

@@ -16,17 +16,17 @@
     // TIMEPICKER PUBLIC CLASS DEFINITION
     var Timepicker = function(element, options) {
         this.$element = $(element);
-        this.options = $.extend({}, $.fn.timepicker.defaults, options, this.$element.data());
-        this.minuteStep = this.options.minuteStep || this.minuteStep;
-        this.secondStep = this.options.secondStep || this.secondStep;
-        this.showMeridian = this.options.showMeridian || this.showMeridian;
-        this.showSeconds = this.options.showSeconds || this.showSeconds;
-        this.showInputs = this.options.showInputs || this.showInputs;
-        this.disableFocus = this.options.disableFocus || this.disableFocus;
-        this.template = this.options.template || this.template;
-        this.modalBackdrop = this.options.modalBackdrop || this.modalBackdrop;
-        this.defaultTime = this.options.defaultTime || this.defaultTime;
-        this.open = false;
+        this.minuteStep = options.minuteStep;
+        this.secondStep = options.secondStep;
+        this.showMeridian = options.showMeridian;
+        this.showSeconds = options.showSeconds;
+        this.showInputs = options.showInputs;
+        this.disableFocus = options.disableFocus;
+        this.template = options.template;
+        this.modalBackdrop = options.modalBackdrop;
+        this.defaultTime = options.defaultTime;
+        this.isOpen = options.isOpen;
+        this.templates = options.templates;
         this.init();
     };
 
@@ -81,7 +81,7 @@
             e.stopPropagation();
             e.preventDefault();
 
-            if (this.open) {
+            if (this.isOpen) {
                 return;
             }
 
@@ -109,12 +109,12 @@
                     left: pos.left
                 });
 
-                if (!this.open) {
+                if (!this.isOpen) {
                     this.$widget.addClass('open');
                 }
             }
 
-            this.open = true;
+            this.isOpen = true;
             this.$element.trigger('shown');
         },
 
@@ -126,7 +126,7 @@
             } else {
                 this.$widget.removeClass('open');
             }
-            this.open = false;
+            this.isOpen = false;
             this.$element.trigger('hidden');
         },
 
@@ -681,8 +681,8 @@
                 meridianTemplate,
                 templateContent;
 
-            if (this.options.templates[this.options.template]) {
-                return this.options.templates[this.options.template];
+            if (this.templates[this.template]) {
+                return this.templates[this.template];
             }
             if (this.showInputs) {
                 hourTemplate = '<input type="text" name="hour" class="bootstrap-timepicker-hour" maxlength="2"/>';
@@ -737,7 +737,7 @@
                                        '</tr>'+
                                    '</table>';
 
-            switch(this.options.template) {
+            switch(this.template) {
                 case 'modal':
                     template = '<div class="bootstrap-timepicker modal hide fade in" style="top: 30%; margin-top: 0; width: 200px; margin-left: -100px;" data-backdrop="'+ (this.modalBackdrop ? 'true' : 'false') +'">'+
                                    '<div class="modal-header">'+
@@ -768,16 +768,19 @@
 
     //TIMEPICKER PLUGIN DEFINITION
     $.fn.timepicker = function(option) {
+        var args = Array.apply(null, arguments);
+        args.shift();
         return this.each(function() {
             var $this = $(this),
                 data = $this.data('timepicker'),
                 options = typeof option === 'object' && option;
 
             if (!data) {
-                $this.data('timepicker', (data = new Timepicker(this, options)));
+                $this.data('timepicker', (data = new Timepicker(this, $.extend({}, $.fn.timepicker.defaults, options))));
             }
+
             if (typeof option === 'string') {
-                data[option]();
+                data[option].apply(data, args);
             }
         });
     };
@@ -792,6 +795,7 @@
         showMeridian: true,
         template: 'dropdown',
         modalBackdrop: false,
+        isOpen: false,
         templates: {} // set custom templates
     };
 

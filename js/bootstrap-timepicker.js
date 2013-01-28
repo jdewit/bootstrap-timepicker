@@ -158,12 +158,13 @@
 
         hideWidget: function(){
             this.$element.trigger('hide');
-console.log('hide');
+
             if (this.template === 'modal') {
                 this.$widget.modal('hide');
             } else {
                 this.$widget.removeClass('open');
             }
+
             this.isOpen = false;
             this.$element.trigger('hidden');
         },

@@ -28,7 +28,7 @@ $ bower install
 ``` bash 
 $ grunt jasmine // run the jasmine tests headless in the console
 $ grunt jasmine-server // run the tests and open in a browser
-$ grunt watch // run <a href="jshint.com">jsHint</a> and <a href="http://pivotal.github.com/jasmine">Jasmine</a> whenever the src file or spec file is changed
+$ grunt watch // run jsHint and Jasmine tests whenever the src file or spec file is changed
 $ grunt dump // minify the js and css files
 ```
 

@@ -30,7 +30,6 @@ describe('Timepicker feature', function() {
 
         $input3 = $('#timepicker3');
         $timepicker3 = $input3.timepicker({
-            defaultTime: '23:15:20',
             showMeridian: false,
             showSeconds: true
         });
@@ -77,12 +76,19 @@ describe('Timepicker feature', function() {
         expect($input1.val()).not.toBe('');
     });
 
-    it('should have no value if defaultTime is set to false', function() {
-        expect($input2.val()).toBe('');
+    it('should not override time with current time if value is already set', function() {
+        $('body').append('<div id="timepicker4"><input id="timepicker4Input" type="text" value="12:15 AM" /></div>');
+        var $input4 = $('#timepicker4Input').timepicker(),
+            tp4 = $input4.data('timepicker');
+
+        expect($input4.val()).toBe('12:15 AM');
+
+        tp4.remove();
+        $('#timepicker4').remove();
     });
 
-    it('should be able to set a specific time by default', function() {
-        expect($input3.val()).toBe('23:15:20');
+    it('should have no value if defaultTime is set to false', function() {
+        expect($input2.val()).toBe('');
     });
 
     it('should update the element and widget with the setValues method', function() {
@@ -103,11 +109,8 @@ describe('Timepicker feature', function() {
         expect(tp2.formatTime(3, 15, 45, 'PM')).toBe('03:15:45 PM');
     });
 
-    it('should be able get the pickers time', function() {
-        expect(tp3.getTime()).toBe('23:15:20');
-    });
-
-    it('should be able set the pickers time', function() {
+    it('should be able get & set the pickers time', function() {
+        tp3.setTime('23:15:20');
         expect(tp3.getTime()).toBe('23:15:20');
     });
 
@@ -128,19 +131,19 @@ describe('Timepicker feature', function() {
     });
 
     it('should update widget with updateWidget method', function() {
-        tp3.hour = 10;
-        tp3.minute = 30;
-        tp3.second = 15;
+        tp2.hour = 10;
+        tp2.minute = 30;
+        tp2.second = 15;
 
-        expect(tp3.$widget.find('.bootstrap-timepicker-hour').val()).not.toBe('10');
-        expect(tp3.$widget.find('.bootstrap-timepicker-minute').val()).not.toBe('30');
-        expect(tp3.$widget.find('.bootstrap-timepicker-second').val()).not.toBe('15');
+        expect(tp2.$widget.find('.bootstrap-timepicker-hour').val()).not.toBe('10');
+        expect(tp2.$widget.find('.bootstrap-timepicker-minute').val()).not.toBe('30');
+        expect(tp2.$widget.find('.bootstrap-timepicker-second').val()).not.toBe('15');
 
-        tp3.updateWidget();
+        tp2.updateWidget();
 
-        expect(tp3.$widget.find('.bootstrap-timepicker-hour').val()).toBe('10');
-        expect(tp3.$widget.find('.bootstrap-timepicker-minute').val()).toBe('30');
-        expect(tp3.$widget.find('.bootstrap-timepicker-second').val()).toBe('15');
+        expect(tp2.$widget.find('.bootstrap-timepicker-hour').val()).toBe('10');
+        expect(tp2.$widget.find('.bootstrap-timepicker-minute').val()).toBe('30');
+        expect(tp2.$widget.find('.bootstrap-timepicker-second').val()).toBe('15');
     });
 
     it('should update picker with updateFromElementVal method', function() {

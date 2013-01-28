@@ -6,7 +6,7 @@
       "type": "git",
       "url": "https://github.com/jdewit/bootstrap-timepicker"
     },
-    "devDependencies": {
+    "dependencies": {
         "bootstrap": "http://twitter.github.com/bootstrap/assets/bootstrap.zip",
         "jquery": "latest"
     }

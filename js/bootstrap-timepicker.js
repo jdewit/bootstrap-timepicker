@@ -499,7 +499,7 @@
         },
 
         setDefaultTime: function(defaultTime){
-            if (defaultTime) {
+            if (this.$element.val() == '') {
                 if (defaultTime === 'current') {
                     var dTime = new Date(),
                         hours = dTime.getHours(),
@@ -524,16 +524,11 @@
                     this.minute = minutes;
                     this.second = seconds;
                     this.meridian = meridian;
-                } else if (defaultTime === 'value') {
-                    this.setValues(this.$element.val());
-                } else {
-                    this.setValues(defaultTime);
+
+                    this.update();
                 }
-                this.update();
             } else {
-                this.hour = 0;
-                this.minute = 0;
-                this.second = 0;
+                this.updateFromElementVal();
             }
         },
 

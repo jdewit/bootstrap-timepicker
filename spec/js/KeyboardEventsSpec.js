@@ -11,23 +11,6 @@ describe('Keyboard events feature', function() {
         tp2,
         tp3;
 
-    function setSelectionRange(input, selectionStart, selectionEnd) {
-        if (input.setSelectionRange) {
-            input.focus();
-            input.setSelectionRange(selectionStart, selectionEnd);
-        } else if (input.createTextRange) {
-            var range = input.createTextRange();
-            range.collapse(true);
-            range.moveEnd('character', selectionEnd);
-            range.moveStart('character', selectionStart);
-            range.select();
-        }
-    }
-
-    function setCaretToPos (input, pos) {
-        setSelectionRange(input, pos, pos);
-    }
-
     beforeEach(function () {
         loadFixtures('timepicker.html');
 
@@ -56,6 +39,7 @@ describe('Keyboard events feature', function() {
     });
 
     afterEach(function () {
+        console.log(typeof $input1.data('timepicker'));
         $input1.data('timepicker') !== undefined ? $input1.data('timepicker').remove() : '';
         $input2.data('timepicker') !== undefined ? $input2.data('timepicker').remove() : '';
         $input3.data('timepicker') !== undefined ? $input3.data('timepicker').remove() : '';
@@ -71,80 +55,80 @@ describe('Keyboard events feature', function() {
         $input1.focus();
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 38, //up
+            'keyCode': 38 //up
         });
         expect(tp1.getTime()).toBe('12:30 PM');
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 40, //down
+            'keyCode': 40 //down
         });
         expect(tp1.getTime()).toBe('11:30 AM');
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 39, //right
+            'keyCode': 39 //right
         });
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 38, //up
+            'keyCode': 38 //up
         });
         expect(tp1.getTime()).toBe('11:45 AM');
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 40, //down
+            'keyCode': 40 //down
         });
         expect(tp1.getTime()).toBe('11:30 AM');
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 39, //right
+            'keyCode': 39 //right
         });
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 38, //up
+            'keyCode': 38 //up
         });
         expect(tp1.getTime()).toBe('11:30 PM');
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 40, //down
+            'keyCode': 40 //down
         });
         expect(tp1.getTime()).toBe('11:30 AM');
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 37, //left
+            'keyCode': 37 //left
         });
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 40, //down
+            'keyCode': 40 //down
         });
         expect(tp1.getTime()).toBe('11:15 AM');
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 37, //left
+            'keyCode': 37 //left
         });
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 40, //down
+            'keyCode': 40 //down
         });
         expect(tp1.getTime()).toBe('10:15 AM');
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 37, //left
+            'keyCode': 37 //left
         });
 
         $input1.trigger({
             'type': 'keypress',
-            'keyCode': 40, //down
+            'keyCode': 40 //down
         });
         expect(tp1.getTime()).toBe('10:15 PM');
     });

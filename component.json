@@ -1,5 +1,12 @@
 {
-    "dependencies": {
+    "name": "bootstrap-timepicker",
+    "version": "0.1.2",
+    "description": "A timepicker component for Twitter Bootstrap 2.x",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/jdewit/bootstrap-timepicker"
+    },
+    "devDependencies": {
         "bootstrap": "http://twitter.github.com/bootstrap/assets/bootstrap.zip",
         "jquery": "latest"
     }

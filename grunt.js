@@ -6,6 +6,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-jasmine-runner');
   grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-reload');
 
   grunt.initConfig({
     meta: {
@@ -18,9 +19,6 @@ module.exports = function(grunt) {
     },
     lint: {
       files: ['js/bootstrap-timepicker.js', 'grunt.js']
-    },
-    qunit: {
-      files: ['tests/**/*.html']
     },
     less: {
       development: {
@@ -71,25 +69,36 @@ module.exports = function(grunt) {
     },
     uglify: {},
     watch: {
-      scripts: {
+      master: {
         files: ['spec/js/*Spec.js', 'js/bootstrap-timepicker.js'],
-        tasks: 'jasmine',
+        tasks: ['jasmine', 'reload'],
+        options: {
+          interrupt: true
+        }
+      },
+      ghPages: {
+        files: ['index.html'],
+        tasks: ['reload'],
         options: {
           interrupt: true
         }
       }
+
     },
     jasmine: {
       src : ['spec/js/libs/*.js', 'js/bootstrap-timepicker.js'],
       specs : 'spec/js/*Spec.js',
       helpers : 'spec/js/helpers/*.js',
       timeout : 100,
-      junit : {
-        output : 'junit/'
-      },
       phantomjs : {
         'ignore-ssl-errors' : true
       }
+    },
+    reload: {
+        port: 3000,
+        proxy: {
+            host: 'localhost'
+        }
     },
     exec: {
       checkoutGhPages: {

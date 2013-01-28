@@ -381,23 +381,20 @@
                 }
             }
 
-            if ( this.$element.val() !== '' ) {
-                this.updateElement();
-            }
-            this.updateWidget();
+            this.update();
         },
 
-        setMeridian: function(meridian) {
-            if (meridian === 'a' || meridian === 'am' || meridian === 'AM' ) {
-                this.meridian = 'AM';
-            } else if (meridian === 'p' || meridian === 'pm' || meridian === 'PM' ) {
-                this.meridian = 'PM';
-            } else {
-                this.updateWidget();
-            }
+        //setMeridian: function(meridian) {
+            //if (meridian === 'a' || meridian === 'am' || meridian === 'AM' ) {
+                //this.meridian = 'AM';
+            //} else if (meridian === 'p' || meridian === 'pm' || meridian === 'PM' ) {
+                //this.meridian = 'PM';
+            //} else {
+                //this.updateWidget();
+            //}
 
-            this.updateElement();
-        },
+            //this.updateElement();
+        //},
 
         setDefaultTime: function(defaultTime){
             if (defaultTime) {
@@ -430,10 +427,7 @@
                 } else {
                     this.setValues(defaultTime);
                 }
-                if ( this.$element.val() !== '' ) {
-                    this.updateElement();
-                }
-                this.updateWidget();
+                this.update();
             } else {
                 this.hour = 0;
                 this.minute = 0;
@@ -535,14 +529,14 @@
         getCursorPosition: function() {
             var input = this.$element.get(0);
 
-            if ('selectionStart' in input) {
-                // Standard-compliant browsers
+            if ('selectionStart' in input) {// Standard-compliant browsers
+
                 return input.selectionStart;
-            } else if (document.selection) {
-                // IE fix
+            } else if (document.selection) {// IE fix
                 input.focus();
-                var sel = document.selection.createRange();
-                var selLen = document.selection.createRange().text.length;
+                var sel = document.selection.createRange(),
+                    selLen = document.selection.createRange().text.length;
+
                 sel.moveStart('character', - input.value.length);
 
                 return sel.text.length - selLen;

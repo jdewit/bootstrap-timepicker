@@ -23,6 +23,7 @@
     "grunt-contrib-less": "latest",
     "grunt-exec": "latest",
     "grunt-reload": "latest",
-    "grunt" : "~0.3.9"
+    "grunt" : "~0.3.9",
+    "bower" : "latest"
   }
 }

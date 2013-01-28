@@ -121,9 +121,9 @@ title: Timepicker for Twitter Bootstrap
 </pre>
    </div>
    <hr>
-   <p>Inside a modal with backdrop and inputs disabled.</p>
+   <p>Inside a modal with backdrop, inputs disabled and with a preset value.</p>
    <div>
-       <input id="timepicker4" class="input-small" type="text" />
+       <input id="timepicker4" class="input-small" value="10:35 AM" type="text" />
        <i class="icon-time" style="margin: -2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
        &nbsp;
        <a href="#timepicker4Source" data-toggle="collapse"> + View Source</a>
@@ -142,7 +142,7 @@ title: Timepicker for Twitter Bootstrap
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div&gt;
-            &lt;input id="timepicker4" type="text" class="input-small"&gt;
+            &lt;input id="timepicker4" type="text" value="10:35 AM" class="input-small"&gt;
             &lt;i class="icon-time"&gt;&lt;/i&gt;
         &lt;/div&gt;
 
@@ -248,12 +248,10 @@ title: Timepicker for Twitter Bootstrap
                 <td>string</td>
                 <td>
                     'current' (default) <hr />
-                    'value' <hr />
                     false
                 </td>
                 <td>
                     Set to the current time. <hr />
-                    Set to inputs current value <hr />
                     Do not set a default time
                 </td>
             </tr>

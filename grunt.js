@@ -108,17 +108,8 @@ module.exports = function(grunt) {
         }
     },
     exec: {
-      checkoutGhPages: {
-        command: 'git checkout gh-pages -q'
-      },
-      copyCss: {
-        command: 'git checkout master css/bootstrap-timepicker.min.css'
-      },
-      copyJs: {
-        command: 'git checkout master js/bootstrap-timepicker.min.js'
-      },
-      notify: {
-        command: 'echo "on branch gh-pages"'
+      push: {
+        command: 'grunt lint; grunt min; grunt less:production; git add .; git commit -m "update assets"; git push; git checkout gh-pages -q; git checkout master css/bootstrap-timepicker.min.css; git checkout master js/bootstrap-timepicker.min.js; git add .; git commit -m "update assets"; git push'
       },
       test: {
         command: 'bower install; grunt jasmine;'

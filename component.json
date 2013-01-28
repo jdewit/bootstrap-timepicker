@@ -1,7 +1,7 @@
 {
     "dependencies": {
-        "bootstrap": "latest",
-        "jquery": "latest",
+        "bootstrap": "http://twitter.github.com/bootstrap/assets/bootstrap.zip",
+        "jquery": "latest"
     }
 }
 

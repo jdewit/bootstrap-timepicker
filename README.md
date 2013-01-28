@@ -11,9 +11,13 @@ Read the <a href="http://jdewit.github.com/bootstrap-timepicker">documentation</
 Contributing
 ============
 
-This project uses the awesome <a href="www.gruntjs.com">Gruntjs</a>. 
+Use <a href="https://github.com/twitter/bower">Bower</a> to get the dev dependencies.
 
-The following commands are available.
+``` bash 
+$ bower install
+````
+
+Then use <a href="www.gruntjs.com">Grunt</a> to run tests, compress assets, etc. 
 
 ``` bash 
 $ grunt jasmine // run the jasmine tests headless in the console

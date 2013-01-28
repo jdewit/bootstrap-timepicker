@@ -9,14 +9,14 @@ title: Timepicker for Twitter Bootstrap
 <section id="timepicker">
     <div class="hero-unit">
         <h1>Bootstrap Timepicker</h1>
-        <p class="lead">A very cool widget to easily select a time for a text input using your mouse or keyboards arrow keys.</p>
+        <p class="lead">Easily select a time for a text input using your mouse or keyboards arrow keys.</p>
         <a href="https://github.com/jdewit/bootstrap-timepicker" target="_blank" class="btn btn-primary btn-large"><i class="icon-share-alt icon-white"></i> View Github Project</a>
     </div>
     <div class="page-header">
         <h1>Demos</h1>
     </div>
     <p>Default timepicker.</p> 
-    <div class="input-append bootstrap-timepicker-component">
+    <div class="input-append bootstrap-timepicker">
         <input id="timepicker1" class="input-small" type="text"/><span class="add-on"><i class="icon-time"></i></span>
         <a href="#timepicker1Source" data-toggle="collapse">+ View Source</a>
     </div>
@@ -33,7 +33,7 @@ title: Timepicker for Twitter Bootstrap
         &lt;script type="text/javascript" src="js/bootstrap-timepicker.min.js"&gt;&lt;/script&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div class="input-append bootstrap-timepicker-component"&gt;
+        &lt;div class="input-append bootstrap-timepicker"&gt;
             &lt;input id="timepicker1" type="text" class="input-small"&gt;
             &lt;span class="add-on"&gt;&lt;i class="icon-time"&gt;&lt;/i&gt;&lt/span&gt;
         &lt;/div&gt;
@@ -47,7 +47,7 @@ title: Timepicker for Twitter Bootstrap
     </div>
     <hr>
     <p>Inside a modal with 24hr mode and seconds enabled.</p>
-    <div class="input-append bootstrap-timepicker-component">
+    <div class="input-append bootstrap-timepicker">
         <input id="timepicker2" class="input-small" type="text"/><span class="add-on"><i class="icon-time"></i></span>
         <a href="#timepicker2Source" data-toggle="collapse">+ View Source</a>
     </div>
@@ -64,7 +64,7 @@ title: Timepicker for Twitter Bootstrap
         &lt;script type="text/javascript" src="js/bootstrap-timepicker.min.js"&gt;&lt;/script&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div class="input-append bootstrap-timepicker-component"&gt;
+        &lt;div class="input-append bootstrap-timepicker"&gt;
             &lt;input id="timepicker2" type="text" class="input-small"&gt;
             &lt;span class="add-on"&gt;
                 &lt;i class="icon-time"&gt;&lt;/i&gt;
@@ -84,13 +84,13 @@ title: Timepicker for Twitter Bootstrap
 </pre>
    </div>
    <hr>
-   <p>Without component markup and keyboard input disabled.</p>
-   <div>
+   <p>Without component markup, keyboard input disabled and floated right.</p>
+   <a href="#timepicker3Source" data-toggle="collapse"> + View Source</a>
+   <div class="bootstrap-timepicker pull-right" style="height: 2em;">
        <input id="timepicker3" class="input-small" type="text" />
-       <i class="icon-time" style="margin: -2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
-       &nbsp;
-       <a href="#timepicker3Source" data-toggle="collapse"> + View Source</a>
    </div>
+   <br>
+   <br>
    <div id="timepicker3Source" class="collapse">
 <pre class="prettyprint linenums">
 &lt;!DOCTYPE html&gt;
@@ -104,9 +104,8 @@ title: Timepicker for Twitter Bootstrap
         &lt;script type="text/javascript" src="js/bootstrap-timepicker.min.js"&gt;&lt;/script&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div&gt;
+        &lt;div class="bootstrap-timepicker pull-right"&gt;
             &lt;input id="timepicker3" type="text" class="input-small"&gt;
-            &lt;i class="icon-time"&gt;&lt;/i&gt;
         &lt;/div&gt;
 
         &lt;script type="text/javascript"&gt;
@@ -121,8 +120,8 @@ title: Timepicker for Twitter Bootstrap
 </pre>
    </div>
    <hr>
-   <p>Inside a modal with backdrop, inputs disabled and with a preset value.</p>
-   <div>
+   <p>Inside a modal with backdrop enabled, inputs disabled and with a preset value.</p>
+   <div class="bootstrap-timepicker">
        <input id="timepicker4" class="input-small" value="10:35 AM" type="text" />
        <i class="icon-time" style="margin: -2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
        &nbsp;
@@ -141,7 +140,7 @@ title: Timepicker for Twitter Bootstrap
         &lt;script type="text/javascript" src="js/bootstrap-timepicker.min.js"&gt;&lt;/script&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div&gt;
+        &lt;div class="bootstrap-timepicker"&gt;
             &lt;input id="timepicker4" type="text" value="10:35 AM" class="input-small"&gt;
             &lt;i class="icon-time"&gt;&lt;/i&gt;
         &lt;/div&gt;
@@ -163,7 +162,7 @@ title: Timepicker for Twitter Bootstrap
    </div>
    <hr>
    <p>Without a template.</p>
-   <div>
+   <div class="bootstrap-timepicker">
        <input id="timepicker5" class="input-small" type="text" />
        <i class="icon-time" style="margin: -2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
        &nbsp;
@@ -182,7 +181,7 @@ title: Timepicker for Twitter Bootstrap
         &lt;script type="text/javascript" src="js/bootstrap-timepicker.min.js"&gt;&lt;/script&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div&gt;
+        &lt;div class="bootstrap-timepicker"&gt;
             &lt;input id="timepicker5" type="text" class="input-small"&gt;
             &lt;i class="icon-time"&gt;&lt;/i&gt;
         &lt;/div&gt;

@@ -655,8 +655,15 @@
             this.hour = this.hour - 1;
         },
 
-        incrementMinute: function() {
-            var newVal = this.minute + this.minuteStep - (this.minute % this.minuteStep);
+        incrementMinute: function(step) {
+            var newVal;
+
+            if (step) {
+                newVal = this.minute + step;
+            } else {
+                newVal = this.minute + this.minuteStep - (this.minute % this.minuteStep);
+            }
+
             if (newVal > 59) {
                 this.incrementHour();
                 this.minute = newVal - 60;
@@ -665,8 +672,15 @@
             }
         },
 
-        decrementMinute: function() {
-            var newVal = this.minute - this.minuteStep;
+        decrementMinute: function(step) {
+            var newVal;
+
+            if (step) {
+                newVal = this.minute - step;
+            } else {
+                newVal = this.minute - this.minuteStep;
+            }
+
             if (newVal < 0) {
                 this.decrementHour();
                 this.minute = newVal + 60;
@@ -678,7 +692,7 @@
         incrementSecond: function() {
             var newVal = this.second + this.secondStep - (this.second % this.secondStep);
             if (newVal > 59) {
-                this.incrementMinute();
+                this.incrementMinute(true);
                 this.second = newVal - 60;
             } else {
                 this.second = newVal;

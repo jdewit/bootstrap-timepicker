@@ -197,16 +197,74 @@ describe('Timepicker feature', function() {
         expect(tp1.hour).toBe(10);
     });
 
+    it('should toggle meridian if hour goes past 12', function() {
+        $input1.val('11:00 AM');
+        tp1.updateFromElementVal();
+        tp1.incrementHour();
+
+        expect(tp1.hour).toBe(12);
+        expect(tp1.minute).toBe(0);
+        expect(tp1.meridian).toBe('PM');
+    });
+
+    it('should set hour to 0 if hour increments on 23', function() {
+        $input3.val('22:15:30');
+        tp3.updateFromElementVal();
+        tp3.incrementHour();
+        tp3.incrementHour();
+
+        expect(tp3.hour).toBe(0);
+        expect(tp3.minute).toBe(15);
+        expect(tp3.second).toBe(30);
+    });
+
     it('should increment minutes with incrementMinute method', function() {
         tp1.minute = 10;
         tp1.incrementMinute();
+
         expect(tp1.minute).toBe(15);
+
+        tp2.minute = 0;
+        tp2.incrementMinute();
+
+        expect(tp2.minute).toBe(30);
+    });
+
+    it('should increment hour if minutes increment past 59', function() {
+        $input1.val('11:55 AM');
+        tp1.updateFromElementVal();
+        tp1.incrementMinute();
+        tp1.update();
+
+        expect(tp1.getTime()).toBe('12:00 PM');
     });
 
     it('should toggle meridian with toggleMeridian method', function() {
         tp1.meridian = 'PM';
         tp1.toggleMeridian();
+
         expect(tp1.meridian).toBe('AM');
+    });
+
+    it('should increment seconds with incrementSecond method', function() {
+        tp1.second = 0;
+        tp1.incrementSecond();
+
+        expect(tp1.second).toBe(15);
+
+        tp2.second = 0;
+        tp2.incrementSecond();
+
+        expect(tp2.second).toBe(30);
+    });
+
+    it('should increment minute if seconds increment past 59', function() {
+        $input2.val('11:55:30 AM');
+        tp2.updateFromElementVal();
+        tp2.incrementSecond();
+        tp2.update();
+
+        expect(tp2.getTime()).toBe('11:56:00 AM');
     });
 
 });

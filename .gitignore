@@ -2,4 +2,4 @@
 _site
 node_modules
 _SpecRunner.html
-spec/js/libs/
+spec/js/libs

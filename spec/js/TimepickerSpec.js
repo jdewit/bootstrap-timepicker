@@ -38,11 +38,11 @@ describe('Timepicker feature', function() {
     });
 
     afterEach(function () {
-        $input1.data('timepicker').remove();
+        $input1.data('timepicker') !== undefined ? $input1.data('timepicker').remove() : '';
+        $input2.data('timepicker') !== undefined ? $input2.data('timepicker').remove() : '';
+        $input3.data('timepicker') !== undefined ? $input3.data('timepicker').remove() : '';
         $input1.remove();
-        $input2.data('timepicker').remove();
         $input2.remove();
-        $input3.data('timepicker').remove();
         $input3.remove();
     });
 
@@ -318,6 +318,28 @@ describe('Timepicker feature', function() {
         tp2.update();
 
         expect(tp2.getTime()).toBe('11:56:00 AM');
+    });
+
+    it('should not have any remaining events if detachEvents is called', function() {
+        var showEvent = false;
+
+        $input1.on('show', function() {
+            showEvent = true;
+        });
+
+        tp1.detachEvents();
+
+        $input1.trigger('click');
+
+        expect(showEvent).toBe(false);
+    });
+
+    it('should not have the widget in the DOM if remove method is called', function() {
+        expect($('body')).toContain('.bootstrap-timepicker');
+        tp1.remove();
+        tp2.remove();
+        tp3.remove();
+        expect($('body')).not.toContain('.bootstrap-timepicker');
     });
 
 });

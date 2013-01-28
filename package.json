@@ -1,0 +1,29 @@
+{
+  "name" : "bootstrap-timepicker",
+  "description" : "Timepicker widget for Twitter Bootstrap 2.*",
+  "version" : "0.1.1",
+  "homepage" : "http://jdewit.github.com/bootstrap-timepicker",
+  "author" : {
+    "name" : "Joris de Wit",
+    "email" : "joris.w.dewit@gmail.com",
+    "url" : "http://jorisdewit.ca"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "git://github.com/jdewit/bootstrap-timepicker",
+  },
+  "scripts" : {
+    "test" : "grunt jasmine"
+  },
+  "bugs" : {
+    "url" : "https://github.com/jdewit/bootstrap-timepicker/issues"
+  },
+  "devDependencies" : {
+    "grunt-jasmine-runner" : "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-jasmine-runner": "latest",
+    "grunt-exec": "latest",
+    "grunt-reload": "latest",
+    "grunt" : "~0.3.9"
+  }
+}

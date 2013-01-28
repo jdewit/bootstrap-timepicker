@@ -117,6 +117,6 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'min');
+  grunt.registerTask('default', 'lint jasmine');
 
 };

@@ -78,7 +78,7 @@ module.exports = function(grunt) {
     watch: {
       master: {
         files: ['spec/js/*Spec.js', 'js/bootstrap-timepicker.js'],
-        tasks: ['jasmine', 'reload'],
+        tasks: ['jasmine', 'lint'],
         options: {
           interrupt: true
         }
@@ -90,7 +90,6 @@ module.exports = function(grunt) {
           interrupt: true
         }
       }
-
     },
     jasmine: {
       src : ['spec/js/libs/jquery/jquery.min.js', 'spec/js/libs/bootstrap/js/bootstrap.min.js', 'js/bootstrap-timepicker.js'],
@@ -118,6 +117,6 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint jasmine');
+  grunt.registerTask('default', 'watch:master');
 
 };

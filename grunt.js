@@ -10,12 +10,13 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     meta: {
+      project: 'Bootstrap-Timepicker',
       version: '0.1.0',
-      banner: '/*! PROJECT_NAME - v<%= meta.version %> - ' +
+      banner: '/*! <%= meta.project - v<%= meta.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-        '* http://PROJECT_WEBSITE/\n' +
+        '* http://jdewit.github.com/bootstrap-timepicker/\n' +
         '* Copyright (c) <%= grunt.template.today("yyyy") %> ' +
-        'YOUR_NAME; Licensed MIT */'
+        'Joris de Wit <joris.w.dewit@gmail.com>; Licensed MIT */'
     },
     lint: {
       files: ['js/bootstrap-timepicker.js', 'grunt.js', 'package.json', 'spec/js/*Spec.js']
@@ -53,6 +54,7 @@ module.exports = function(grunt) {
         eqeqeq: true,
         eqnull: true,
         immed: true,
+        indent: 2,
         latedef: true,
         newcap: true,
         noarg: true,
@@ -61,7 +63,8 @@ module.exports = function(grunt) {
         strict: true,
         trailing: true,
         undef: true,
-        unused: true
+        unused: true,
+        white: false
       },
       globals: {
         jQuery: true,

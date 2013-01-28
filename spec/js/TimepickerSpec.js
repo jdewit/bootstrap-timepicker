@@ -197,6 +197,12 @@ describe('Timepicker feature', function() {
         expect(tp1.hour).toBe(10);
     });
 
+    it('should decrement hours with decrementHour method', function() {
+        tp1.hour = 9;
+        tp1.decrementHour();
+        expect(tp1.hour).toBe(8);
+    });
+
     it('should toggle meridian if hour goes past 12', function() {
         $input1.val('11:00 AM');
         tp1.updateFromElementVal();
@@ -207,7 +213,26 @@ describe('Timepicker feature', function() {
         expect(tp1.meridian).toBe('PM');
     });
 
-    it('should set hour to 0 if hour increments on 23', function() {
+    it('should toggle meridian if hour goes below 1', function() {
+        $input1.val('11:00 AM');
+        tp1.updateFromElementVal();
+        tp1.incrementHour();
+
+        expect(tp1.hour).toBe(12);
+        expect(tp1.minute).toBe(0);
+        expect(tp1.meridian).toBe('PM');
+    });
+
+    it('should set hour to 1 if hour increments on 12 for 12h clock', function() {
+        $input1.val('11:15 PM');
+        tp1.updateFromElementVal();
+        tp1.incrementHour();
+        tp1.incrementHour();
+
+        expect(tp1.getTime()).toBe('01:15 AM');
+    });
+
+    it('should set hour to 0 if hour increments on 23 for 24h clock', function() {
         $input3.val('22:15:30');
         tp3.updateFromElementVal();
         tp3.incrementHour();
@@ -229,6 +254,23 @@ describe('Timepicker feature', function() {
 
         expect(tp2.minute).toBe(30);
     });
+
+    it('should decrement minutes with decrementMinute method', function() {
+        tp1.hour = 11;
+        tp1.minute = 0;
+        tp1.decrementMinute();
+
+        expect(tp1.hour).toBe(10);
+        expect(tp1.minute).toBe(45);
+
+        tp2.hour = 11;
+        tp2.minute = 0;
+        tp2.decrementMinute();
+
+        expect(tp2.hour).toBe(10);
+        expect(tp2.minute).toBe(30);
+    });
+
 
     it('should increment hour if minutes increment past 59', function() {
         $input1.val('11:55 AM');
@@ -258,7 +300,18 @@ describe('Timepicker feature', function() {
         expect(tp2.second).toBe(30);
     });
 
-    it('should increment minute if seconds increment past 59', function() {
+    it('should decrement seconds with decrementSecond method', function() {
+        tp2.hour = 11;
+        tp2.minute = 0;
+        tp2.second = 0;
+        tp2.decrementSecond();
+
+        expect(tp2.minute).toBe(59);
+        expect(tp2.second).toBe(30);
+    });
+
+
+    it('should increment minute by 1 if seconds increment past 59', function() {
         $input2.val('11:55:30 AM');
         tp2.updateFromElementVal();
         tp2.incrementSecond();

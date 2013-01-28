@@ -26,7 +26,6 @@
         this.modalBackdrop = options.modalBackdrop;
         this.defaultTime = options.defaultTime;
         this.isOpen = options.isOpen;
-        this.templates = options.templates;
         this.init();
     };
 
@@ -702,7 +701,7 @@
         decrementSecond: function() {
             var newVal = this.second - this.secondStep;
             if (newVal < 0) {
-                this.decrementMinute();
+                this.decrementMinute(true);
                 this.second = newVal + 60;
             } else {
                 this.second = newVal;
@@ -723,9 +722,6 @@
                 meridianTemplate,
                 templateContent;
 
-            if (this.templates[this.template]) {
-                return this.templates[this.template];
-            }
             if (this.showInputs) {
                 hourTemplate = '<input type="text" name="hour" class="bootstrap-timepicker-hour" maxlength="2"/>';
                 minuteTemplate = '<input type="text" name="minute" class="bootstrap-timepicker-minute" maxlength="2"/>';
@@ -837,8 +833,7 @@
         showMeridian: true,
         template: 'dropdown',
         modalBackdrop: false,
-        isOpen: false,
-        templates: {} // set custom templates
+        isOpen: false
     };
 
     $.fn.timepicker.Constructor = Timepicker;

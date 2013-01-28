@@ -2,3 +2,6 @@
 _site/
 node_modules
 grunt.js
+_SpecRunner.html
+spec
+

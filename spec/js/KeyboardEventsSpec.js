@@ -131,4 +131,51 @@ describe('Keyboard events feature', function() {
     });
     expect(tp1.getTime()).toBe('10:15 PM');
   });
+
+  it('should allow time to be changed via widget inputs in a dropdown', function() {
+    tp1.setTime('9:30 AM');
+    tp1.update();
+    $input1.parents('div').find('.add-on').click();
+
+    var $hourInput = tp1.$widget.find('input.bootstrap-timepicker-hour'),
+        $minuteInput = tp1.$widget.find('input.bootstrap-timepicker-minute');
+
+    $hourInput.focus();
+    $hourInput.val(2);
+    $hourInput.trigger('change');
+    expect(tp1.getTime()).toBe('02:30 AM');
+
+    $minuteInput.focus();
+    $minuteInput.val(0);
+    $minuteInput.trigger('change');
+
+    expect(tp1.getTime()).toBe('02:00 AM');
+  });
+
+  it('should allow time to be changed via widget inputs in a modal', function() {
+    tp2.setTime('9:30 AM');
+    tp2.update();
+    $input2.parents('div').find('.add-on').click();
+
+    var $hourInput = tp2.$widget.find('input.bootstrap-timepicker-hour'),
+        $minuteInput = tp2.$widget.find('input.bootstrap-timepicker-minute'),
+        $secondInput = tp2.$widget.find('input.bootstrap-timepicker-second');
+
+    $hourInput.focus();
+    $hourInput.val(2);
+    $hourInput.trigger('change');
+    expect(tp2.getTime()).toBe('02:30:00 AM');
+
+    $minuteInput.focus();
+    $minuteInput.val(0);
+    $minuteInput.trigger('change');
+
+    expect(tp2.getTime()).toBe('02:00:00 AM');
+
+    $secondInput.focus();
+    $secondInput.val(30);
+    $secondInput.trigger('change');
+
+    expect(tp2.getTime()).toBe('02:00:30 AM');
+  });
 });

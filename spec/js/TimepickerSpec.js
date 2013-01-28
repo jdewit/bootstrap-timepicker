@@ -81,10 +81,10 @@ describe('Timepicker feature', function() {
   it('should have current time by default', function() {
     var dTime = new Date(),
       hour = dTime.getHours(),
-      minute = Math.floor(dTime.getMinutes() / 5) * 5;
+      minute = Math.floor(dTime.getMinutes() / 15) * 15;
 
-    expect(tp1.hour).toBe(hour);
-    expect(tp1.minute).toBe(minute);
+    expect(tp3.hour).toBe(hour);
+    expect(tp3.minute).toBe(minute);
   });
 
   it('should not override time with current time if value is already set', function() {

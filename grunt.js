@@ -121,5 +121,6 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', 'watch:master');
+  grunt.registerTask('dump', 'min less:production');
 
 };

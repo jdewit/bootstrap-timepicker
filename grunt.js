@@ -18,7 +18,7 @@ module.exports = function(grunt) {
         'YOUR_NAME; Licensed MIT */'
     },
     lint: {
-      files: ['js/bootstrap-timepicker.js', 'grunt.js']
+      files: ['js/bootstrap-timepicker.js', 'grunt.js', 'package.json']
     },
     less: {
       development: {
@@ -56,7 +56,7 @@ module.exports = function(grunt) {
         latedef: true,
         newcap: true,
         noarg: true,
-        quotmark: 'single',
+        quotmark: true,
         sub: true,
         strict: true,
         trailing: true,

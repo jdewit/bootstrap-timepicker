@@ -10,7 +10,7 @@
   },
   "repository" : {
     "type" : "git",
-    "url" : "git://github.com/jdewit/bootstrap-timepicker",
+    "url" : "git://github.com/jdewit/bootstrap-timepicker"
   },
   "scripts" : {
     "test" : "grunt exec:test"
@@ -21,7 +21,6 @@
   "devDependencies" : {
     "grunt-jasmine-runner" : "latest",
     "grunt-contrib-less": "latest",
-    "grunt-jasmine-runner": "latest",
     "grunt-exec": "latest",
     "grunt-reload": "latest",
     "grunt" : "~0.3.9"

@@ -34,9 +34,8 @@ $ grunt dump // minify the js and css files
 
 - Please make it easy on me by covering any new features or issues 
 with <a href="http://pivotal.github.com/jasmine">Jasmine</a> tests.
-- If your changes need documentation, please take the time to update the docs
-in the <b>gh-pages</b> branch.
-- Point any pull requests to the <b>develop</b> branch.
+- If your changes need documentation, please take the time to update the docs 
+and copy the minified assets (<b>grunt copy</b>) in the <b>gh-pages</b> branch.
 
 Acknowledgements
 ================

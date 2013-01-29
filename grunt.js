@@ -116,9 +116,6 @@ module.exports = function(grunt) {
       copyAssets: {
         command: 'git checkout gh-pages -q; git checkout develop css/bootstrap-timepicker.min.css; git checkout develop js/bootstrap-timepicker.min.js;'
       },
-      test: {
-        command: 'bower install; grunt jasmine;'
-      },
       deleteAssets: {
         command: 'rm -rf css/bootstrap-timepicker.css; rm -rf css/bootstrap-timepicker.min.css; rm -rf js/bootstrap-timepicker.min.js;'
       }
@@ -127,6 +124,7 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', 'watch:master');
+  grunt.registerTask('test', 'jasmine lint');
   grunt.registerTask('dump', 'min less:production');
   grunt.registerTask('copy', 'exec:copyAssets');
 

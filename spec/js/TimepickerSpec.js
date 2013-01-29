@@ -349,11 +349,11 @@ describe('Timepicker feature', function() {
   });
 
   it('should not have the widget in the DOM if remove method is called', function() {
-    expect($('body')).toContain('.bootstrap-timepicker');
+    expect($('body')).toContain('.bootstrap-timepicker-widget');
     tp1.remove();
     tp2.remove();
     tp3.remove();
-    expect($('body')).not.toContain('.bootstrap-timepicker');
+    expect($('body')).not.toContain('.bootstrap-timepicker-widget');
   });
 
 });

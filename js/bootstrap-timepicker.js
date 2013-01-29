@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 ;(function($, window, document, undefined) {
 
   'use strict'; // jshint ;_;
@@ -75,21 +74,19 @@
 
       $(document).on('mousedown.timepicker', function (e) {
         // Clicked outside the timepicker, hide it
-        if ($(e.target).closest('.bootstrap-timepicker').length === 0) {
+        if ($(e.target).closest('.bootstrap-timepicker-widget').length === 0) {
           self.hideWidget();
         }
       });
 
-      this.$widget = $(this.getTemplate()).appendTo('body');
-
-      this.$widget.on('click', $.proxy(this.widgetClick, this));
+      this.$widget = $(this.getTemplate()).appendTo(this.$element.parents('.bootstrap-timepicker')).on('click', $.proxy(this.widgetClick, this));
 
       if (this.showInputs) {
           this.$widget.find('input').each(function() {
             self._events.push(
               [$(this), {
-                click: function() { self.select(); },
-                //keypress: $.proxy(self.widgetKeypress, self),
+                click: function() { $(this).select(); },
+                keypress: $.proxy(self.widgetKeypress, self),
                 change: $.proxy(self.updateFromWidgetInputs, self)
               }]
             );
@@ -328,7 +325,7 @@
 
       switch(this.template) {
         case 'modal':
-          template = '<div class="bootstrap-timepicker modal hide fade in" data-backdrop="'+ (this.modalBackdrop ? 'true' : 'false') +'">'+
+          template = '<div class="bootstrap-timepicker-widget modal hide fade in" data-backdrop="'+ (this.modalBackdrop ? 'true' : 'false') +'">'+
             '<div class="modal-header">'+
               '<a href="#" class="close" data-dismiss="modal">×</a>'+
               '<h3>Pick a Time</h3>'+
@@ -342,7 +339,7 @@
           '</div>';
         break;
         case 'dropdown':
-          template = '<div class="bootstrap-timepicker dropdown-menu">'+ templateContent +'</div>';
+          template = '<div class="bootstrap-timepicker-widget dropdown-menu">'+ templateContent +'</div>';
         break;
       }
 
@@ -615,21 +612,12 @@
         this.$element.blur();
       }
 
-      var pos = $.extend({}, this.$element.offset(), {
-        height: this.$element[0].offsetHeight
-      });
-
       this.updateFromElementVal();
 
       if (this.template === 'modal') {
         this.$widget.modal('show').on('hidden', $.proxy(this.hideWidget, this));
       } else {
-        this.$widget.css({
-          top: pos.top + pos.height,
-          left: pos.left
-        });
-
-        if (!this.isOpen) {
+        if (this.isOpen === false) {
           this.$widget.addClass('open');
         }
       }

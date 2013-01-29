@@ -12,11 +12,11 @@ module.exports = function(grunt) {
     meta: {
       project: 'Bootstrap-Timepicker',
       version: '0.1.0',
-      banner: '/*! <%= meta.project - v<%= meta.version %> - ' +
-        '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-        '* http://jdewit.github.com/bootstrap-timepicker/\n' +
-        '* Copyright (c) <%= grunt.template.today("yyyy") %> ' +
-        'Joris de Wit <joris.w.dewit@gmail.com>; Licensed MIT */'
+      banner: '/*! <%= meta.project %> v<%= meta.version %> \n' +
+        '* http://jdewit.github.com/bootstrap-timepicker \n' +
+        '* Copyright (c) <%= grunt.template.today("yyyy") %> Joris de Wit \n' +
+        '* MIT License \n' +
+        '*/'
     },
     lint: {
       files: ['js/bootstrap-timepicker.js', 'grunt.js', 'package.json', 'spec/js/*Spec.js']
@@ -36,13 +36,13 @@ module.exports = function(grunt) {
           yuicompress: true
         },
         files: {
-          'css/bootstrap-timepicker.min.css': 'less/*.less'
+          'css/bootstrap-timepicker.min.css': ['less/*.less']
         }
       }
     },
     min: {
       dist: {
-        src: ['js/bootstrap-timepicker.js'],
+        src: ['<banner:meta.banner>','js/bootstrap-timepicker.js'],
         dest: 'js/bootstrap-timepicker.min.js'
       }
     },
@@ -110,11 +110,17 @@ module.exports = function(grunt) {
         }
     },
     exec: {
-      push: {
-        command: 'grunt lint; grunt min; grunt less:production; git add .; git commit -m "update assets"; git push; git checkout gh-pages -q; git checkout master css/bootstrap-timepicker.min.css; git checkout master js/bootstrap-timepicker.min.js; git add .; git commit -m "update assets"; git push'
+      dump: {
+        command: 'grunt lint; grunt min; grunt exec:deleteAssets; grunt less:production;'
+      },
+      copyAssets: {
+        command: 'git checkout gh-pages -q; git checkout develop css/bootstrap-timepicker.min.css; git checkout develop js/bootstrap-timepicker.min.js;'
       },
       test: {
         command: 'bower install; grunt jasmine;'
+      },
+      deleteAssets: {
+        command: 'rm -rf css/bootstrap-timepicker.css; rm -rf css/bootstrap-timepicker.min.css; rm -rf js/bootstrap-timepicker.min.js;'
       }
     }
   });
@@ -122,5 +128,6 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', 'watch:master');
   grunt.registerTask('dump', 'min less:production');
+  grunt.registerTask('copy', 'exec:copyAssets');
 
 };

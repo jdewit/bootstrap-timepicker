@@ -144,4 +144,20 @@ describe('Mouse events feature', function() {
     tp1.$widget.find('a[data-action="toggleMeridian"]').last().trigger('click');
     expect(tp1.getTime()).toBe('12:30 PM');
   });
+
+  it('should select all contents of widget input on click', function() {
+      tp1.setTime('11:55 AM');
+
+      tp1.$widget.find('.bootstrap-timepicker-hour').trigger('click');
+      var hour1 = window.getSelection().toString();
+      expect(hour1).toBe('11');
+
+      tp1.$widget.find('.bootstrap-timepicker-minute').trigger('click');
+      var minute1 = window.getSelection().toString();
+      expect(minute1).toBe('55');
+
+      tp1.$widget.find('.bootstrap-timepicker-meridian').trigger('click');
+      var meridian1 = window.getSelection().toString();
+      expect(meridian1).toBe('AM');
+  });
 });

@@ -559,7 +559,7 @@
         if (this.hour > 12) {
           this.hour = 12;
         } else if (this.hour < 1) {
-          this.hour = 1;
+          this.hour = 12;
         }
 
         if (this.meridian === 'am' || this.meridian === 'a') {

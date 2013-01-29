@@ -209,4 +209,14 @@ describe('Keyboard events feature', function() {
 
     expect(tp2.getTime()).toBe('02:00:30 PM');
   });
+
+  it('should be 12:00 AM if 00:00 AM is entered', function() {
+    $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}0:0 AM');
+    $input1.trigger({
+      'type': 'keypress',
+      'keyCode': 9 //tab
+    });
+
+    expect(tp1.getTime()).toBe('12:00 AM');
+  });
 });

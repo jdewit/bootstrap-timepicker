@@ -8,7 +8,8 @@
     },
     "dependencies": {
         "bootstrap": "http://twitter.github.com/bootstrap/assets/bootstrap.zip",
-        "jquery": "latest"
+        "jquery": "latest",
+        "autotype": "https://raw.github.com/mmonteleone/jquery.autotype/master/jquery.autotype.js"
     }
 }
 

@@ -645,8 +645,11 @@
 
     widgetKeypress: function(e) {
       var input = $(e.target).closest('input').attr('name');
+
       switch (e.keyCode) {
         case 9: //tab
+          this.updateFromWidgetInputs();
+
           if (this.showMeridian) {
             if (input === 'meridian') {
               this.hideWidget();

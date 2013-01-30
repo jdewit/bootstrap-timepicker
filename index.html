@@ -292,6 +292,32 @@ title: Timepicker for Twitter Bootstrap
             </tr>
         </tbody>
     </table>
+    <div class="page-header">
+        <h2>Events</h3>
+    </div>
+    <div>
+        <h4>Show</h4>
+        <p>Triggered when widget is shown</p>
+<pre class="prettyprint linenums">
+  $('#timepicker').timepicker().on('show.timepicker', function(e) {
+    console.log('The time is ' + e.time);
+  });
+</pre>
+        <h4>Hide</h4>
+        <p>Triggered when widget is hidden</p>
+<pre class="prettyprint linenums">
+  $('#timepicker').timepicker().on('hide.timepicker', function(e) {
+    console.log('The time is ' + e.time);
+  });
+</pre>
+        <h4>Hide</h4>
+        <p>Triggered when the date is updated</p>
+<pre class="prettyprint linenums">
+  $('#timepicker').timepicker().on('update.timepicker', function(e) {
+    console.log('The time is ' + e.time);
+  });
+</pre>
+    </div>
 </section>
 
 

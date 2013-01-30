@@ -8,8 +8,9 @@
     },
     "main": ["js/bootstrap-timepicker.min.js", "css/bootstrap-timepicker.min.css"],
     "dependencies": {
-        "bootstrap": "~2.2.2",
-        "jquery": "~1.7.2",
+        "bootstrap": "http://twitter.github.com/bootstrap/assets/bootstrap.zip",
+        "jquery": "latest",
         "autotype": "https://raw.github.com/mmonteleone/jquery.autotype/master/jquery.autotype.js"
     }
 }
+

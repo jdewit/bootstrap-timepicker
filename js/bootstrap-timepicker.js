@@ -85,30 +85,29 @@
     },
 
     decrementHour: function() {
-      if (!this.hour) {
-        this.hour = 0;
-      }
-
       if (this.showMeridian) {
         if (this.hour === 1) {
-          return this.hour = 12;
-        }
-        else if (this.hour === 12) {
+          this.hour = 12;
+        } else if (this.hour === 12) {
+          this.hour--;
           this.toggleMeridian();
+        } else if (this.hour === 0) {
+          this.hour = 11;
+          this.toggleMeridian();
+        } else {
+          this.hour--;
+        }
+      } else {
+        if (this.hour === 0) {
+          this.hour = 23;
+        } else {
+          this.hour--;
         }
       }
-      if (this.hour === 0) {
-        return this.hour = 23;
-      }
-      this.hour = this.hour - 1;
     },
 
     decrementMinute: function(step) {
       var newVal;
-
-      if (!this.minute) {
-        this.minute = 0;
-      }
 
       if (step) {
         newVal = this.minute - step;
@@ -125,11 +124,8 @@
     },
 
     decrementSecond: function() {
-      if (!this.second) {
-        this.second = 0;
-      }
-
       var newVal = this.second - this.secondStep;
+
       if (newVal < 0) {
         this.decrementMinute(true);
         this.second = newVal + 60;
@@ -434,9 +430,6 @@
     },
 
     incrementHour: function() {
-      if (!this.hour) {
-        this.hour = 0;
-      }
       if (this.showMeridian) {
         if (this.hour === 11) {
           this.toggleMeridian();
@@ -452,10 +445,6 @@
 
     incrementMinute: function(step) {
       var newVal;
-
-      if (!this.minute) {
-        this.minute = 0;
-      }
 
       if (step) {
         newVal = this.minute + step;
@@ -474,10 +463,6 @@
     incrementSecond: function() {
       var newVal = this.second + this.secondStep - (this.second % this.secondStep);
 
-      if (!this.second) {
-        this.second = 0;
-      }
-
       if (newVal > 59) {
         this.incrementMinute(true);
         this.second = newVal - 60;
@@ -493,7 +478,7 @@
     },
 
     setDefaultTime: function(defaultTime){
-      if (this.$element.val() === '') {
+      if (!this.$element.val()) {
         if (defaultTime === 'current') {
           var dTime = new Date(),
             hours = dTime.getHours(),
@@ -520,6 +505,12 @@
           this.meridian = meridian;
 
           this.update();
+
+        } else if (defaultTime === false) {
+          this.hour = 0;
+          this.minute = 0;
+          this.second = 0;
+          this.meridian = 'AM';
         }
       } else {
         this.updateFromElementVal();

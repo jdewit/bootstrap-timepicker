@@ -52,84 +52,91 @@ describe('Keyboard events feature', function() {
     tp1.update();
 
     $input1.focus();
+
+    // hours
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 38 //up
     });
-    expect(tp1.getTime()).toBe('12:30 PM');
+    expect(tp1.getTime()).toBe('12:30 PM', '1');
 
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 40 //down
     });
-    expect(tp1.getTime()).toBe('11:30 AM');
+    expect(tp1.getTime()).toBe('11:30 AM', '2');
 
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 39 //right
     });
 
+    //minutes
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 38 //up
     });
-    expect(tp1.getTime()).toBe('11:45 AM');
+    expect(tp1.getTime()).toBe('11:45 AM', '3');
 
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 40 //down
     });
-    expect(tp1.getTime()).toBe('11:30 AM');
+    expect(tp1.getTime()).toBe('11:30 AM', '4');
 
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 39 //right
     });
 
+    //meridian
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 38 //up
     });
-    expect(tp1.getTime()).toBe('11:30 PM');
+    expect(tp1.getTime()).toBe('11:30 PM', '5');
 
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 40 //down
     });
-    expect(tp1.getTime()).toBe('11:30 AM');
+    expect(tp1.getTime()).toBe('11:30 AM', '6');
 
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 37 //left
     });
 
+    // minutes
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 40 //down
     });
-    expect(tp1.getTime()).toBe('11:15 AM');
+    expect(tp1.getTime()).toBe('11:15 AM', '7');
 
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 37 //left
     });
 
+    // hours
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 40 //down
     });
-    expect(tp1.getTime()).toBe('10:15 AM');
+    expect(tp1.getTime()).toBe('10:15 AM', '8');
 
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 37 //left
     });
 
+    // meridian
     $input1.trigger({
       'type': 'keypress',
       'keyCode': 40 //down
     });
-    expect(tp1.getTime()).toBe('10:15 PM');
+    expect(tp1.getTime()).toBe('10:15 PM', '9');
   });
 
   it('should be able to change time via widget inputs in a dropdown', function() {

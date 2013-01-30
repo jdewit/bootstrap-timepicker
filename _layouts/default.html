@@ -13,9 +13,32 @@
             position: relative;
             padding-top: 50px;
             font-size: 16px;
+            background: url('assets/images/bg.png');
         } 
+        hr {
+            border-color: #ddd;
+        }
+        hr.soften {
+            background-image: -moz-linear-gradient(left center , transparent, rgba(0, 0, 0, 0.1), transparent);
+            border: 0 none;
+            height: 1px;
+            margin: 15px 0;
+        }
+        .center {
+            text-align: center;
+        }
     </style>
     <title>{{ page.title }}</title>
+<script type="text/javascript">
+/* <![CDATA[ */
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+/* ]]> */</script>
 </head>
 <body onload="prettyPrint()" data-target=".subnav" data-spy="scroll" data-twttr-rendered="true" >
     <div class="navbar navbar-fixed-top">
@@ -40,7 +63,7 @@
 
     <footer class="container">
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>Created by <a href="http://twitter.com/joris_dewit" target="_blank">Joris de Wit</a></p> 
+        <p>Created by <a href="http://twitter.com/joris_dewit" target="_blank">Joris de Wit</a> and many <a href="https://github.com/jdewit/bootstrap-timepicker/graphs/contributors">contributors</a></p> 
     </footer>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>

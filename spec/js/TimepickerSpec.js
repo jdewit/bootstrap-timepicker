@@ -361,4 +361,10 @@ describe('Timepicker feature', function() {
     tp3.remove();
     expect($('body')).not.toContain('.bootstrap-timepicker-widget');
   });
+
+  it('should be able to set time from a script', function() {
+    $input1.timepicker('setTime', '12:35 PM');
+    tp1.update();
+    expect(tp1.getTime()).toBe('12:35 PM');
+  });
 });

@@ -367,4 +367,10 @@ describe('Timepicker feature', function() {
     tp1.update();
     expect(tp1.getTime()).toBe('12:35 PM');
   });
+
+  it('should be able to opened from script', function() {
+    expect(tp1.isOpen).toBe(false);
+    $input1.timepicker('showWidget');
+    expect(tp1.isOpen).toBe(true);
+  });
 });

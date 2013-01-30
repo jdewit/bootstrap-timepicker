@@ -779,7 +779,7 @@
         options = typeof option === 'object' && option;
 
       if (!data) {
-        $this.data('timepicker', (data = new Timepicker(this, $.extend({}, $.fn.timepicker.defaults, options))));
+        $this.data('timepicker', (data = new Timepicker(this, $.extend({}, $.fn.timepicker.defaults, options, $(this).data()))));
       }
 
       if (typeof option === 'string') {

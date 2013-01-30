@@ -78,6 +78,21 @@ describe('Timepicker feature', function() {
     expect(tp2.minuteStep).toBe(30);
   });
 
+  it('should be configurable with data attributes', function() {
+    $('body').append('<div id="hi" class="bootstrap-timepicker"><input id="timepicker4" data-template="modal" data-minute-step="30" data-modal-backdrop="true" data-show-meridian="true" type="text"/></div');
+
+    var $input4 = $('body').find('#timepicker4'),
+        tp4 = $input4.timepicker().data('timepicker');
+
+    expect($('body').find('#timepicker4').length).toBe(1);
+    expect(tp4.template).toBe('modal');
+    expect(tp4.minuteStep).toBe(30, 'data-minute-step not working');
+    expect(tp4.modalBackdrop).toBe(true, 'data-modal-backdrop not working');
+    expect(tp4.showMeridian).toBe(true, 'data-show-meridian not working');
+
+    tp4.remove();
+  });
+
   it('should have current time by default', function() {
     var dTime = new Date(),
       hour = dTime.getHours(),
@@ -373,4 +388,5 @@ describe('Timepicker feature', function() {
     $input1.timepicker('showWidget');
     expect(tp1.isOpen).toBe(true);
   });
+
 });

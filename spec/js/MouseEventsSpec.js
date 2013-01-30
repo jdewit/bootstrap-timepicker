@@ -71,10 +71,13 @@ describe('Mouse events feature', function() {
     });
 
     $input1.parents('div').find('.add-on').trigger('click');
+    expect(tp1.isOpen).toBe(true);
+
+    tp1.$widget.find('.bootstrap-timepicker-hour').trigger('mousedown');
     $('body').trigger('mousedown');
 
-    expect(tp1.isOpen).toBe(false);
-    expect(hideEvents).toBe(1);
+    expect(tp1.isOpen).toBe(false, 'widget is still open');
+    expect(hideEvents).toBe(1, 'hide event was not thrown once');
     expect(time).toBe('11:30 AM');
 
   });

@@ -317,7 +317,11 @@
       return this.formatTime(this.hour, this.minute, this.second, this.meridian);
     },
 
-    hideWidget: function(){
+    hideWidget: function() {
+      if (this.isOpen === false) {
+        return;
+      }
+
       this.$element.trigger({
         'type': 'hide.timepicker',
         'time': this.getTime()
@@ -328,6 +332,8 @@
       } else {
         this.$widget.removeClass('open');
       }
+
+      $(document).off('mousedown.timepicker');
 
       this.isOpen = false;
     },
@@ -567,16 +573,13 @@
       this.update();
     },
 
-    showWidget: function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-
+    showWidget: function() {
       if (this.isOpen) {
         return;
       }
 
       var self = this;
-      $(document).one('mousedown.timepicker', function (e) {
+      $(document).on('mousedown.timepicker', function (e) {
         // Clicked outside the timepicker, hide it
         if ($(e.target).closest('.bootstrap-timepicker-widget').length === 0) {
           self.hideWidget();

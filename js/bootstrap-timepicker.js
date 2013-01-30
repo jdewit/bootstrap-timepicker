@@ -256,7 +256,7 @@
         meridianTemplate = '<span class="bootstrap-timepicker-meridian"></span>';
       }
 
-      templateContent = '<table class="'+ (this.showSeconds ? 'show-seconds' : '') +' '+ (this.showMeridian ? 'show-meridian' : '') +'">'+
+      templateContent = '<table>'+
          '<tr>'+
            '<td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>'+
            '<td class="separator">&nbsp;</td>'+
@@ -309,7 +309,7 @@
               templateContent +
             '</div>'+
             '<div class="modal-footer">'+
-              '<a href="#" class="btn btn-primary" data-dismiss="modal">Ok</a>'+
+              '<a href="#" class="btn btn-primary" data-dismiss="modal">OK</a>'+
             '</div>'+
           '</div>';
         break;

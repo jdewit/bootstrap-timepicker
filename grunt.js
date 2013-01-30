@@ -115,7 +115,7 @@ module.exports = function(grunt) {
         command: 'grunt lint; grunt min; grunt exec:deleteAssets; grunt less:production;'
       },
       copyAssets: {
-        command: 'git checkout gh-pages -q; git checkout develop css/bootstrap-timepicker.min.css; git checkout develop js/bootstrap-timepicker.min.js;'
+        command: 'git checkout gh-pages -q; git checkout master css/bootstrap-timepicker.min.css; git checkout master js/bootstrap-timepicker.min.js;'
       },
       deleteAssets: {
         command: 'rm -rf css/bootstrap-timepicker.css; rm -rf css/bootstrap-timepicker.min.css; rm -rf js/bootstrap-timepicker.min.js;'

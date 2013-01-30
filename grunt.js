@@ -74,7 +74,8 @@ module.exports = function(grunt) {
         beforeEach: true,
         afterEach: true,
         describe: true,
-        loadFixtures: true
+        loadFixtures: true,
+        console: true
       }
     },
     uglify: {},

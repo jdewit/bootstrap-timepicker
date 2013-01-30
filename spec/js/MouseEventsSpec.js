@@ -89,6 +89,9 @@ describe('Mouse events feature', function() {
     tp1.$widget.find('a[data-action="incrementHour"]').trigger('click');
 
     expect(tp1.getTime()).toBe('12:30 PM');
+
+    tp2.$widget.find('a[data-action="incrementHour"]').trigger('click');
+    expect(tp2.hour).toBe(1);
   });
 
   it('should decrement hour on button click', function() {
@@ -98,6 +101,9 @@ describe('Mouse events feature', function() {
     tp1.$widget.find('a[data-action="decrementHour"]').trigger('click');
 
     expect(tp1.getTime()).toBe('11:30 AM');
+
+    tp2.$widget.find('a[data-action="incrementHour"]').trigger('click');
+    expect(tp2.hour).toBe(1);
   });
 
   it('should increment minute on button click', function() {
@@ -107,6 +113,9 @@ describe('Mouse events feature', function() {
     tp1.$widget.find('a[data-action="incrementMinute"]').trigger('click');
 
     expect(tp1.getTime()).toBe('11:45 AM');
+
+    tp2.$widget.find('a[data-action="incrementMinute"]').trigger('click');
+    expect(tp2.minute).toBe(30);
   });
 
   it('should decrement minute on button click', function() {
@@ -116,6 +125,9 @@ describe('Mouse events feature', function() {
     tp1.$widget.find('a[data-action="decrementMinute"]').trigger('click');
 
     expect(tp1.getTime()).toBe('12:15 PM');
+
+    tp2.$widget.find('a[data-action="decrementMinute"]').trigger('click');
+    expect(tp2.minute).toBe(30);
   });
 
   it('should increment second on button click', function() {

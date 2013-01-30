@@ -226,4 +226,34 @@ describe('Keyboard events feature', function() {
 
     expect(tp1.getTime()).toBe('12:00 AM');
   });
+
+  it('should validate input', function() {
+    var $hourInput = tp1.$widget.find('input.bootstrap-timepicker-hour'),
+        $minuteInput = tp1.$widget.find('input.bootstrap-timepicker-minute'),
+        $meridianInput = tp1.$widget.find('input.bootstrap-timepicker-meridian'),
+        $input3 = tp3.$element;
+
+        tp1.setTime('11:30 AM');
+        tp1.update();
+
+        $hourInput.autotype('{{back}}{{back}}13');
+        tp1.updateFromWidgetInputs();
+        expect(tp1.getTime()).toBe('12:30 AM');
+
+        $minuteInput.autotype('{{back}}{{back}}60');
+        tp1.updateFromWidgetInputs();
+        expect(tp1.getTime()).toBe('12:59 AM');
+
+        $meridianInput.autotype('{{back}}{{back}}dk');
+        tp1.updateFromWidgetInputs();
+        expect(tp1.getTime()).toBe('12:59 AM');
+
+        $meridianInput.autotype('{{back}}{{back}}p');
+        tp1.updateFromWidgetInputs();
+        expect(tp1.getTime()).toBe('12:59 PM');
+
+        $input3.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}25:60:60');
+        tp3.updateFromElementVal();
+        expect(tp3.getTime()).toBe('23:59:59');
+  });
 });

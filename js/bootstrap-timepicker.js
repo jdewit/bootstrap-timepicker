@@ -14,6 +14,7 @@
 
   // TIMEPICKER PUBLIC CLASS DEFINITION
   var Timepicker = function(element, options) {
+    this.widget = '';
     this.$element = $(element);
     this.defaultTime = options.defaultTime;
     this.disableFocus = options.disableFocus;
@@ -33,71 +34,46 @@
 
     constructor: Timepicker,
 
-    _events: [],
-
     _init: function() {
       var self = this;
 
-      this.detachEvents();
       if (this.$element.parent().hasClass('input-append')) {
-        this._events = [
-          [this.$element.parent('.input-append').find('.add-on'), {
-            click: $.proxy(this.showWidget, this)
-          }],
-          [this.$element, {
-            focus: $.proxy(this.highlightUnit, this),
-            click: $.proxy(this.highlightUnit, this),
-            keypress: $.proxy(this.elementKeypress, this),
-            blur: $.proxy(this.blurElement, this)
-          }]
-        ];
+          this.$element.parent('.input-append').find('.add-on').on({
+            'click.timepicker': $.proxy(this.showWidget, this)
+          });
+          this.$element.on({
+            'focus.timepicker': $.proxy(this.highlightUnit, this),
+            'click.timepicker': $.proxy(this.highlightUnit, this),
+            'keypress.timepicker': $.proxy(this.elementKeypress, this),
+            'blur.timepicker': $.proxy(this.blurElement, this)
+          });
       } else {
         if (this.template) {
-          this._events = [
-            [this.$element, {
-              focus: $.proxy(this.showWidget, this),
-              click: $.proxy(this.showWidget, this),
-              blur: $.proxy(this.blurElement, this)
-            }]
-          ];
+          this.$element.on({
+            'focus.timepicker': $.proxy(this.showWidget, this),
+            'click.timepicker': $.proxy(this.showWidget, this),
+            'blur.timepicker': $.proxy(this.blurElement, this)
+          });
         } else {
-          this._events = [
-            [this.$element, {
-              focus: $.proxy(this.highlightUnit, this),
-              click: $.proxy(this.highlightUnit, this),
-              keypress: $.proxy(this.elementKeypress, this),
-              blur: $.proxy(this.blurElement, this)
-            }]
-          ];
+          this.$element.on({
+            'focus.timepicker': $.proxy(this.highlightUnit, this),
+            'click.timepicker': $.proxy(this.highlightUnit, this),
+            'keypress.timepicker': $.proxy(this.elementKeypress, this),
+            'blur.timepicker': $.proxy(this.blurElement, this)
+          });
         }
       }
-
-      $(document).on('mousedown.timepicker', function (e) {
-        // Clicked outside the timepicker, hide it
-        if ($(e.target).closest('.bootstrap-timepicker-widget').length === 0) {
-          self.hideWidget();
-        }
-      });
 
       this.$widget = $(this.getTemplate()).appendTo(this.$element.parents('.bootstrap-timepicker')).on('click', $.proxy(this.widgetClick, this));
 
       if (this.showInputs) {
           this.$widget.find('input').each(function() {
-            self._events.push(
-              [$(this), {
-                click: function() { $(this).select(); },
-                keypress: $.proxy(self.widgetKeypress, self),
-                change: $.proxy(self.updateFromWidgetInputs, self)
-              }]
-            );
+            $(this).on({
+              'click.timepicker': function() { $(this).select(); },
+              'keypress.timepicker': $.proxy(self.widgetKeypress, self),
+              'change.timepicker': $.proxy(self.updateFromWidgetInputs, self)
+            });
           });
-      }
-
-      // set events
-      for (var i = 0, elem, event; i < this._events.length; i++) {
-        elem = this._events[i][0];
-        event = this._events[i][1];
-        elem.on(event);
       }
 
       this.setDefaultTime(this.defaultTime);
@@ -148,15 +124,6 @@
       } else {
         this.second = newVal;
       }
-    },
-
-    detachEvents: function(){
-      for (var i = 0, elem, event; i < this._events.length; i++) {
-        elem = this._events[i][0];
-        event = this._events[i][1];
-        elem.off(event);
-      }
-      this._events = [];
     },
 
     elementKeypress: function(e) {
@@ -351,7 +318,10 @@
     },
 
     hideWidget: function(){
-      this.$element.trigger('hide');
+      this.$element.trigger({
+        'type': 'hide.timepicker',
+        'time': this.getTime()
+      });
 
       if (this.template === 'modal') {
         this.$widget.modal('hide');
@@ -360,7 +330,6 @@
       }
 
       this.isOpen = false;
-      this.$element.trigger('hidden');
     },
 
     highlightUnit: function() {
@@ -488,7 +457,7 @@
     },
 
     remove: function() {
-      this.detachEvents();
+      $('document').off('.timepicker');
       this.$widget.remove();
       delete this.$element.data().timepicker;
     },
@@ -606,7 +575,18 @@
         return;
       }
 
-      this.$element.trigger('show');
+      var self = this;
+      $(document).one('mousedown.timepicker', function (e) {
+        // Clicked outside the timepicker, hide it
+        if ($(e.target).closest('.bootstrap-timepicker-widget').length === 0) {
+          self.hideWidget();
+        }
+      });
+
+      this.$element.trigger({
+        'type': 'show.timepicker',
+        'time': this.getTime()
+      });
 
       if (this.disableFocus) {
         this.$element.blur();
@@ -623,7 +603,6 @@
       }
 
       this.isOpen = true;
-      this.$element.trigger('shown');
     },
 
     toggleMeridian: function() {

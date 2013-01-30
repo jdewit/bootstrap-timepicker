@@ -81,7 +81,7 @@ module.exports = function(grunt) {
     watch: {
       master: {
         files: ['spec/js/*Spec.js', 'js/bootstrap-timepicker.js'],
-        tasks: ['jasmine', 'lint'],
+        tasks: ['lint', 'jasmine'],
         options: {
           interrupt: true
         }

@@ -334,18 +334,24 @@ describe('Timepicker feature', function() {
     expect(tp2.getTime()).toBe('11:56:00 AM');
   });
 
-  it('should not have any remaining events if detachEvents is called', function() {
-    var showEvent = false;
+  it('should not have any remaining events if remove is called', function() {
+    var hideEvents = 0;
 
-    $input1.on('show', function() {
-      showEvent = true;
+    $input1.on('hide.timepicker', function() {
+      hideEvents++;
     });
 
-    tp1.detachEvents();
+    $input1.parents('div').find('.add-on').trigger('click');
+    $('body').trigger('mousedown');
 
-    $input1.trigger('click');
+    expect(hideEvents).toBe(1);
 
-    expect(showEvent).toBe(false);
+    tp1.remove();
+    tp2.remove();
+    tp3.remove();
+
+    $('body').trigger('click');
+    expect(hideEvents).toBe(1);
   });
 
   it('should not have the widget in the DOM if remove method is called', function() {
@@ -355,5 +361,4 @@ describe('Timepicker feature', function() {
     tp3.remove();
     expect($('body')).not.toContain('.bootstrap-timepicker-widget');
   });
-
 });

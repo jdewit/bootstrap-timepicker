@@ -47,38 +47,36 @@ describe('Mouse events feature', function() {
   });
 
   it('should be shown and trigger show events on input click', function() {
-    var showEvent = false,
-      shownEvent = false;
+    var showEvents = 0;
 
-    $input1.on('show', function() {
-      showEvent = true;
-    });
-    $input1.on('shown', function() {
-      shownEvent = true;
+    $input1.on('show.timepicker', function() {
+      showEvents++;
     });
 
     $input1.parents('div').find('.add-on').trigger('click');
 
     expect(tp1.isOpen).toBe(true);
-    expect(showEvent).toBe(true);
-    expect(shownEvent).toBe(true);
+    expect(showEvents).toBe(1);
   });
 
   it('should be hidden and trigger hide events on click outside of widget', function() {
-    var hideEvent = false,
-      hiddenEvent = false;
+    var hideEvents = 0,
+        time;
+    $input1.val('11:30 AM');
 
-    $input1.on('hide', function() {
-      hideEvent = true;
-    });
-    $input1.on('hidden', function() {
-      hiddenEvent = true;
+    $input1.on('hide.timepicker', function(e) {
+      hideEvents++;
+
+      time = e.time;
     });
 
+    $input1.parents('div').find('.add-on').trigger('click');
     $('body').trigger('mousedown');
+
     expect(tp1.isOpen).toBe(false);
-    expect(hideEvent).toBe(true);
-    expect(hiddenEvent).toBe(true);
+    expect(hideEvents).toBe(1);
+    expect(time).toBe('11:30 AM');
+
   });
 
   it('should increment hour on button click', function() {

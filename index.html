@@ -7,7 +7,7 @@ title: Timepicker for Twitter Bootstrap
 <!-- Timepicker 
 ================================================== -->
 <section id="timepicker">
-    <div class="center hero-unit btn-inverse" style="margin: 0; padding: 0;">
+    <div class="center hero-unit" style="margin: 0; padding: 0;">
         <br>
         <br>
         <br>
@@ -16,7 +16,6 @@ title: Timepicker for Twitter Bootstrap
         <p class="lead">Easily select a time for a text input using your mouse or keyboards arrow keys.</p>
         <p><a href="http://travis-ci.org/jdewit/bootstrap-timepicker"><img style="max-width:100%; height: 15px;" alt="Build Status" src="https://secure.travis-ci.org/jdewit/bootstrap-timepicker.png" target="_blank"></a></p>
         <hr>
-        <br>
         <div class="row">
             <div class="span4 center">
                 <a href="https://github.com/jdewit/bootstrap-timepicker" target="_blank" class="btn btn-large btn-primary"><i class="icon-share-alt icon-white"></i> View Github Project</a>
@@ -30,8 +29,6 @@ title: Timepicker for Twitter Bootstrap
 <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
             </div>
         </div>
-        <br>
-        <br>
     </div>
     <br>
     <br>
@@ -229,14 +226,15 @@ title: Timepicker for Twitter Bootstrap
 </pre>
     </div>
     <hr>
-    <h1>Options</h1>
+    <h1>Configuration</h1>
     <hr>
+    <h3>template <small>The picker widget template</small></h3>
     <div class="well">
         <table class="table table-bordered table-striped table-rounded">
             <thead>
                 <tr>
                     <th style="width: 25%;">Name</th>
-                    <th style="width: 25%;">Options</th>
+                    <th style="width: 25%;">Options / Defaults</th>
                     <th style="widget: 50%;">Description</th>
                 </tr>
             </thead>
@@ -319,19 +317,19 @@ title: Timepicker for Twitter Bootstrap
     <h1>Events</h1>
     <hr>
     <div>
-        <h3> Show - <small>Triggered when dropdown/modal widget is shown</small></h3>
+        <h3> Show <small>Triggered when dropdown/modal widget is shown</small></h3>
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('show.timepicker', function(e) {
     console.log('The time is ' + e.time);
   });
 </pre>
-        <h3>Hide - <small>Triggered when widget is hidden</small></h3>
+        <h3>Hide <small>Triggered when widget is hidden</small></h3>
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('hide.timepicker', function(e) {
     console.log('The time is ' + e.time);
   });
 </pre>
-        <h3>Update - <small>Triggered when the date is updated</small></h3>
+        <h3>Update <small>Triggered when the date is updated</small></h3>
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('update.timepicker', function(e) {
     console.log('The time is ' + e.time);

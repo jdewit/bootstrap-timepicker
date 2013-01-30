@@ -3,15 +3,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" type="text/css" media="screen" />
+
+    <meta content="A timepicker component for Twitter Bootstrap" name="description">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.min.css" type="text/css" media="screen" />
     <link href="assets/pygments.css" type="text/css" rel="stylesheet" />
     <link href="assets/prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <link href="assets/bootstrap/css/bootstrap-responsive.css" type="text/css" rel="stylesheet" />
     <link href="css/bootstrap-timepicker.min.css" type="text/css" rel="stylesheet" />
     <style type="text/css">
         body {
             padding-bottom: 40px;
-            position: relative;
-            padding-top: 50px;
             font-size: 16px;
             background: url('assets/images/bg.png');
         } 
@@ -24,9 +25,38 @@
             height: 1px;
             margin: 15px 0;
         }
+        .hero-unit {
+            color: #ffffff;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            background-color: #363636;
+            *background-color: #222222;
+            background-image: -moz-linear-gradient(top, #444444, #222222);
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#444444), to(#222222));
+            background-image: -webkit-linear-gradient(top, #444444, #222222);
+            background-image: -o-linear-gradient(top, #444444, #222222);
+            background-image: linear-gradient(to bottom, #444444, #222222);
+            background-repeat: repeat-x;
+            border-color: #222222 #222222 #000000;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff444444', endColorstr='#ff222222', GradientType=0);
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+        }
+
+        @media (max-width: 480px) {
+            .hero-unit h1 {
+                font-size: 50px;
+            }
+            table td:nth-child(3), table th:nth-child(3) {
+                display: none;
+            }
+        }
         .center {
             text-align: center;
         }
+        .span4.center {
+            padding-bottom: 20px;
+        }
+
     </style>
     <title>{{ page.title }}</title>
 <script type="text/javascript">
@@ -41,10 +71,12 @@
 /* ]]> */</script>
 </head>
 <body onload="prettyPrint()" data-target=".subnav" data-spy="scroll" data-twttr-rendered="true" >
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="http://jdewit.github.com/bootstrap-timepicker">Bootstrap-Timepicker</a>
@@ -67,7 +99,7 @@
     </footer>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/prettify/prettify.js"></script>
     <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
     <script type="text/javascript">

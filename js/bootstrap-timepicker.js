@@ -665,6 +665,11 @@
     },
 
     update: function() {
+      this.$element.trigger({
+        type: 'changeTime.timepicker',
+        time: this.getTime()
+      });
+
       this.updateElement();
       this.updateWidget();
     },

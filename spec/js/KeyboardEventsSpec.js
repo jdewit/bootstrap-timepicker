@@ -53,23 +53,25 @@ describe('Keyboard events feature', function() {
 
     $input1.focus();
 
+    expect(tp1.highlightedUnit).toBe('hour', 'hour should be highlighted by default');
     // hours
     $input1.trigger({
       'type': 'keydown',
       'keyCode': 38 //up
     });
     expect(tp1.getTime()).toBe('12:30 PM', '1');
-
     $input1.trigger({
       'type': 'keydown',
       'keyCode': 40 //down
     });
     expect(tp1.getTime()).toBe('11:30 AM', '2');
+    expect(tp1.highlightedUnit).toBe('hour', 'hour should be highlighted');
 
     $input1.trigger({
       'type': 'keydown',
       'keyCode': 39 //right
     });
+    expect(tp1.highlightedUnit).toBe('minute', 'minute should be highlighted');
 
     //minutes
     $input1.trigger({
@@ -77,17 +79,20 @@ describe('Keyboard events feature', function() {
       'keyCode': 38 //up
     });
     expect(tp1.getTime()).toBe('11:45 AM', '3');
+    expect(tp1.highlightedUnit).toBe('minute', 'minute should be highlighted 1');
 
     $input1.trigger({
       'type': 'keydown',
       'keyCode': 40 //down
     });
     expect(tp1.getTime()).toBe('11:30 AM', '4');
+    expect(tp1.highlightedUnit).toBe('minute', 'minute should be highlighted 2');
 
     $input1.trigger({
       'type': 'keydown',
       'keyCode': 39 //right
     });
+    expect(tp1.highlightedUnit).toBe('meridian', 'meridian should be highlighted');
 
     //meridian
     $input1.trigger({
@@ -95,17 +100,20 @@ describe('Keyboard events feature', function() {
       'keyCode': 38 //up
     });
     expect(tp1.getTime()).toBe('11:30 PM', '5');
+    expect(tp1.highlightedUnit).toBe('meridian', 'meridian should be highlighted');
 
     $input1.trigger({
       'type': 'keydown',
       'keyCode': 40 //down
     });
     expect(tp1.getTime()).toBe('11:30 AM', '6');
+    expect(tp1.highlightedUnit).toBe('meridian', 'meridian should be highlighted');
 
     $input1.trigger({
       'type': 'keydown',
       'keyCode': 37 //left
     });
+    expect(tp1.highlightedUnit).toBe('minute', 'minutes should be highlighted');
 
     // minutes
     $input1.trigger({
@@ -118,6 +126,7 @@ describe('Keyboard events feature', function() {
       'type': 'keydown',
       'keyCode': 37 //left
     });
+    expect(tp1.highlightedUnit).toBe('hour', 'hours should be highlighted');
 
     // hours
     $input1.trigger({
@@ -130,6 +139,7 @@ describe('Keyboard events feature', function() {
       'type': 'keydown',
       'keyCode': 37 //left
     });
+    expect(tp1.highlightedUnit).toBe('meridian', 'meridian should be highlighted');
 
     // meridian
     $input1.trigger({
@@ -146,7 +156,14 @@ describe('Keyboard events feature', function() {
 
     var $hourInput = tp1.$widget.find('input.bootstrap-timepicker-hour'),
         $minuteInput = tp1.$widget.find('input.bootstrap-timepicker-minute'),
-        $meridianInput = tp1.$widget.find('input.bootstrap-timepicker-meridian');
+        $meridianInput = tp1.$widget.find('input.bootstrap-timepicker-meridian'),
+        eventCount = 0,
+        time;
+
+    $input1.timepicker().on('changeTime.timepicker', function(e) {
+        eventCount++;
+        time = e.time;
+    });
 
     $hourInput.autotype('{{back}}{{back}}11'); // use autotype to simulate number input
     $hourInput.trigger({
@@ -155,6 +172,8 @@ describe('Keyboard events feature', function() {
     });
 
     expect(tp1.hour).toBe(11);
+    expect(eventCount).toBe(1);
+    expect(time).toBe('11:30 AM');
 
     $minuteInput.autotype('{{back}}{{back}}45');
     $minuteInput.trigger({
@@ -163,6 +182,8 @@ describe('Keyboard events feature', function() {
     });
 
     expect(tp1.minute).toBe(45);
+    expect(eventCount).toBe(2);
+    expect(time).toBe('11:45 AM');
 
     $meridianInput.autotype('{{back}}{{back}}pm');
     $meridianInput.trigger({
@@ -171,6 +192,8 @@ describe('Keyboard events feature', function() {
     });
 
     expect(tp1.meridian).toBe('PM');
+    expect(eventCount).toBe(3);
+    expect(time).toBe('11:45 PM');
   });
 
   it('should allow time to be changed via widget inputs in a modal', function() {

@@ -117,8 +117,8 @@ describe('Timepicker feature', function() {
     expect($input2.val()).toBe('');
   });
 
-  it('should update the element and widget with the setValues method', function() {
-    tp2.setValues('09:15:20 AM');
+  it('should update the element and widget with the setTime method', function() {
+    tp2.setTime('09:15:20 AM');
 
     expect(tp2.hour).toBe(9);
     expect(tp2.minute).toBe(15);

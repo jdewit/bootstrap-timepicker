@@ -162,6 +162,32 @@ describe('Mouse events feature', function() {
     expect(tp1.getTime()).toBe('12:30 PM');
   });
 
+
+  it('should trigger changeTime event if time is changed', function() {
+    var eventCount = 0,
+        time;
+
+    $input1.timepicker().on('changeTime.timepicker', function(e) {
+        eventCount++;
+        time = e.time;
+    });
+
+    tp1.setTime('11:30 AM');
+
+    expect(eventCount).toBe(1);
+    expect(time).toBe('11:30 AM');
+
+    tp1.$widget.find('a[data-action="incrementHour"]').trigger('click');
+
+    expect(eventCount).toBe(2);
+    expect(tp1.getTime()).toBe('12:30 PM');
+
+    tp1.$widget.find('a[data-action="incrementMinute"]').trigger('click');
+
+    expect(eventCount).toBe(3);
+    expect(tp1.getTime()).toBe('12:45 PM');
+  });
+
   it('should highlight widget inputs on click', function() {
       //TODO;
       //tp1.setTime('11:55 AM');

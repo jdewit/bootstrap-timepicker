@@ -329,7 +329,13 @@
 
       this.$element.trigger({
         'type': 'hide.timepicker',
-        'time': this.getTime()
+        'time': {
+            'value': this.getTime(),
+            'hours': this.hour,
+            'minutes': this.minute,
+            'seconds': this.second,
+            'meridian': this.meridian
+         }
       });
 
       if (this.template === 'modal') {
@@ -600,7 +606,13 @@
 
       this.$element.trigger({
         'type': 'show.timepicker',
-        'time': this.getTime()
+        'time': {
+            'value': this.getTime(),
+            'hours': this.hour,
+            'minutes': this.minute,
+            'seconds': this.second,
+            'meridian': this.meridian
+         }
       });
 
       if (this.disableFocus) {

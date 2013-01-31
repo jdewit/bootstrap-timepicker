@@ -55,85 +55,85 @@ describe('Keyboard events feature', function() {
 
     // hours
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 38 //up
     });
     expect(tp1.getTime()).toBe('12:30 PM', '1');
 
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 40 //down
     });
     expect(tp1.getTime()).toBe('11:30 AM', '2');
 
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 39 //right
     });
 
     //minutes
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 38 //up
     });
     expect(tp1.getTime()).toBe('11:45 AM', '3');
 
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 40 //down
     });
     expect(tp1.getTime()).toBe('11:30 AM', '4');
 
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 39 //right
     });
 
     //meridian
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 38 //up
     });
     expect(tp1.getTime()).toBe('11:30 PM', '5');
 
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 40 //down
     });
     expect(tp1.getTime()).toBe('11:30 AM', '6');
 
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 37 //left
     });
 
     // minutes
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 40 //down
     });
     expect(tp1.getTime()).toBe('11:15 AM', '7');
 
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 37 //left
     });
 
     // hours
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 40 //down
     });
     expect(tp1.getTime()).toBe('10:15 AM', '8');
 
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 37 //left
     });
 
     // meridian
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 40 //down
     });
     expect(tp1.getTime()).toBe('10:15 PM', '9');
@@ -150,7 +150,7 @@ describe('Keyboard events feature', function() {
 
     $hourInput.autotype('{{back}}{{back}}11'); // use autotype to simulate number input
     $hourInput.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 9 //tab
     });
 
@@ -158,7 +158,7 @@ describe('Keyboard events feature', function() {
 
     $minuteInput.autotype('{{back}}{{back}}45');
     $minuteInput.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 9 //tab
     });
 
@@ -166,7 +166,7 @@ describe('Keyboard events feature', function() {
 
     $meridianInput.autotype('{{back}}{{back}}pm');
     $meridianInput.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 9 //tab
     });
 
@@ -185,7 +185,7 @@ describe('Keyboard events feature', function() {
 
     $hourInput.autotype('{{back}}{{back}}2');
     $hourInput.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 9 //tab
     });
 
@@ -194,7 +194,7 @@ describe('Keyboard events feature', function() {
 
     $minuteInput.autotype('{{back}}{{back}}0');
     $minuteInput.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 9 //tab
     });
 
@@ -202,7 +202,7 @@ describe('Keyboard events feature', function() {
 
     $secondInput.autotype('{{back}}{{back}}30');
     $secondInput.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 9 //tab
     });
 
@@ -210,7 +210,7 @@ describe('Keyboard events feature', function() {
 
     $meridianInput.autotype('{{back}}{{back}}p');
     $meridianInput.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 9 //tab
     });
 
@@ -220,7 +220,7 @@ describe('Keyboard events feature', function() {
   it('should be 12:00 AM if 00:00 AM is entered', function() {
     $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}0:0 AM');
     $input1.trigger({
-      'type': 'keypress',
+      'type': 'keydown',
       'keyCode': 9 //tab
     });
 

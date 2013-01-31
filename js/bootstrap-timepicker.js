@@ -44,7 +44,7 @@
           this.$element.on({
             'focus.timepicker': $.proxy(this.highlightUnit, this),
             'click.timepicker': $.proxy(this.highlightUnit, this),
-            'keypress.timepicker': $.proxy(this.elementKeypress, this),
+            'keydown.timepicker': $.proxy(this.elementKeydown, this),
             'blur.timepicker': $.proxy(this.blurElement, this)
           });
       } else {
@@ -58,7 +58,7 @@
           this.$element.on({
             'focus.timepicker': $.proxy(this.highlightUnit, this),
             'click.timepicker': $.proxy(this.highlightUnit, this),
-            'keypress.timepicker': $.proxy(this.elementKeypress, this),
+            'keydown.timepicker': $.proxy(this.elementKeydown, this),
             'blur.timepicker': $.proxy(this.blurElement, this)
           });
         }
@@ -70,7 +70,7 @@
           this.$widget.find('input').each(function() {
             $(this).on({
               'click.timepicker': function() { $(this).select(); },
-              'keypress.timepicker': $.proxy(self.widgetKeypress, self),
+              'keydown.timepicker': $.proxy(self.widgetKeydown, self),
               'change.timepicker': $.proxy(self.updateFromWidgetInputs, self)
             });
           });
@@ -134,35 +134,35 @@
       }
     },
 
-    elementKeypress: function(e) {
+    elementKeydown: function(e) {
       switch (e.keyCode) {
-        case 0: //input
-        break;
         case 9: //tab
           this.updateFromElementVal();
-          if (this.showMeridian) {
-            if (this.highlightedUnit !== 'meridian') {
+
+          switch (this.highlightedUnit) {
+            case 'hour':
               e.preventDefault();
               this.highlightNextUnit();
-            }
-          } else {
-            if (this.showSeconds) {
-              if (this.highlightedUnit !== 'second') {
+            break;
+            case 'minute':
+              if (this.showMeridian || this.showSeconds) {
                 e.preventDefault();
                 this.highlightNextUnit();
               }
-            } else {
-              if (this.highlightedUnit !== 'minute') {
+            break;
+            case 'second':
+              if (this.showMeridian) {
                 e.preventDefault();
                 this.highlightNextUnit();
               }
-            }
+            break;
           }
         break;
         case 27: // escape
           this.updateFromElementVal();
         break;
         case 37: // left arrow
+          e.preventDefault();
           this.updateFromElementVal();
           this.highlightPrevUnit();
         break;
@@ -184,6 +184,7 @@
           this.updateElement();
         break;
         case 39: // right arrow
+          e.preventDefault();
           this.updateFromElementVal();
           this.highlightNextUnit();
         break;
@@ -204,10 +205,6 @@
           }
           this.updateElement();
         break;
-      }
-
-      if (e.keyCode !== 0 && e.keyCode !== 8 && e.keyCode !== 9 && e.keyCode !== 46) {
-        e.preventDefault();
       }
     },
 
@@ -640,7 +637,7 @@
       }
     },
 
-    widgetKeypress: function(e) {
+    widgetKeydown: function(e) {
       var input = $(e.target).closest('input').attr('name');
 
       switch (e.keyCode) {

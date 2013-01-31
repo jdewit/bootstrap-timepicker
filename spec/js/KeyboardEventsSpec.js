@@ -162,7 +162,7 @@ describe('Keyboard events feature', function() {
 
     $input1.timepicker().on('changeTime.timepicker', function(e) {
         eventCount++;
-        time = e.time;
+        time = e.time.value;
     });
 
     $hourInput.autotype('{{back}}{{back}}11'); // use autotype to simulate number input

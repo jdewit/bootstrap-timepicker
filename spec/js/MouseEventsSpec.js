@@ -67,7 +67,7 @@ describe('Mouse events feature', function() {
     $input1.on('hide.timepicker', function(e) {
       hideEvents++;
 
-      time = e.time;
+      time = e.time.value;
     });
 
     $input1.parents('div').find('.add-on').trigger('click');
@@ -169,7 +169,7 @@ describe('Mouse events feature', function() {
 
     $input1.timepicker().on('changeTime.timepicker', function(e) {
         eventCount++;
-        time = e.time;
+        time = e.time.value;
     });
 
     tp1.setTime('11:30 AM');
@@ -181,6 +181,7 @@ describe('Mouse events feature', function() {
 
     expect(eventCount).toBe(2);
     expect(tp1.getTime()).toBe('12:30 PM');
+    expect(time).toBe('12:30 PM');
 
     tp1.$widget.find('a[data-action="incrementMinute"]').trigger('click');
 

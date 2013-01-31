@@ -678,8 +678,14 @@
 
     update: function() {
       this.$element.trigger({
-        type: 'changeTime.timepicker',
-        time: this.getTime()
+        'type': 'changeTime.timepicker',
+        'time': {
+            'value': this.getTime(),
+            'hours': this.hour,
+            'minutes': this.minute,
+            'seconds': this.second,
+            'meridian': this.meridian
+         }
       });
 
       this.updateElement();

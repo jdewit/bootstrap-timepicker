@@ -343,19 +343,28 @@ title: Timepicker for Twitter Bootstrap
         <h3> Show <small>Triggered when dropdown/modal widget is shown</small></h3>
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('show.timepicker', function(e) {
-    console.log('The time is ' + e.time);
+    console.log('The time is ' + e.time.value);
+    console.log('The hour is ' + e.time.hour);
+    console.log('The minute is ' + e.time.minute);
+    console.log('The meridian is ' + e.time.meridian);
   });
 </pre>
         <h3>Hide <small>Triggered when widget is hidden</small></h3>
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('hide.timepicker', function(e) {
-    console.log('The time is ' + e.time);
+    console.log('The time is ' + e.time.value);
+    console.log('The hour is ' + e.time.hour);
+    console.log('The minute is ' + e.time.minute);
+    console.log('The meridian is ' + e.time.meridian);
   });
 </pre>
         <h3>Update <small>Triggered when the date is updated</small></h3>
 <pre class="prettyprint linenums">
-  $('#timepicker').timepicker().on('update.timepicker', function(e) {
-    console.log('The time is ' + e.time);
+  $('#timepicker').timepicker().on('changeTime.timepicker', function(e) {
+    console.log('The time is ' + e.time.value);
+    console.log('The hour is ' + e.time.hour);
+    console.log('The minute is ' + e.time.minute);
+    console.log('The meridian is ' + e.time.meridian);
   });
 </pre>
 <hr>

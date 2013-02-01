@@ -51,7 +51,11 @@ describe('Keyboard events feature', function() {
     tp1.setTime('11:30 AM');
     tp1.update();
 
-    $input1.focus();
+    $input1.trigger('focus');
+
+    if (tp1.highlightedUnit !== 'hour') {
+        tp1.highlightHour();
+    }
 
     expect(tp1.highlightedUnit).toBe('hour', 'hour should be highlighted by default');
     // hours

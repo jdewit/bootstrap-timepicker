@@ -201,10 +201,10 @@ describe('Keyboard events feature', function() {
     tp2.update();
     $input2.parents('div').find('.add-on').click();
 
-    var $hourInput = tp2.$widget.find('input.bootstrap-timepicker-hour'),
-        $minuteInput = tp2.$widget.find('input.bootstrap-timepicker-minute'),
-        $secondInput = tp2.$widget.find('input.bootstrap-timepicker-second'),
-        $meridianInput = tp2.$widget.find('input.bootstrap-timepicker-meridian');
+    var $hourInput = $('body').find('input.bootstrap-timepicker-hour'),
+        $minuteInput = $('body').find('input.bootstrap-timepicker-minute'),
+        $secondInput = $('body').find('input.bootstrap-timepicker-second'),
+        $meridianInput = $('body').find('input.bootstrap-timepicker-meridian');
 
     $hourInput.autotype('{{back}}{{back}}2');
     $hourInput.trigger({

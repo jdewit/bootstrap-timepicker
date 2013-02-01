@@ -64,9 +64,13 @@
         }
       }
 
-      this.$widget = $(this.getTemplate()).appendTo(this.$element.parents('.bootstrap-timepicker')).on('click', $.proxy(this.widgetClick, this));
+      if (this.template !== false) {
+        this.$widget = $(this.getTemplate()).appendTo(this.$element.parents('.bootstrap-timepicker')).on('click', $.proxy(this.widgetClick, this));
+      } else {
+        this.$widget = false;
+      }
 
-      if (this.showInputs) {
+      if (this.showInputs && this.$widget !== false) {
           this.$widget.find('input').each(function() {
             $(this).on({
               'click.timepicker': function() { $(this).select(); },
@@ -520,7 +524,9 @@
 
     remove: function() {
       $('document').off('.timepicker');
-      this.$widget.remove();
+      if (this.$widget) {
+        this.$widget.remove();
+      }
       delete this.$element.data().timepicker;
     },
 
@@ -703,6 +709,10 @@
     },
 
     updateWidget: function() {
+      if (this.$widget === false) {
+        return;
+      }
+
       var hour = this.hour < 10 ? '0' + this.hour : this.hour,
           minute = this.minute < 10 ? '0' + this.minute : this.minute,
           second = this.second < 10 ? '0' + this.second : this.second;
@@ -731,6 +741,10 @@
     },
 
     updateFromWidgetInputs: function() {
+      if (this.$widget === false) {
+        return;
+      }
+
       var time = $('input.bootstrap-timepicker-hour', this.$widget).val() + ':' +
         $('input.bootstrap-timepicker-minute', this.$widget).val() +
         (this.showSeconds ? ':' + $('input.bootstrap-timepicker-second', this.$widget).val() : '') +

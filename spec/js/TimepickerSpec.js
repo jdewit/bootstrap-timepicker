@@ -31,7 +31,8 @@ describe('Timepicker feature', function() {
     $input3 = $('#timepicker3');
     $timepicker3 = $input3.timepicker({
       showMeridian: false,
-      showSeconds: true
+      showSeconds: true,
+      defaultTime: '13:25:15'
     });
     tp3 = $timepicker3.data('timepicker');
   });
@@ -96,10 +97,14 @@ describe('Timepicker feature', function() {
   it('should have current time by default', function() {
     var dTime = new Date(),
       hour = dTime.getHours(),
-      minute = Math.floor(dTime.getMinutes() / 15) * 15;
+      minute = Math.floor(dTime.getMinutes() / tp1.minuteStep) * tp1.minuteStep;
 
-    expect(tp3.hour).toBe(hour);
-    expect(tp3.minute).toBe(minute);
+    if (hour > 12) {
+      hour = hour - 12;
+    }
+
+    expect(tp1.hour).toBe(hour);
+    expect(tp1.minute).toBe(minute);
   });
 
   it('should not override time with current time if value is already set', function() {
@@ -115,6 +120,10 @@ describe('Timepicker feature', function() {
 
   it('should have no value if defaultTime is set to false', function() {
     expect($input2.val()).toBe('');
+  });
+
+  it('should be able to set default time with config option', function() {
+    expect(tp3.getTime()).toBe('13:25:15');
   });
 
   it('should update the element and widget with the setTime method', function() {

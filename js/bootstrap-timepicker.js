@@ -542,7 +542,7 @@
               }
               meridian = 'PM';
             } else {
-               meridian = 'AM';
+              meridian = 'AM';
             }
           }
 
@@ -558,6 +558,8 @@
           this.minute = 0;
           this.second = 0;
           this.meridian = 'AM';
+        } else {
+          this.setTime(defaultTime);
         }
       } else {
         this.updateFromElementVal();

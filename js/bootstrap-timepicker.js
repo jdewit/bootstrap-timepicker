@@ -343,6 +343,8 @@
         return;
       }
 
+      this.updateFromWidgetInputs();
+
       this.$element.trigger({
         'type': 'hide.timepicker',
         'time': {
@@ -744,7 +746,6 @@
       if (this.$widget === false) {
         return;
       }
-
       var time = $('input.bootstrap-timepicker-hour', this.$widget).val() + ':' +
         $('input.bootstrap-timepicker-minute', this.$widget).val() +
         (this.showSeconds ? ':' + $('input.bootstrap-timepicker-second', this.$widget).val() : '') +
@@ -769,23 +770,23 @@
 
       switch (e.keyCode) {
         case 9: //tab
-          this.updateFromWidgetInputs();
-
           if (this.showMeridian) {
             if (name === 'meridian') {
-              this.hideWidget();
+              return this.hideWidget();
             }
           } else {
             if (this.showSeconds) {
               if (name === 'second') {
-                this.hideWidget();
+                return this.hideWidget();
               }
             } else {
               if (name === 'minute') {
-                this.hideWidget();
+                return this.hideWidget();
               }
             }
           }
+
+          this.updateFromWidgetInputs();
         break;
         case 27: // escape
           this.hideWidget();
@@ -825,7 +826,6 @@
           }
         break;
       }
-      $input.select();
     }
   };
 

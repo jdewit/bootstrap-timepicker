@@ -1,14 +1,13 @@
 {
-	"name"        : "eternicode/bootstrap-datepicker",
-	"description" : "A datepicker for @twitter bootstrap forked from Stefan Petre's (of eyecon.ro), improvements by @eternicode",
-	"version"     : "1.0.0",
-	"time"        : "2013-02-11",
+	"name"        : "eternicode/bootstrap-timepicker",
+	"description" : "A simple timepicker component for Twitter Bootstrap.",
+	"version"     : "0.1.2",
 	"license"     : "MIT",
 
 	"authors": [
 		{
-			"name"  : "Andrew Rowls",
-			"email" : "eternicode@gmail.com"
+	    "name" : "Joris de Wit",
+	    "email" : "joris.w.dewit@gmail.com",
 		}
 	]
 

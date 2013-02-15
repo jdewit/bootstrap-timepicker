@@ -26,6 +26,7 @@
     this.showMeridian = options.showMeridian;
     this.showSeconds = options.showSeconds;
     this.template = options.template;
+    this.appendWidgetTo = options.appendWidgetTo;
 
     this._init();
   };
@@ -65,7 +66,7 @@
       }
 
       if (this.template !== false) {
-        this.$widget = $(this.getTemplate()).appendTo(this.$element.parents('.bootstrap-timepicker')).on('click', $.proxy(this.widgetClick, this));
+        this.$widget = $(this.getTemplate()).appendTo(this.$element.parents(this.appendWidgetTo)).on('click', $.proxy(this.widgetClick, this));
       } else {
         this.$widget = false;
       }
@@ -859,7 +860,8 @@
     showSeconds: false,
     showInputs: true,
     showMeridian: true,
-    template: 'dropdown'
+    template: 'dropdown',
+    appendWidgetTo: ".bootstrap-timepicker"
   };
 
   $.fn.timepicker.Constructor = Timepicker;

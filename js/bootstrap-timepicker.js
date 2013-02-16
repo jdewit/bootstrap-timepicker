@@ -703,7 +703,7 @@
     },
 
     updateElement: function() {
-      this.$element.val(this.getTime());
+      this.$element.val(this.getTime()).change();
     },
 
     updateFromElementVal: function() {

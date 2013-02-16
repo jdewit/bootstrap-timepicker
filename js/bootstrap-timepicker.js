@@ -344,7 +344,9 @@
         return;
       }
 
-      this.updateFromWidgetInputs();
+			if (this.showInputs) {
+      	this.updateFromWidgetInputs();
+			}
 
       this.$element.trigger({
         'type': 'hide.timepicker',

@@ -4,12 +4,15 @@ describe('Mouse events feature', function() {
   var $input1,
     $input2,
     $input3,
+    $input4,
     $timepicker1,
     $timepicker2,
     $timepicker3,
+    $timepicker4,
     tp1,
     tp2,
-    tp3;
+    tp3,
+    tp4;
 
   beforeEach(function () {
     loadFixtures('timepicker.html');
@@ -35,15 +38,27 @@ describe('Mouse events feature', function() {
       showSeconds: true
     });
     tp3 = $timepicker3.data('timepicker');
+
+    $input4 = $('#timepicker4');
+    $timepicker4 = $input4.timepicker({
+			minuteStep: 5,
+			showInputs: false,
+			showMeridian: true,
+			template: 'modal',
+			disableFocus: true
+    });
+    tp4 = $timepicker4.data('timepicker');
   });
 
   afterEach(function () {
     $input1.data('timepicker').remove();
     $input2.data('timepicker').remove();
     $input3.data('timepicker').remove();
+    $input4.data('timepicker').remove();
     $input1.remove();
     $input2.remove();
     $input3.remove();
+    $input4.remove();
   });
 
   it('should be shown and trigger show events on input click', function() {
@@ -111,22 +126,54 @@ describe('Mouse events feature', function() {
   it('should increment minute on button click', function() {
     tp1.setTime('11:30 AM');
     tp1.update();
+		tp4.setTime('11:30 AM');
+		tp4.update();
 
     tp1.$widget.find('a[data-action="incrementMinute"]').trigger('click');
-
     expect(tp1.getTime()).toBe('11:45 AM');
 
     tp2.$widget.find('a[data-action="incrementMinute"]').trigger('click');
     expect(tp2.getTime()).toBe('00:30:00 AM');
+
+		$input4.trigger('click');
+    tp4.$widget.find('a[data-action="incrementMinute"]').trigger('click');
+    tp4.$widget.find('a[data-action="decrementHour"]').trigger('click');
+		$input4.closest('modal').find('.btn-primary').trigger('click');
+    expect(tp4.getTime()).toBe('10:35 AM');
+		expect($input4.val()).toBe('10:35 AM');
   });
 
   it('should decrement minute on button click', function() {
     tp1.setTime('12:30 PM');
     tp1.update();
+    tp4.setTime('11:30 AM');
+    tp4.update();
 
     tp1.$widget.find('a[data-action="decrementMinute"]').trigger('click');
-
     expect(tp1.getTime()).toBe('12:15 PM');
+
+    tp4.$widget.find('a[data-action="decrementMinute"]').trigger('click');
+    expect(tp4.getTime()).toBe('11:25 AM');
+  });
+
+  it('should be 11:30:00 PM if minute is decremented on empty input', function() {
+    tp2.$widget.find('a[data-action="decrementMinute"]').trigger('click');
+    expect(tp2.getTime()).toBe('11:30:00 PM');
+  });
+
+  it('should increment second on button click', function() {
+    tp2.setTime('11:30:15 AM');
+    tp2.update();
+
+    tp2.$widget.find('a[data-action="incrementSecond"]').trigger('click');
+
+    expect(tp2.getTime()).toBe('11:30:30 AM');
+  });
+
+  it('should decrement second on button click', function() {
+    tp2.setTime('12:30:15 PM');
+    tp2.update();
+
   });
 
   it('should be 11:30:00 PM if minute is decremented on empty input', function() {

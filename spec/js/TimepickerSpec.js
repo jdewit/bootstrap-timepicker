@@ -80,18 +80,18 @@ describe('Timepicker feature', function() {
   });
 
   it('should be configurable with data attributes', function() {
-    $('body').append('<div id="hi" class="bootstrap-timepicker"><input id="timepicker4" data-template="modal" data-minute-step="30" data-modal-backdrop="true" data-show-meridian="true" type="text"/></div');
+    $('body').append('<div id="hi" class="bootstrap-timepicker"><input id="customTimepicker" data-template="modal" data-minute-step="30" data-modal-backdrop="true" data-show-meridian="true" type="text"/></div');
 
-    var $input4 = $('body').find('#timepicker4'),
-        tp4 = $input4.timepicker().data('timepicker');
+    var $customInput = $('body').find('#customTimepicker'),
+        tpCustom = $customInput.timepicker().data('timepicker');
 
-    expect($('body').find('#timepicker4').length).toBe(1);
-    expect(tp4.template).toBe('modal');
-    expect(tp4.minuteStep).toBe(30, 'data-minute-step not working');
-    expect(tp4.modalBackdrop).toBe(true, 'data-modal-backdrop not working');
-    expect(tp4.showMeridian).toBe(true, 'data-show-meridian not working');
+    expect($('body').find('#customTimepicker').length).toBe(1);
+    expect(tpCustom.template).toBe('modal');
+    expect(tpCustom.minuteStep).toBe(30, 'data-minute-step not working');
+    expect(tpCustom.modalBackdrop).toBe(true, 'data-modal-backdrop not working');
+    expect(tpCustom.showMeridian).toBe(true, 'data-show-meridian not working');
 
-    tp4.remove();
+    tpCustom.remove();
   });
 
   it('should have current time by default', function() {
@@ -108,14 +108,14 @@ describe('Timepicker feature', function() {
   });
 
   it('should not override time with current time if value is already set', function() {
-    $('body').append('<div id="timepicker4"><input id="timepicker4Input" type="text" value="12:15 AM" /></div>');
-    var $input4 = $('#timepicker4Input').timepicker(),
-      tp4 = $input4.data('timepicker');
+    $('body').append('<div id="timepickerCustom"><input id="timepickerCustomInput" type="text" value="12:15 AM" /></div>');
+    var $customInput = $('#timepickerCustomInput').timepicker(),
+      tpCustom = $customInput.data('timepicker');
 
-    expect($input4.val()).toBe('12:15 AM');
+    expect($customInput.val()).toBe('12:15 AM');
 
-    tp4.remove();
-    $('#timepicker4').remove();
+    tpCustom.remove();
+    $('#timepickerCustom').remove();
   });
 
   it('should have no value if defaultTime is set to false', function() {

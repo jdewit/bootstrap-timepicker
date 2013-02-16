@@ -1,0 +1,14 @@
+{
+	"name"        : "eternicode/bootstrap-timepicker",
+	"description" : "A simple timepicker component for Twitter Bootstrap.",
+	"version"     : "0.1.2",
+	"license"     : "MIT",
+
+	"authors": [
+		{
+	    "name" : "Joris de Wit",
+	    "email" : "joris.w.dewit@gmail.com"
+		}
+	]
+
+}

@@ -861,7 +861,7 @@
     showInputs: true,
     showMeridian: true,
     template: 'dropdown',
-    appendWidgetTo: ".bootstrap-timepicker"
+    appendWidgetTo: '.bootstrap-timepicker'
   };
 
   $.fn.timepicker.Constructor = Timepicker;

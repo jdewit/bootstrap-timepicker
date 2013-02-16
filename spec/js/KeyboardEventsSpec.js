@@ -192,6 +192,11 @@ describe('Keyboard events feature', function() {
     expect(time).toBe('11:45 PM');
   });
 
+  it('should still be empty if input is empty', function() {
+			$input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{tab}}');
+
+			expect($input1.val()).toBe('');
+	});
   it('should allow time to be changed via widget inputs in a modal', function() {
     //tp2.setTime('9:30 AM');
     //tp2.update();

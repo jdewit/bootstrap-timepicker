@@ -708,7 +708,11 @@
     },
 
     updateFromElementVal: function() {
-      this.setTime(this.$element.val());
+			var val = this.$element.val();
+
+			if (val) {
+				this.setTime(val);
+			}
     },
 
     updateWidget: function() {

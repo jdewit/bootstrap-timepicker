@@ -126,7 +126,7 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', 'watch:master');
   grunt.registerTask('test', 'jasmine lint');
-  grunt.registerTask('dump', 'min less:production');
+  grunt.registerTask('dump', 'min less:production less:development');
   grunt.registerTask('copy', 'exec:copyAssets');
 
 };

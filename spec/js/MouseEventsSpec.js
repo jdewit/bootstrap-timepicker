@@ -135,10 +135,12 @@ describe('Mouse events feature', function() {
     tp2.$widget.find('a[data-action="incrementMinute"]').trigger('click');
     expect(tp2.getTime()).toBe('00:30:00 AM');
 
+		$input4.trigger('click');
     tp4.$widget.find('a[data-action="incrementMinute"]').trigger('click');
-		$('body').trigger('click');
-    expect(tp4.getTime()).toBe('11:35 AM');
-		expect($input4.val()).toBe('11:35 AM');
+    tp4.$widget.find('a[data-action="decrementHour"]').trigger('click');
+		$input4.closest('modal').find('.btn-primary').trigger('click');
+    expect(tp4.getTime()).toBe('10:35 AM');
+		expect($input4.val()).toBe('10:35 AM');
   });
 
   it('should decrement minute on button click', function() {

@@ -751,10 +751,10 @@
       if (this.$widget === false) {
         return;
       }
-      var time = $('input.bootstrap-timepicker-hour', this.$widget).val() + ':' +
-        $('input.bootstrap-timepicker-minute', this.$widget).val() +
-        (this.showSeconds ? ':' + $('input.bootstrap-timepicker-second', this.$widget).val() : '') +
-        (this.showMeridian ? ' ' + $('input.bootstrap-timepicker-meridian', this.$widget).val() : '');
+      var time = $('.bootstrap-timepicker-hour', this.$widget).val() + ':' +
+        $('.bootstrap-timepicker-minute', this.$widget).val() +
+        (this.showSeconds ? ':' + $('.bootstrap-timepicker-second', this.$widget).val() : '') +
+        (this.showMeridian ? ' ' + $('.bootstrap-timepicker-meridian', this.$widget).val() : '');
 
       this.setTime(time);
     },

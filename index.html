@@ -152,12 +152,23 @@ title: Timepicker for Twitter Bootstrap
    </div>
    <hr class="soften">
    <p>Inside a modal with backdrop enabled, inputs disabled and with a preset value.</p>
-   <span class="bootstrap-timepicker" style="vertical-align: middle;">
-       <input id="timepicker4" class="input-small" value="10:35 AM" type="text" />
-       <i class="icon-time" style="margin: -2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
-   </span>
+		<div id="timepicker4Modal" class="modal hide fade"> 
+			<div class="modal-header">
+				<h1>A Timepicker Inside A Modal</h1>
+			</div>
+			<div class="modal-body" style="min-height: 150px;">
+				 <span class="bootstrap-timepicker" style="vertical-align: middle;">
+						 <input id="timepicker4" class="input-small" value="10:35 AM" type="text" />
+						 <i class="icon-time" style="margin: -2px 0 0 -22.5px; pointer-events: none; position: relative;"></i>
+				 </span>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-primary" data-dismiss="modal">OK</a>
+			</div>
+		</div>
    &nbsp;
    &nbsp;
+		<a class="btn btn-primary" href="#timepicker4Modal" data-toggle="modal">Open Modal</a>
    <a href="#timepicker4Source" data-toggle="collapse"> + View Source</a>
 
    <div id="timepicker4Source" class="collapse">
@@ -173,10 +184,17 @@ title: Timepicker for Twitter Bootstrap
         &lt;script type="text/javascript" src="js/bootstrap-timepicker.min.js"&gt;&lt;/script&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;div class="bootstrap-timepicker"&gt;
-            &lt;input id="timepicker4" type="text" value="10:35 AM" class="input-small"&gt;
-            &lt;i class="icon-time"&gt;&lt;/i&gt;
-        &lt;/div&gt;
+				&lt;div&gt; class="modal hide fade"&gt; 
+					&lt;div class="modal-header"&gt;
+						&lt;h1&gt;Timepicker inside a modal&lt;/h1&gt; 
+					&lt;/div&gt;
+					&lt;div class="modal-body"&gt;
+						&lt;div class="bootstrap-timepicker"&gt;
+								&lt;input id="timepicker4" type="text" value="10:35 AM" class="input-small"&gt;
+								&lt;i class="icon-time"&gt;&lt;/i&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
 
         &lt;script type="text/javascript"&gt;
             $('#timepicker4').timepicker({

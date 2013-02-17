@@ -1,5 +1,5 @@
 {
-	"name"        : "eternicode/bootstrap-timepicker",
+	"name"        : "jdewit/bootstrap-timepicker",
 	"description" : "A simple timepicker component for Twitter Bootstrap.",
 	"version"     : "0.1.2",
 	"license"     : "MIT",

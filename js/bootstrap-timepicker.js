@@ -436,49 +436,57 @@
     },
 
     highlightHour: function() {
-      var $element = this.$element;
+      var $element = this.$element.get(0);
 
       this.highlightedUnit = 'hour';
 
-      setTimeout(function() {
-        $element.get(0).setSelectionRange(0,2);
-      }, 0);
+			if ($element.setSelectionRange) {
+				setTimeout(function() {
+					$element.setSelectionRange(0,2);
+				}, 0);
+			}
     },
 
     highlightMinute: function() {
-      var $element = this.$element;
+      var $element = this.$element.get(0);
 
       this.highlightedUnit = 'minute';
 
-      setTimeout(function() {
-        $element.get(0).setSelectionRange(3,5);
-      }, 0);
+			if ($element.setSelectionRange) {
+				setTimeout(function() {
+					$element.setSelectionRange(3,5);
+				}, 0);
+			}
     },
 
     highlightSecond: function() {
-      var $element = this.$element;
+      var $element = this.$element.get(0);
 
       this.highlightedUnit = 'second';
 
-      setTimeout(function() {
-        $element.get(0).setSelectionRange(6,8);
-      }, 0);
+			if ($element.setSelectionRange) {
+				setTimeout(function() {
+					$element.setSelectionRange(6,8);
+				}, 0);
+			}
     },
 
     highlightMeridian: function() {
-      var $element = this.$element;
+      var $element = this.$element.get(0);
 
       this.highlightedUnit = 'meridian';
 
-      if (this.showSeconds) {
-        setTimeout(function() {
-          $element.get(0).setSelectionRange(9,11);
-        }, 0);
-      } else {
-        setTimeout(function() {
-          $element.get(0).setSelectionRange(6,8);
-        }, 0);
-      }
+			if ($element.setSelectionRange) {
+				if (this.showSeconds) {
+					setTimeout(function() {
+						$element.setSelectionRange(9,11);
+					}, 0);
+				} else {
+					setTimeout(function() {
+						$element.setSelectionRange(6,8);
+					}, 0);
+				}
+			}
     },
 
     incrementHour: function() {

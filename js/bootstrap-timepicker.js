@@ -67,6 +67,21 @@
 
       if (this.template !== false) {
         this.$widget = $(this.getTemplate()).appendTo(this.$element.parents(this.appendWidgetTo)).on('click', $.proxy(this.widgetClick, this));
+
+        if (this.appendWidgetTo != '.bootstrap-timepicker') {
+          var offset = { x:0, y:0};
+          this.$element.parentsUntil(this.appendWidgetTo).each(function(i, el) {
+            var $el = $(el);
+            if ($el.css('position') != 'relative') return;
+            var elOffset = $el.position();
+            offset.x += elOffset.left;
+            offset.y += elOffset.top;
+          });
+          this.$widget.css({
+            top: offset.y + this.$element.height() + 5,
+            left: offset.x
+          });
+        }
       } else {
         this.$widget = false;
       }

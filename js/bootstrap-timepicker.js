@@ -78,7 +78,7 @@
             offset.y += elOffset.top;
           });
           this.$widget.css({
-            top: offset.y + this.$element.height() + 5,
+            top: offset.y + this.$element.outerHeight() - 5,
             left: offset.x
           });
         }

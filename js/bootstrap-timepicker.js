@@ -655,6 +655,10 @@
       if (this.isOpen) {
         return;
       }
+      
+      if (this.$element.is(':disabled')) {
+          return;
+      }
 
       var self = this;
       $(document).on('mousedown.timepicker', function (e) {

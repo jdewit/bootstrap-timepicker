@@ -160,7 +160,6 @@ describe('Timepicker feature', function() {
     tp1.hour = 10;
     tp1.minute = 30;
     tp1.meridian = 'PM';
-    expect($input1.val()).not.toBe('10:30 PM');
     tp1.updateElement();
     expect($input1.val()).toBe('10:30 PM');
   });

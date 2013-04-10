@@ -215,8 +215,8 @@ describe('Mouse events feature', function() {
         time;
 
     $input1.timepicker().on('changeTime.timepicker', function(e) {
-        eventCount++;
-        time = e.time.value;
+      eventCount++;
+      time = e.time.value;
     });
 
     tp1.setTime('11:30 AM');

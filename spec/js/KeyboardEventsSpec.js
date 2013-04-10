@@ -54,7 +54,7 @@ describe('Keyboard events feature', function() {
     $input1.trigger('focus');
 
     if (tp1.highlightedUnit !== 'hour') {
-        tp1.highlightHour();
+      tp1.highlightHour();
     }
 
     expect(tp1.highlightedUnit).toBe('hour', 'hour should be highlighted by default');
@@ -166,8 +166,8 @@ describe('Keyboard events feature', function() {
     $input1.parents('div').find('.add-on').click();
 
     $input1.timepicker().on('changeTime.timepicker', function(e) {
-        eventCount++;
-        time = e.time.value;
+      eventCount++;
+      time = e.time.value;
     });
 
     expect(tp1.isOpen).toBe(true);
@@ -193,9 +193,9 @@ describe('Keyboard events feature', function() {
   });
 
   it('should still be empty if input is empty', function() {
-			$input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{tab}}');
+		$input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{tab}}');
 
-			expect($input1.val()).toBe('');
+		expect($input1.val()).toBe('');
 	});
   it('should allow time to be changed via widget inputs in a modal', function() {
     //tp2.setTime('9:30 AM');

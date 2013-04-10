@@ -1,9 +1,8 @@
 {
 	"name"        : "jdewit/bootstrap-timepicker",
 	"description" : "A simple timepicker component for Twitter Bootstrap.",
-	"version"     : "0.1.2",
+	"version"     : "0.2.3",
 	"license"     : "MIT",
-
 	"authors": [
 		{
 	    "name" : "Joris de Wit",

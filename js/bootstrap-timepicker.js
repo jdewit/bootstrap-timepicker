@@ -358,7 +358,7 @@
         }
       });
 
-      if (this.template === 'modal') {
+      if (this.template === 'modal' && this.$widget.modal) {
         this.$widget.modal('hide');
       } else {
         this.$widget.removeClass('open');
@@ -686,7 +686,7 @@
 
       this.updateFromElementVal();
 
-      if (this.template === 'modal') {
+      if (this.template === 'modal' && this.$widget.modal) {
         this.$widget.modal('show').on('hidden', $.proxy(this.hideWidget, this));
       } else {
         if (this.isOpen === false) {

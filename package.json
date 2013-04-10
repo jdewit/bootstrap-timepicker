@@ -13,7 +13,7 @@
     "url": "git://github.com/jdewit/bootstrap-timepicker"
   },
   "scripts": {
-    "test": "bower install; grunt test; "
+    "test": "bower install; grunt jasmine;"
   },
   "bugs": {
     "url": "https://github.com/jdewit/bootstrap-timepicker/issues"

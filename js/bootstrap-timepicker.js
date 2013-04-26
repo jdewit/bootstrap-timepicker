@@ -337,6 +337,9 @@
     getTime: function() {
       return this.formatTime(this.hour, this.minute, this.second, this.meridian);
     },
+    getHour: function() { return this.hour;},
+    getMinute: function() { return this.minute;},
+    getSecond: function() { return this.second;},
 
     hideWidget: function() {
       if (this.isOpen === false) {

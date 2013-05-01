@@ -113,7 +113,7 @@
         this.update();
     },
 
-    decrementMinute: function(step) {
+    decrementMinute: function(step, intermediate) {
       var newVal;
 
       if (step) {
@@ -128,14 +128,15 @@
       } else {
         this.minute = newVal;
       }
-      this.update();
+      if (!intermediate)
+        this.update();
     },
 
     decrementSecond: function() {
       var newVal = this.second - this.secondStep;
 
       if (newVal < 0) {
-        this.decrementMinute(true);
+        this.decrementMinute(true, true);
         this.second = newVal + 60;
       } else {
         this.second = newVal;
@@ -508,7 +509,7 @@
         this.update();
     },
 
-    incrementMinute: function(step) {
+    incrementMinute: function(step, intermediate) {
       var newVal;
 
       if (step) {
@@ -523,14 +524,15 @@
       } else {
         this.minute = newVal;
       }
-      this.update();
+      if (!intermediate)
+        this.update();
     },
 
     incrementSecond: function() {
       var newVal = this.second + this.secondStep - (this.second % this.secondStep);
 
       if (newVal > 59) {
-        this.incrementMinute(true);
+        this.incrementMinute(true, true);
         this.second = newVal - 60;
       } else {
         this.second = newVal;

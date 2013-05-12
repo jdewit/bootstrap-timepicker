@@ -5,24 +5,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     meta: {
       project: 'bootstrap-timepicker',
       version: '0.2.3'
-    },
-    exec: {
-      dump: {
-        command: 'grunt jshint; grunt uglify; grunt exec:deleteAssets; grunt less:production;'
-      },
-      copyAssets: {
-        command: 'git checkout gh-pages -q; git checkout master css/bootstrap-timepicker.min.css; git checkout master js/bootstrap-timepicker.min.js;'
-      },
-      deleteAssets: {
-        command: 'rm -rf css/bootstrap-timepicker.css; rm -rf css/bootstrap-timepicker.min.css; rm -rf js/bootstrap-timepicker.min.js;'
-      }
     },
     jasmine: {
       build: {
@@ -69,15 +58,15 @@ module.exports = function(grunt) {
       files: ['js/bootstrap-timepicker.js', 'Gruntfile.js', 'package.json', 'spec/js/*Spec.js']
     },
     less: {
-      development: {
+      dev: {
         options: {
           paths: ['css']
         },
         files: {
-          'css/bootstrap-timepicker.css': 'less/*.less'
+          'css/bootstrap-timepicker.css': ['less/*.less']
         }
       },
-      production: {
+      prod: {
         options: {
           paths: ['css'],
           yuicompress: true
@@ -99,10 +88,26 @@ module.exports = function(grunt) {
         src: ['<banner:meta.banner>','js/<%= pkg.name %>.js'],
         dest: 'js/<%= pkg.name %>.min.js'
       }
+    },
+    watch: {
+      js: {
+        files: ['js/bootstrap-timepicker.js', 'spec/js/*Spec.js'],
+        tasks: ['jshint', 'jasmine'],
+        options: {
+          livereload: true
+        }
+      },
+      less: {
+        files: ['less/timepicker.less'],
+        tasks: ['less:dev'],
+        options: {
+          livereload: true
+        }
+      }
     }
   });
 
-  grunt.registerTask('default', ['jasmine','jshint','uglify','less:production']);
-  grunt.registerTask('test', ['jasmine','lint']);
-  grunt.registerTask('copy', ['exec:copyAssets']);
+  grunt.registerTask('default', ['jshint', 'jasmine', 'less:dev']);
+  grunt.registerTask('test', ['jasmine', 'jshint']);
+  grunt.registerTask('compile', ['jshint', 'jasmine', 'uglify', 'less:prod']);
 };

@@ -236,6 +236,20 @@ describe('Mouse events feature', function() {
     expect(tp1.getTime()).toBe('12:45 PM');
   });
 
+  it('should not trigger changeTime event if time is changed', function() {
+    var eventCount = 0;
+
+    $input1.timepicker().on('changeTime.timepicker', function() {
+      eventCount++;
+    });
+
+    tp1.setTime('11:30 AM', true);
+
+    expect(eventCount).toBe(0);
+    expect(tp1.getTime()).toBe('11:30 AM');
+  });
+
+
   it('should highlight widget inputs on click', function() {
       //TODO;
       //tp1.setTime('11:55 AM');

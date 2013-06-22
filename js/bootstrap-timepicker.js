@@ -586,7 +586,7 @@
       }
     },
 
-    setTime: function(time) {
+    setTime: function(time, preventEvent) {
       var arr,
         timeArray;
 
@@ -649,7 +649,7 @@
         }
       }
 
-      this.update();
+      this.update(preventEvent);
     },
 
     showWidget: function() {
@@ -702,17 +702,18 @@
       this.update();
     },
 
-    update: function() {
-      this.$element.trigger({
-        'type': 'changeTime.timepicker',
-        'time': {
-          'value': this.getTime(),
-          'hours': this.hour,
-          'minutes': this.minute,
-          'seconds': this.second,
-          'meridian': this.meridian
-        }
-      });
+    update: function(preventEvent) {
+      if (!preventEvent)
+        this.$element.trigger({
+          'type': 'changeTime.timepicker',
+          'time': {
+            'value': this.getTime(),
+            'hours': this.hour,
+            'minutes': this.minute,
+            'seconds': this.second,
+            'meridian': this.meridian
+          }
+        });
 
       this.updateElement();
       this.updateWidget();

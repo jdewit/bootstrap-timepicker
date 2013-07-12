@@ -16,6 +16,12 @@
     this.widget = '';
     this.$element = $(element);
     this.defaultTime = options.defaultTime;
+    this.showDefaultTime = options.showDefaultTime;
+    
+    if (this.showDefaultTime === undefined) {
+    	this.showDefaultTime = true;
+    }
+    
     this.disableFocus = options.disableFocus;
     this.isOpen = options.isOpen;
     this.minuteStep = options.minuteStep;
@@ -713,8 +719,10 @@
           'meridian': this.meridian
         }
       });
-
-      this.updateElement();
+      
+      if (this.showDefaultTime === true) {
+      	this.updateElement();
+      }
       this.updateWidget();
     },
 
@@ -766,6 +774,11 @@
       if (this.$widget === false) {
         return;
       }
+      
+      if (this.showDefaultTime === false) {
+      	this.showDefaultTime = true;
+      }
+      
       var time = $('input.bootstrap-timepicker-hour', this.$widget).val() + ':' +
         $('input.bootstrap-timepicker-minute', this.$widget).val() +
         (this.showSeconds ? ':' + $('input.bootstrap-timepicker-second', this.$widget).val() : '') +

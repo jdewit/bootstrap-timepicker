@@ -146,24 +146,44 @@
       switch (e.keyCode) {
       case 9: //tab
         this.updateFromElementVal();
-
-        switch (this.highlightedUnit) {
-        case 'hour':
-          e.preventDefault();
-          this.highlightNextUnit();
-          break;
-        case 'minute':
-          if (this.showMeridian || this.showSeconds) {
+        
+        if (e.shiftKey) {
+          switch (this.highlightedUnit) {
+          case 'hour':
+	    // default action shift+tab action
+            break;
+          case 'minute':
+       	    e.preventDefault();
+            this.highlightPrevUnit();
+            break;
+          case 'second':
+            e.preventDefault();
+            this.highlightPrevUnit();
+            break;
+          case 'meridian':
+            e.preventDefault();
+            this.highlightPrevUnit();
+            break;
+          }
+        } else {
+          switch (this.highlightedUnit) {
+          case 'hour':
             e.preventDefault();
             this.highlightNextUnit();
+            break;
+          case 'minute':
+            if (this.showMeridian || this.showSeconds) {
+              e.preventDefault();
+              this.highlightNextUnit();
+            }
+            break;
+          case 'second':
+            if (this.showMeridian) {
+              e.preventDefault();
+              this.highlightNextUnit();
+            }
+            break;
           }
-          break;
-        case 'second':
-          if (this.showMeridian) {
-            e.preventDefault();
-            this.highlightNextUnit();
-          }
-          break;
         }
         break;
       case 27: // escape

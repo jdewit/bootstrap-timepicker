@@ -118,7 +118,7 @@
       if (step) {
         newVal = this.minute - step;
       } else {
-        newVal = this.minute - this.minuteStep;
+        newVal = this.minute - ((this.minute % this.minuteStep) || this.minuteStep);
       }
 
       if (newVal < 0) {

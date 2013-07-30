@@ -4,12 +4,15 @@ describe('Timepicker feature', function() {
   var $input1,
     $input2,
     $input3,
+    $input4,
     $timepicker1,
     $timepicker2,
     $timepicker3,
+    $timepicker4,
     tp1,
     tp2,
-    tp3;
+    tp3,
+    tp4;
 
   beforeEach(function () {
     loadFixtures('timepicker.html');
@@ -35,6 +38,13 @@ describe('Timepicker feature', function() {
       defaultTime: '13:25:15'
     });
     tp3 = $timepicker3.data('timepicker');
+
+    $input4 = $('#timepicker4');
+    $timepicker4 = $input4.timepicker({
+      defaultTime: '12:12 AM',
+      showDefaultTime:false
+    });
+    tp4 = $timepicker4.data('timepicker');
   });
 
   afterEach(function () {
@@ -47,9 +57,13 @@ describe('Timepicker feature', function() {
     if ($input3.data('timepicker') !== undefined) {
       $input3.data('timepicker').remove();
     }
+    if ($input4.data('timepicker') !== undefined) {
+      $input4.data('timepicker').remove();
+    }
     $input1.remove();
     $input2.remove();
     $input3.remove();
+    $input4.remove();
   });
 
   it('should be available on the jquery object', function() {
@@ -72,6 +86,7 @@ describe('Timepicker feature', function() {
     expect(tp1.modalBackdrop).toBe(false);
     expect(tp1.modalBackdrop).toBe(false);
     expect(tp1.isOpen).toBe(false);
+    expect(tp1.showDefaultTime).toBe(true);
   });
 
   it('should allow user to configure defaults', function() {
@@ -120,6 +135,18 @@ describe('Timepicker feature', function() {
 
   it('should have no value if defaultTime is set to false', function() {
     expect($input2.val()).toBe('');
+  });
+
+  it('should have no value in the input if showDefaultTime is false and defaultTime is set', function() {
+    expect($input4.val()).toBe('');
+  });
+
+  it('should set the defaultTime in the widget and input after focusing the input when showDefaultTime is false', function() {
+    $input4.focus();
+    expect($input4.val()).toBe('12:12 AM');
+    expect(tp4.$widget.find('.bootstrap-timepicker-hour').val()).toBe('12');
+    expect(tp4.$widget.find('.bootstrap-timepicker-minute').val()).toBe('12');
+    $('body').trigger('mousedown');
   });
 
   it('should be able to set default time with config option', function() {
@@ -379,9 +406,11 @@ describe('Timepicker feature', function() {
 
   it('should not have the widget in the DOM if remove method is called', function() {
     expect($('body')).toContain('.bootstrap-timepicker-widget');
+    console.log(tp1, tp2, tp3, tp4);
     tp1.remove();
     tp2.remove();
     tp3.remove();
+    tp4.remove();
     expect($('body')).not.toContain('.bootstrap-timepicker-widget');
   });
 

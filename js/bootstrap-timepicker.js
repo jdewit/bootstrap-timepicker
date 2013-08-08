@@ -416,7 +416,13 @@
     highlightPrevUnit: function() {
       switch (this.highlightedUnit) {
       case 'hour':
-        this.highlightMeridian();
+          if(this.showMeridian){
+            this.highlightMeridian();
+          } else if (this.showSeconds) {
+            this.highlightSecond();
+          } else {
+            this.highlightMinute();
+          }
         break;
       case 'minute':
         this.highlightHour();

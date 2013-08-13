@@ -284,7 +284,7 @@
          '<tr>'+
            '<td><a href="#" data-action="incrementHour"><i class="glyphicon glyphicon-chevron-up icon-chevron-up"></i></a></td>'+
            '<td class="separator">&nbsp;</td>'+
-           '<td><a href="#" data-action="incrementMinute"><i class=glyphicon glyphicon-chevron-up icon-chevron-up"></i></a></td>'+
+           '<td><a href="#" data-action="incrementMinute"><i class="glyphicon glyphicon-chevron-up icon-chevron-up"></i></a></td>'+
            (this.showSeconds ?
              '<td class="separator">&nbsp;</td>'+
              '<td><a href="#" data-action="incrementSecond"><i class="glyphicon glyphicon-chevron-up icon-chevron-up"></i></a></td>'

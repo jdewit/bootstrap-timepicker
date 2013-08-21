@@ -9,7 +9,11 @@
  * file that was distributed with this source code.
  */
 .bootstrap-timepicker {
-    position: relative;
+    width: 130px;
+
+    .form-control {
+        border-radius: 4px 0 0 4px !important;
+    }
 
     &.pull-right {
         .bootstrap-timepicker-widget {
@@ -29,7 +33,7 @@
         }
     }
 
-    .add-on { 
+    .input-group-addon { 
         cursor: pointer;
         i {
            display: inline-block;
@@ -113,6 +117,9 @@
                 width: 25px;
                 margin: 0;
                 text-align: center;
+                box-sizing: content-box;
+                -webkit-box-sizing: content-box;
+                -moz-box-sizing:content-box;
             }
         }
     }

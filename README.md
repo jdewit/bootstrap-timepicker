@@ -1,4 +1,4 @@
-Timepicker for Twitter Bootstrap 2.x [![Build Status](https://secure.travis-ci.org/jdewit/bootstrap-timepicker.png)](http://travis-ci.org/jdewit/bootstrap-timepicker)
+Timepicker for Twitter Bootstrap 3.0 [![Build Status](https://secure.travis-ci.org/jdewit/bootstrap-timepicker.png)](http://travis-ci.org/jdewit/bootstrap-timepicker)
 ------------------------------------
 
 A simple timepicker component for Twitter Bootstrap.
@@ -6,7 +6,15 @@ A simple timepicker component for Twitter Bootstrap.
 Demos & Documentation
 =====================
 
+Old version docs:
 View <a href="http://jdewit.github.com/bootstrap-timepicker">demos & documentation</a>.
+Do not forget to update bootstrap classes from 2.x to 3.0 like in <a href="http://getbootstrap.com/getting-started/#migration">Bootstrap's documentation</a>. For examle, code for first demo:
+``` html
+	<div class="input-group bootstrap-timepicker">
+    	<input id="newEmployeesUpdaterTime" type="text" class="form-control">
+    	<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+	</div>
+```
 
 Support
 =======

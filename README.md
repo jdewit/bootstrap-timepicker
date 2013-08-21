@@ -8,12 +8,13 @@ Demos & Documentation
 
 Old version docs:
 View <a href="http://jdewit.github.com/bootstrap-timepicker">demos & documentation</a>.
+
 Do not forget to update bootstrap classes from 2.x to 3.0 like in <a href="http://getbootstrap.com/getting-started/#migration">Bootstrap's documentation</a>. For examle, code for first demo:
 ``` html
-	<div class="input-group bootstrap-timepicker">
-    	<input id="newEmployeesUpdaterTime" type="text" class="form-control">
-    	<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-	</div>
+<div class="input-group bootstrap-timepicker">
+	<input id="newEmployeesUpdaterTime" type="text" class="form-control">
+	<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+</div>
 ```
 
 Support

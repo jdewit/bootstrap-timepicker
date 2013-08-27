@@ -57,14 +57,6 @@
   position: absolute;
   top: -6px;
 }
-.bootstrap-timepicker-widget.pull-right.dropdown-menu:before {
-  left: inherit;
-  right: 9px;
-}
-.bootstrap-timepicker-widget.pull-right.dropdown-menu:after {
-  left: inherit;
-  right: 10px;
-}
 .bootstrap-timepicker-widget a.btn,
 .bootstrap-timepicker-widget input {
   border-radius: 4px;

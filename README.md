@@ -19,30 +19,28 @@ supporting its development.
 Contributing
 ============
 
-1. Install <a href="www.nodejs.org">NodeJS</a> and <a href="www.npmjs.org">Node Package Manager</a>.
+1. Install <a href="www.nodejs.org">NodeJS</a> and
+   <a href="www.npmjs.org">Node Package Manager</a>.
 
-2. Install packages
+1. Install packages
 
-``` bash
-    npm install
-```
+        npm install
 
-3. Use <a href="https://github.com/bower/bower">Bower</a> to get the
+
+1. Use <a href="https://github.com/bower/bower">Bower</a> to get the
    dev dependencies.
 
-``` bash
-$ bower install
-```
+        $ bower install
 
-4. Use <a href="http://www.gruntjs.com">Grunt</a> to run tests,
+1. Use <a href="http://www.gruntjs.com">Grunt</a> to run tests,
    compress assets, etc.
 
-``` bash
-$ grunt test // run jshint and jasmine tests
-$ grunt watch // run jsHint and Jasmine tests whenever a file is changed
-$ grunt compile // minify the js and css files
-```
 
+        $ grunt test // run jshint and jasmine tests
+        $ grunt watch // run jsHint and Jasmine tests whenever a file is changed
+        $ grunt compile // minify the js and css files
+
+<!-- New list -->
 - Please make it easy on me by covering any new features or issues
 with <a href="http://pivotal.github.com/jasmine">Jasmine</a> tests.
 - If your changes need documentation, please take the time to update the docs.

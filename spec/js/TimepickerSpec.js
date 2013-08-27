@@ -397,4 +397,60 @@ describe('Timepicker feature', function() {
     expect(tp1.isOpen).toBe(true);
   });
 
+  describe('initialization', function() {
+
+    var $customInput;
+
+    afterEach(function() {
+      if ($customInput) {
+        $customInput.data('timepicker').remove();
+      }
+      $('#timepickerCustom').remove();
+    });
+
+    var createWidget = function(content, options) {
+      if (!options) {
+        options = {};
+      }
+      $('body').append(
+        '<div id="timepickerCustom" class="bootstrap-timepicker">' +
+          content +
+        '</div>');
+      $customInput = $('#timepickerCustom input').timepicker(options);
+    };
+
+    it('appends the drop-down to the requested element', function() {
+      createWidget(
+        '<div id="dropdown-target"></div>' +
+        '<input type="text"/>' +
+        {appendWidgetTo: '#dropdown-target'}
+        );
+
+      expect(
+        $('#timepickerCustom > div.bootstrap-timepicker-widget').length).toBe(0);
+      expect(
+        $('#dropdown-target > div.bootstrap-timepicker-widget').length).toBe(1);
+    });
+
+    it('does not set pull-right class when pullRight option is not requested', function() {
+      createWidget('<input type="text"/>');
+
+      expect(
+        $('#timepickerCustom div.bootstrap-timepicker-widget').hasClass(
+          'pull-right')).toBe(false);
+    });
+
+    it('sets pull-right class when pullRight option is requested', function() {
+      createWidget(
+        '<input type="text"/>',
+        {pullRight: true}
+        );
+
+      expect(
+        $('#timepickerCustom div.bootstrap-timepicker-widget').hasClass(
+          'pull-right')).toBe(true);
+    });
+
+  });
+
 });

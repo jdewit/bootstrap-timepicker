@@ -26,6 +26,7 @@
     this.showSeconds = options.showSeconds;
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
+    this.pullRight = options.pullRight;
 
     this._init();
   };
@@ -255,7 +256,8 @@
         minuteTemplate,
         secondTemplate,
         meridianTemplate,
-        templateContent;
+        templateContent,
+        templateExtraClasses;
 
       if (this.showInputs) {
         hourTemplate = '<input type="text" name="hour" class="bootstrap-timepicker-hour" maxlength="2"/>';
@@ -267,6 +269,11 @@
         minuteTemplate = '<span class="bootstrap-timepicker-minute"></span>';
         secondTemplate = '<span class="bootstrap-timepicker-second"></span>';
         meridianTemplate = '<span class="bootstrap-timepicker-meridian"></span>';
+      }
+
+      templateExtraClasses = '';
+      if (this.pullRight) {
+        templateExtraClasses += ' pull-right';
       }
 
       templateContent = '<table>'+
@@ -327,7 +334,9 @@
         '</div>';
         break;
       case 'dropdown':
-        template = '<div class="bootstrap-timepicker-widget dropdown-menu">'+ templateContent +'</div>';
+        template = '<div class="bootstrap-timepicker-widget dropdown-menu '+ templateExtraClasses + '">'+
+              templateContent +
+            '</div>';
         break;
       }
 
@@ -880,7 +889,8 @@
     showInputs: true,
     showMeridian: true,
     template: 'dropdown',
-    appendWidgetTo: '.bootstrap-timepicker'
+    appendWidgetTo: '.bootstrap-timepicker',
+    pullRight: false
   };
 
   $.fn.timepicker.Constructor = Timepicker;

@@ -280,4 +280,37 @@ describe('Keyboard events feature', function() {
         //tp3.updateFromElementVal();
         //expect(tp3.getTime()).toBe('23:59:59');
   });
+
+  it('should keep typed time value in widget when widget is clicked (issue #156)', function () {
+
+        var $hourInput = tp1.$widget.find('input.bootstrap-timepicker-hour');
+        tp1.setTime('02:00');
+        $hourInput.autotype('{{back}}{{back}}3');
+        $hourInput.trigger('blur');
+        tp1.$widget.find('a[data-action="incrementMinute"]').trigger('click');
+        expect(tp1.getTime()).toBe('03:15 AM');
+
+        var $minuteInput = tp1.$widget.find('input.bootstrap-timepicker-minute');
+        tp1.setTime('02:00');
+        $minuteInput.autotype('{{back}}{{back}}15');
+        $minuteInput.trigger('blur');
+        tp1.$widget.find('a[data-action="incrementHour"]').trigger('click');
+        expect(tp1.getTime()).toBe('03:15 AM');
+
+        var $secondInput = tp2.$widget.find('input.bootstrap-timepicker-second');
+        tp2.setTime('02:00:00');
+        $secondInput.autotype('{{back}}{{back}}30');
+        $secondInput.trigger('blur');
+        tp2.$widget.find('a[data-action="incrementHour"]').trigger('click');
+        expect(tp2.getTime()).toBe('03:00:30 AM');
+
+        var $meridianInput = tp1.$widget.find('input.bootstrap-timepicker-meridian');
+        tp1.setTime('02:00 AM');
+        $meridianInput.autotype('{{back}}{{back}}PM');
+        $meridianInput.trigger('blur');
+        tp1.$widget.find('a[data-action="incrementHour"]').trigger('click');
+        expect(tp1.getTime()).toBe('03:00 PM');
+
+      });
+
 });

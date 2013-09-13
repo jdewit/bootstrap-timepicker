@@ -66,6 +66,10 @@
 
       if (this.template !== false) {
         this.$widget = $(this.getTemplate()).prependTo(this.$element.parents(this.appendWidgetTo)).on('click', $.proxy(this.widgetClick, this));
+        $('.bootstrap-timepicker-hour, .bootstrap-timepicker-minute, .bootstrap-timepicker-second, .bootstrap-timepicker-meridian', this.$widget)
+              .on('blur', $.proxy(function() {
+                  this.updateFromWidgetInputs();
+                }, this));
       } else {
         this.$widget = false;
       }

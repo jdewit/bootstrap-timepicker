@@ -5,14 +5,17 @@ describe('Mouse events feature', function() {
     $input2,
     $input3,
     $input4,
+    $input5,
     $timepicker1,
     $timepicker2,
     $timepicker3,
     $timepicker4,
+    $timepicker5,
     tp1,
     tp2,
     tp3,
-    tp4;
+    tp4,
+    tp5;
 
   beforeEach(function () {
     loadFixtures('timepicker.html');
@@ -20,6 +23,10 @@ describe('Mouse events feature', function() {
     $input1 = $('#timepicker1');
     $timepicker1 = $input1.timepicker();
     tp1 = $timepicker1.data('timepicker');
+
+    $input5 = $('#timepicker5');
+    $timepicker5 = $input1.timepicker({showWidgetOnAddonClick: false});
+    tp5 = $timepicker5.data('timepicker');
 
     $input2 = $('#timepicker2');
     $timepicker2 = $input2.timepicker({
@@ -95,6 +102,12 @@ describe('Mouse events feature', function() {
     expect(hideEvents).toBe(1, 'hide event was not thrown once');
     expect(time).toBe('11:30 AM');
 
+  });
+
+  it('should not show widget when clicking add-on icon if showWidgetOnAddonClick is false', function() {
+    expect(tp5.isOpen).toBe(false);
+    $input5.parents('div').find('.add-on').trigger('click');
+    expect(tp5.isOpen).toBe(false);
   });
 
   it('should increment hour on button click', function() {

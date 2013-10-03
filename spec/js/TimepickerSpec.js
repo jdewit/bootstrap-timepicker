@@ -97,7 +97,7 @@ describe('Timepicker feature', function() {
   it('should have current time by default', function() {
     var dTime = new Date(),
       hour = dTime.getHours(),
-      minute = Math.floor(dTime.getMinutes() / tp1.minuteStep) * tp1.minuteStep;
+      minute = Math.ceil(dTime.getMinutes() / tp1.minuteStep) * tp1.minuteStep;
 
     if (hour > 12) {
       hour = hour - 12;

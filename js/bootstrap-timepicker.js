@@ -549,8 +549,8 @@
         if (defaultTime === 'current') {
           var dTime = new Date(),
             hours = dTime.getHours(),
-            minutes = Math.floor(dTime.getMinutes() / this.minuteStep) * this.minuteStep,
-            seconds = Math.floor(dTime.getSeconds() / this.secondStep) * this.secondStep,
+            minutes = Math.ceil(dTime.getMinutes() / this.minuteStep) * this.minuteStep,
+            seconds = Math.ceil(dTime.getSeconds() / this.secondStep) * this.secondStep,
             meridian = 'AM';
 
           if (this.showMeridian) {

@@ -22,7 +22,8 @@ module.exports = function(grunt) {
     },
     'gh-pages': {
       options: {
-        add: true
+        add: true,
+        push: false
       },
       src: [
         'css/bootstrap-timepicker.min.css',

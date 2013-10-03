@@ -87,7 +87,7 @@
       this.updateFromElementVal();
     },
 
-    decrementHour: function() {
+    decrementHour: function(intermediate) {
       if (this.showMeridian) {
         if (this.hour === 1) {
           this.hour = 12;
@@ -109,10 +109,11 @@
           this.hour--;
         }
       }
-      this.update();
+      if (!intermediate)
+        this.update();
     },
 
-    decrementMinute: function(step) {
+    decrementMinute: function(step, intermediate) {
       var newVal;
 
       if (step) {
@@ -122,19 +123,20 @@
       }
 
       if (newVal < 0) {
-        this.decrementHour();
+        this.decrementHour(true);
         this.minute = newVal + 60;
       } else {
         this.minute = newVal;
       }
-      this.update();
+      if (!intermediate)
+        this.update();
     },
 
     decrementSecond: function() {
       var newVal = this.second - this.secondStep;
 
       if (newVal < 0) {
-        this.decrementMinute(true);
+        this.decrementMinute(true, true);
         this.second = newVal + 60;
       } else {
         this.second = newVal;
@@ -488,7 +490,7 @@
 			}
     },
 
-    incrementHour: function() {
+    incrementHour: function(intermediate) {
       if (this.showMeridian) {
         if (this.hour === 11) {
           this.hour++;
@@ -503,10 +505,11 @@
         return;
       }
       this.hour++;
-      this.update();
+      if (!intermediate)
+        this.update();
     },
 
-    incrementMinute: function(step) {
+    incrementMinute: function(step, intermediate) {
       var newVal;
 
       if (step) {
@@ -516,19 +519,20 @@
       }
 
       if (newVal > 59) {
-        this.incrementHour();
+        this.incrementHour(true);
         this.minute = newVal - 60;
       } else {
         this.minute = newVal;
       }
-      this.update();
+      if (!intermediate)
+        this.update();
     },
 
     incrementSecond: function() {
       var newVal = this.second + this.secondStep - (this.second % this.secondStep);
 
       if (newVal > 59) {
-        this.incrementMinute(true);
+        this.incrementMinute(true, true);
         this.second = newVal - 60;
       } else {
         this.second = newVal;

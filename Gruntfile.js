@@ -12,19 +12,17 @@ module.exports = function(grunt) {
   grunt.initConfig({
     'pkg': grunt.file.readJSON('package.json'),
     'meta': {
-      project: 'bootstrap-timepicker',
-      version: '0.2.3'
+      project: '<%= pkg.name %>',
+      version: '<%= pkg.version %>'
     },
     'bump': {
       options: {
-        files: ['package.json', 'component.json'],
-        push: false
+        files: ['package.json', 'component.json', 'composer.json']
       }
     },
     'gh-pages': {
       options: {
-        add: true,
-        push: false
+        add: true
       },
       src: [
         'css/bootstrap-timepicker.min.css',
@@ -96,7 +94,7 @@ module.exports = function(grunt) {
     },
     'uglify': {
       options: {
-        banner: '/*! <%= meta.project %> v<%= meta.version %> \n' +
+        banner: '/*! <%= pkg.name %> v<%= pkg.version %> \n' +
           '* http://jdewit.github.com/bootstrap-timepicker \n' +
           '* Copyright (c) <%= grunt.template.today("yyyy") %> Joris de Wit \n' +
           '* MIT License \n' +
@@ -127,5 +125,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['jshint', 'jasmine', 'less:dev']);
   grunt.registerTask('test', ['jasmine', 'jshint']);
-  grunt.registerTask('compile', ['jshint', 'jasmine', 'uglify', 'less:prod']);
+  grunt.registerTask('compile', ['jshint', 'jasmine', 'uglify', 'less:prod', 'gh-pages']);
 };

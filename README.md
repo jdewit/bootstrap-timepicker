@@ -39,6 +39,7 @@ $ bower install
 $ grunt test // run jshint and jasmine tests
 $ grunt watch // run jsHint and Jasmine tests whenever a file is changed
 $ grunt compile // minify the js and css files
+$ grunt bump:[patch/minor/major] // bump the version
 ```
 
 - Please make it easy on me by covering any new features or issues 

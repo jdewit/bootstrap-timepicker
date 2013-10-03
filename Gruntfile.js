@@ -125,5 +125,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['jshint', 'jasmine', 'less:dev']);
   grunt.registerTask('test', ['jasmine', 'jshint']);
-  grunt.registerTask('compile', ['jshint', 'jasmine', 'uglify', 'less:prod', 'gh-pages']);
+  grunt.registerTask('compile', ['jshint', 'jasmine', 'uglify', 'less:prod']);
 };

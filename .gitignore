@@ -1,5 +1,6 @@
 *.swp
 _site
+.grunt
 node_modules
 _SpecRunner.html
 spec/js/libs

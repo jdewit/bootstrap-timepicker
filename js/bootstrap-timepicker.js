@@ -520,8 +520,8 @@
         this.minute = newVal - 60;
       } else {
         this.minute = newVal;
+        this.update();
       }
-      this.update();
     },
 
     incrementSecond: function() {

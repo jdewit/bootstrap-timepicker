@@ -663,6 +663,11 @@
 
       var self = this;
       $(document).on('mousedown.timepicker', function (e) {
+        console.log(this.$widget);
+
+        console.log($(e.target).closest('.bootstrap-timepicker-widget'));
+
+
         // Clicked outside the timepicker, hide it
         if ($(e.target).closest('.bootstrap-timepicker-widget').length === 0) {
           self.hideWidget();

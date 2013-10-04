@@ -1,8 +1,10 @@
 *.swp
 _site/
 node_modules
-grunt.js
+gruntfile.js
 .grunt
 _SpecRunner.html
 spec
-
+_site
+.grunt
+node_modules

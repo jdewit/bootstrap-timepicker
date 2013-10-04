@@ -2,6 +2,7 @@
 _site/
 node_modules
 grunt.js
+.grunt
 _SpecRunner.html
 spec
 

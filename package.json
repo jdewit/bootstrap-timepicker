@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-timepicker",
   "description": "Timepicker widget for Twitter Bootstrap 2.*",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "homepage": "http://jdewit.github.com/bootstrap-timepicker",
   "author": {
     "name": "Joris de Wit",
@@ -28,6 +28,7 @@
     "grunt-contrib-jasmine": "~0.4.2",
     "grunt-contrib-watch": "~0.4.3",
     "grunt-shell": "~0.2.2",
-    "grunt-build-gh-pages": "~0.1.0"
+    "grunt-gh-pages": "~0.1.0",
+    "grunt-bump": "0.0.11"
   }
 }

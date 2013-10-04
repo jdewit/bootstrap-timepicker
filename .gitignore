@@ -2,9 +2,5 @@
 _site/
 node_modules
 gruntfile.js
-.grunt
-_SpecRunner.html
-spec
 _site
-.grunt
-node_modules
+_SpecRunner.html

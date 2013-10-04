@@ -6,25 +6,20 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-bump');
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    meta: {
-      project: 'bootstrap-timepicker',
-      version: '0.2.3'
+    'pkg': grunt.file.readJSON('package.json'),
+    'meta': {
+      project: '<%= pkg.name %>',
+      version: '<%= pkg.version %>'
     },
-    'gh-pages': {
+    'bump': {
       options: {
-        add: true,
-        push: false
-      },
-      src: [
-        'css/bootstrap-timepicker.min.css',
-        'js/bootstrap-timepicker.min.js'
-      ]
+        files: ['package.json', 'component.json', 'composer.json']
+      }
     },
-    jasmine: {
+    'jasmine': {
       build: {
         src : ['spec/js/libs/jquery/jquery.min.js', 'spec/js/libs/bootstrap/js/bootstrap.min.js', 'spec/js/libs/autotype/index.js', 'js/bootstrap-timepicker.js'],
         options: {
@@ -34,7 +29,7 @@ module.exports = function(grunt) {
         }
       }
     },
-    jshint: {
+    'jshint': {
       options: {
         browser: true,
         camelcase: true,
@@ -68,7 +63,7 @@ module.exports = function(grunt) {
       },
       files: ['js/bootstrap-timepicker.js', 'Gruntfile.js', 'package.json', 'spec/js/*Spec.js']
     },
-    less: {
+    'less': {
       dev: {
         options: {
           paths: ['css']
@@ -87,9 +82,9 @@ module.exports = function(grunt) {
         }
       }
     },
-    uglify: {
+    'uglify': {
       options: {
-        banner: '/*! <%= meta.project %> v<%= meta.version %> \n' +
+        banner: '/*! <%= pkg.name %> v<%= pkg.version %> \n' +
           '* http://jdewit.github.com/bootstrap-timepicker \n' +
           '* Copyright (c) <%= grunt.template.today("yyyy") %> Joris de Wit \n' +
           '* MIT License \n' +
@@ -100,7 +95,7 @@ module.exports = function(grunt) {
         dest: 'js/<%= pkg.name %>.min.js'
       }
     },
-    watch: {
+    'watch': {
       js: {
         files: ['js/bootstrap-timepicker.js', 'spec/js/*Spec.js'],
         tasks: ['jshint', 'jasmine'],

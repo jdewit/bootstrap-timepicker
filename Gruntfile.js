@@ -6,7 +6,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-build-gh-pages');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -14,11 +14,7 @@ module.exports = function(grunt) {
       project: 'bootstrap-timepicker',
       version: '0.2.3'
     },
-    'gh-pages': {
-      options: {
-        add: true,
-        push: false
-      },
+    'build_gh_pages': {
       src: [
         'css/bootstrap-timepicker.min.css',
         'js/bootstrap-timepicker.min.js'
@@ -120,5 +116,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['jshint', 'jasmine', 'less:dev']);
   grunt.registerTask('test', ['jasmine', 'jshint']);
+  grunt.registerTask('pages', ['build_gh_pages']);
   grunt.registerTask('compile', ['jshint', 'jasmine', 'uglify', 'less:prod']);
 };

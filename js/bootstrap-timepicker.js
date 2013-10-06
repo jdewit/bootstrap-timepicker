@@ -686,62 +686,81 @@
         return;
       }
 
-      if (this.showMeridian) {
-        arr = time.split(' ');
-        timeArray = arr[0].split(':');
-        this.meridian = arr[1];
-      } else {
-        timeArray = time.split(':');
-      }
+      if (typeof time === 'object' && time.getMonth){
+        // this is a date object
+        this.hour    = time.getHours();
+        this.minute  = time.getMinutes();
+        this.second  = time.getSeconds();
 
-      this.hour = parseInt(timeArray[0], 10);
-      this.minute = parseInt(timeArray[1], 10);
-      this.second = parseInt(timeArray[2], 10);
-
-      if (isNaN(this.hour)) {
-        this.hour = 0;
-      }
-      if (isNaN(this.minute)) {
-        this.minute = 0;
-      }
-
-      if (this.showMeridian) {
-        if (this.hour > 12) {
-          this.hour = 12;
-        } else if (this.hour < 1) {
-          this.hour = 12;
-        }
-
-        if (this.meridian === 'am' || this.meridian === 'a') {
+        if (this.showMeridian){
           this.meridian = 'AM';
-        } else if (this.meridian === 'pm' || this.meridian === 'p') {
-          this.meridian = 'PM';
-        }
+          if (this.hour > 12){
+            this.meridian = 'PM';
+            this.hour = this.hour % 12;
+          }
 
-        if (this.meridian !== 'AM' && this.meridian !== 'PM') {
-          this.meridian = 'AM';
+          if (this.hour === 12){
+            this.meridian = 'PM';
+          }
         }
       } else {
-        if (this.hour >= 24) {
-          this.hour = 23;
-        } else if (this.hour < 0) {
+        if (this.showMeridian) {
+          arr = time.split(' ');
+          timeArray = arr[0].split(':');
+          this.meridian = arr[1];
+        } else {
+          timeArray = time.split(':');
+        }
+
+        this.hour = parseInt(timeArray[0], 10);
+        this.minute = parseInt(timeArray[1], 10);
+        this.second = parseInt(timeArray[2], 10);
+
+        if (isNaN(this.hour)) {
           this.hour = 0;
         }
-      }
+        if (isNaN(this.minute)) {
+          this.minute = 0;
+        }
 
-      if (this.minute < 0) {
-        this.minute = 0;
-      } else if (this.minute >= 60) {
-        this.minute = 59;
-      }
+        if (this.showMeridian) {
+          if (this.hour > 12) {
+            this.hour = 12;
+          } else if (this.hour < 1) {
+            this.hour = 12;
+          }
 
-      if (this.showSeconds) {
-        if (isNaN(this.second)) {
-          this.second = 0;
-        } else if (this.second < 0) {
-          this.second = 0;
-        } else if (this.second >= 60) {
-          this.second = 59;
+          if (this.meridian === 'am' || this.meridian === 'a') {
+            this.meridian = 'AM';
+          } else if (this.meridian === 'pm' || this.meridian === 'p') {
+            this.meridian = 'PM';
+          }
+
+          if (this.meridian !== 'AM' && this.meridian !== 'PM') {
+            this.meridian = 'AM';
+          }
+        } else {
+          if (this.hour >= 24) {
+            this.hour = 23;
+          } else if (this.hour < 0) {
+            this.hour = 0;
+          }
+        }
+
+        if (this.minute < 0) {
+          this.minute = 0;
+        } else if (this.minute >= 60) {
+          this.minute = 59;
+        }
+
+        if (this.showSeconds) {
+          if (isNaN(this.second)) {
+            this.second = 0;
+          } else if (this.second < 0) {
+            this.second = 0;
+          } else if (this.second >= 60) {
+            this.second = 59;
+          }
         }
       }
 

@@ -389,6 +389,18 @@ describe('Timepicker feature', function() {
     expect(hideEvents).toBe(1);
   });
 
+  it('should be able to reset time by using setTime 0/null', function() {
+    tp1.hour = 10;
+    tp1.minute = 30;
+    tp1.meridian = 'PM';
+    tp1.updateElement();
+
+    $input1.timepicker('setTime', null);
+    tp1.update();
+    expect(tp1.getTime()).toBe('');
+  });
+
+
   it('should not have the widget in the DOM if remove method is called', function() {
     expect($('body')).toContain('.bootstrap-timepicker-widget');
     tp1.remove();

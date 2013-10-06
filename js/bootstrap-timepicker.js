@@ -90,6 +90,15 @@
       this.updateFromElementVal();
     },
 
+    clear: function() {
+      this.hour = null;
+      this.minute = null;
+      this.second = null;
+      this.meridian = null;
+
+      this.$element.val('');
+    },
+
     decrementHour: function() {
       if (this.showMeridian) {
         if (this.hour === 1) {
@@ -228,11 +237,11 @@
     },
 
     formatTime: function(hour, minute, second, meridian) {
-      hour = hour < 10 ? '0' + hour : hour;
-      minute = minute < 10 ? '0' + minute : minute;
-      second = second < 10 ? '0' + second : second;
+      hour = hour !== null ? (hour < 10 ? '0' + hour : hour) : '';
+      minute = minute !== null ? (minute < 10 ? '0' + minute : minute) : '';
+      second = second !== null ? (second < 10 ? '0' + second : second) : '';
 
-      return hour + ':' + minute + (this.showSeconds ? ':' + second : '') + (this.showMeridian ? ' ' + meridian : '');
+      return hour + (hour !== '' ? ':' : '') + minute + (this.showSeconds && second !== '' ? ':' + second : '') + (this.showMeridian && meridian !== null ? ' ' + meridian : '');
     },
 
     getCursorPosition: function() {
@@ -665,6 +674,11 @@
     setTime: function(time) {
       var arr,
         timeArray;
+
+      if (!time) {
+        this.clear();
+        return;
+      }
 
       if (this.showMeridian) {
         arr = time.split(' ');

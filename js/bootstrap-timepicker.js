@@ -544,14 +544,30 @@
       delete this.$element.data().timepicker;
     },
 
-    setDefaultTime: function(defaultTime){
+    setDefaultTime: function(defaultTime) {
       if (!this.$element.val()) {
         if (defaultTime === 'current') {
           var dTime = new Date(),
             hours = dTime.getHours(),
-            minutes = Math.ceil(dTime.getMinutes() / this.minuteStep) * this.minuteStep,
-            seconds = Math.ceil(dTime.getSeconds() / this.secondStep) * this.secondStep,
+            minutes = dTime.getMinutes(),
+            seconds = dTime.getSeconds(),
             meridian = 'AM';
+
+          if (seconds !== 0) {
+            seconds = Math.ceil(dTime.getSeconds() / this.secondStep) * this.secondStep;
+            if (seconds === 60) {
+              minutes += 1;
+              seconds = 0;
+            }
+          }
+
+          if (minutes !== 0) {
+            minutes = Math.ceil(dTime.getMinutes() / this.minuteStep) * this.minuteStep;
+            if (minutes === 60) {
+              hours += 1;
+              minutes = 0;
+            }
+          }
 
           if (this.showMeridian) {
             if (hours === 0) {

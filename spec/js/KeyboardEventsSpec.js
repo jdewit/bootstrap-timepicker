@@ -47,6 +47,16 @@ describe('Keyboard events feature', function() {
     $input3.remove();
   });
 
+  it('should be able to set time via input', function() {
+
+    $input1.trigger('focus');
+    $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}9:45a{{tab}}');
+
+    expect(tp1.highlightedUnit).not.toBe('minute');
+    expect(tp1.getTime()).toBe('09:45 AM');
+    expect($input1.is(':focus')).toBe(false);
+  });
+
   it('should be able to control element by the arrow keys', function() {
     tp1.setTime('11:30 AM');
     tp1.update();
@@ -160,7 +170,6 @@ describe('Keyboard events feature', function() {
     eventCount = 0,
     time;
 
-
     tp1.setTime('9:30 AM');
     tp1.update();
     $input1.parents('div').find('.add-on').click();
@@ -197,6 +206,7 @@ describe('Keyboard events feature', function() {
 
     expect($input1.val()).toBe('');
   });
+
   it('should allow time to be changed via widget inputs in a modal', function() {
     tp2.setTime('9:30 AM');
     tp2.update();

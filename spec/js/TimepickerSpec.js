@@ -97,7 +97,8 @@ describe('Timepicker feature', function() {
   it('should have current time by default', function() {
     var dTime = new Date(),
       hour = dTime.getHours(),
-      minutes = dTime.getMinutes();
+      minutes = dTime.getMinutes(),
+      meridian;
 
     if (minutes !== 0) {
       minutes = Math.ceil(minutes / tp1.minuteStep) * tp1.minuteStep;
@@ -106,6 +107,12 @@ describe('Timepicker feature', function() {
     if (minutes === 60) {
       hour += 1;
       minutes = 0;
+    }
+
+    if (hour < 13) {
+      meridian = 'AM';
+    } else {
+      meridian = 'PM';
     }
 
     if (hour > 12) {
@@ -117,6 +124,7 @@ describe('Timepicker feature', function() {
 
     expect(tp1.hour).toBe(hour);
     expect(tp1.minute).toBe(minutes);
+    expect(tp1.meridian).toBe(meridian);
   });
 
   it('should not override time with current time if value is already set', function() {

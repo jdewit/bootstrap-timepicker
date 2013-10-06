@@ -155,10 +155,10 @@ describe('Keyboard events feature', function() {
 
   it('should be able to change time via widget inputs in a dropdown', function() {
     var $hourInput = tp1.$widget.find('input.bootstrap-timepicker-hour'),
-        $minuteInput = tp1.$widget.find('input.bootstrap-timepicker-minute'),
-        $meridianInput = tp1.$widget.find('input.bootstrap-timepicker-meridian'),
-        eventCount = 0,
-        time;
+    $minuteInput = tp1.$widget.find('input.bootstrap-timepicker-minute'),
+    $meridianInput = tp1.$widget.find('input.bootstrap-timepicker-meridian'),
+    eventCount = 0,
+    time;
 
 
     tp1.setTime('9:30 AM');
@@ -193,91 +193,91 @@ describe('Keyboard events feature', function() {
   });
 
   it('should still be empty if input is empty', function() {
-		$input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{tab}}');
+    $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{tab}}');
 
-		expect($input1.val()).toBe('');
-	});
+    expect($input1.val()).toBe('');
+  });
   it('should allow time to be changed via widget inputs in a modal', function() {
-    //tp2.setTime('9:30 AM');
-    //tp2.update();
-    //$input2.parents('div').find('.add-on').click();
+    tp2.setTime('9:30 AM');
+    tp2.update();
+    $input2.parents('div').find('.add-on').click();
 
-    //var $hourInput = $('body').find('input.bootstrap-timepicker-hour'),
-        //$minuteInput = $('body').find('input.bootstrap-timepicker-minute'),
-        //$secondInput = $('body').find('input.bootstrap-timepicker-second'),
-        //$meridianInput = $('body').find('input.bootstrap-timepicker-meridian');
+    var $hourInput = $('body').find('input.bootstrap-timepicker-hour'),
+        $minuteInput = $('body').find('input.bootstrap-timepicker-minute'),
+        $secondInput = $('body').find('input.bootstrap-timepicker-second'),
+        $meridianInput = $('body').find('input.bootstrap-timepicker-meridian');
 
-    //$hourInput.autotype('{{back}}{{back}}2');
-    //$hourInput.trigger({
-      //'type': 'keydown',
-      //'keyCode': 9 //tab
-    //});
+    $hourInput.autotype('{{back}}{{back}}2');
+    $hourInput.trigger({
+      'type': 'keydown',
+      'keyCode': 9 //tab
+    });
 
-    //expect(tp2.getTime()).toBe('02:30:00 AM');
+    expect(tp2.getTime()).toBe('02:30:00 AM');
 
 
-    //$minuteInput.autotype('{{back}}{{back}}0');
-    //$minuteInput.trigger({
-      //'type': 'keydown',
-      //'keyCode': 9 //tab
-    //});
+    $minuteInput.autotype('{{back}}{{back}}0');
+    $minuteInput.trigger({
+      'type': 'keydown',
+      'keyCode': 9 //tab
+    });
 
-    //expect(tp2.getTime()).toBe('02:00:00 AM');
+    expect(tp2.getTime()).toBe('02:00:00 AM');
 
-    //$secondInput.autotype('{{back}}{{back}}30');
-    //$secondInput.trigger({
-      //'type': 'keydown',
-      //'keyCode': 9 //tab
-    //});
+    $secondInput.autotype('{{back}}{{back}}30');
+    $secondInput.trigger({
+      'type': 'keydown',
+      'keyCode': 9 //tab
+    });
 
-    //expect(tp2.getTime()).toBe('02:00:30 AM');
+    expect(tp2.getTime()).toBe('02:00:30 AM');
 
-    //$meridianInput.autotype('{{back}}{{back}}p');
-    //$meridianInput.trigger({
-      //'type': 'keydown',
-      //'keyCode': 9 //tab
-    //});
+    $meridianInput.autotype('{{back}}{{back}}p');
+    $meridianInput.trigger({
+      'type': 'keydown',
+      'keyCode': 9 //tab
+    });
 
-    //expect(tp2.getTime()).toBe('02:00:30 PM');
+    expect(tp2.getTime()).toBe('02:00:30 PM');
   });
 
   it('should be 12:00 AM if 00:00 AM is entered', function() {
-    //$input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}0:0 AM');
-    //$input1.trigger({
-      //'type': 'keydown',
-      //'keyCode': 9 //tab
-    //});
+    $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}0:0 AM');
+    $input1.trigger({
+      'type': 'keydown',
+      'keyCode': 9 //tab
+    });
 
-    //expect(tp1.getTime()).toBe('12:00 AM');
+    expect(tp1.getTime()).toBe('12:00 AM');
   });
 
   it('should validate input', function() {
-    //var $hourInput = tp1.$widget.find('input.bootstrap-timepicker-hour'),
-        //$minuteInput = tp1.$widget.find('input.bootstrap-timepicker-minute'),
-        //$meridianInput = tp1.$widget.find('input.bootstrap-timepicker-meridian'),
-        //$input3 = tp3.$element;
+    var $hourInput = tp1.$widget.find('input.bootstrap-timepicker-hour'),
+    $minuteInput = tp1.$widget.find('input.bootstrap-timepicker-minute'),
+    $meridianInput = tp1.$widget.find('input.bootstrap-timepicker-meridian'),
+    $input3 = tp3.$element;
 
-        //tp1.setTime('11:30 AM');
-        //tp1.update();
+    tp1.setTime('11:30 AM');
+    tp1.update();
 
-        //$hourInput.autotype('{{back}}{{back}}13');
-        //tp1.updateFromWidgetInputs();
-        //expect(tp1.getTime()).toBe('12:30 AM');
+    $hourInput.autotype('{{back}}{{back}}13');
+    tp1.updateFromWidgetInputs();
+    expect(tp1.getTime()).toBe('12:30 AM');
 
-        //$minuteInput.autotype('{{back}}{{back}}60');
-        //tp1.updateFromWidgetInputs();
-        //expect(tp1.getTime()).toBe('12:59 AM');
+    $minuteInput.autotype('{{back}}{{back}}60');
+    tp1.updateFromWidgetInputs();
+    expect(tp1.getTime()).toBe('12:59 AM');
 
-        //$meridianInput.autotype('{{back}}{{back}}dk');
-        //tp1.updateFromWidgetInputs();
-        //expect(tp1.getTime()).toBe('12:59 AM');
+    $meridianInput.autotype('{{back}}{{back}}dk');
+    tp1.updateFromWidgetInputs();
+    expect(tp1.getTime()).toBe('12:59 AM');
 
-        //$meridianInput.autotype('{{back}}{{back}}p');
-        //tp1.updateFromWidgetInputs();
-        //expect(tp1.getTime()).toBe('12:59 PM');
+    $meridianInput.autotype('{{back}}{{back}}p');
+    tp1.updateFromWidgetInputs();
+    expect(tp1.getTime()).toBe('12:59 PM');
 
-        //$input3.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}25:60:60');
-        //tp3.updateFromElementVal();
-        //expect(tp3.getTime()).toBe('23:59:59');
+    $input3.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}25:60:60');
+    tp3.updateFromElementVal();
+    expect(tp3.getTime()).toBe('23:59:59');
   });
 });

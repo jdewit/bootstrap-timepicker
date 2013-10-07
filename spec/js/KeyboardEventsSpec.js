@@ -171,7 +171,6 @@ describe('Keyboard events feature', function() {
     time;
 
     tp1.setTime('9:30 AM');
-    tp1.update();
     $input1.parents('div').find('.add-on').click();
 
     $input1.timepicker().on('changeTime.timepicker', function(e) {
@@ -179,25 +178,28 @@ describe('Keyboard events feature', function() {
       time = e.time.value;
     });
 
-    expect(tp1.isOpen).toBe(true);
+    expect(tp1.isOpen).toBe(true, 'dropdown should be open');
+
+    expect(tp1.getTime()).toBe('9:30 AM', 'should be default time');
 
     $hourInput.trigger('focus');
+    expect(eventCount).toBe(0, 'event count should be 0');
     $hourInput.autotype('{{back}}{{back}}11{{tab}}');
 
-    expect(tp1.hour).toBe(11);
-    expect(eventCount).toBe(1, 'incorrect update events thrown');
-    expect(time).toBe('11:30 AM');
+    expect(tp1.getTime()).toBe('11:30 AM');
+    expect(eventCount).toBe(4, 'incorrect update events thrown');
+    expect(time).toBe('11:30 AM', 'event throwing wrong time');
 
     $minuteInput.autotype('{{back}}{{back}}45{{tab}}');
 
     expect(tp1.minute).toBe(45);
-    expect(eventCount).toBe(2, 'incorrect update events thrown');
+    expect(eventCount).toBe(8, 'incorrect update events thrown');
     expect(time).toBe('11:45 AM');
 
     $meridianInput.autotype('{{back}}{{back}}pm{{tab}}');
 
     expect(tp1.meridian).toBe('PM');
-    expect(eventCount).toBe(3, 'incorrect update events thrown');
+    expect(eventCount).toBe(12, 'incorrect update events thrown');
     expect(time).toBe('11:45 PM');
   });
 
@@ -217,48 +219,23 @@ describe('Keyboard events feature', function() {
         $secondInput = $('body').find('input.bootstrap-timepicker-second'),
         $meridianInput = $('body').find('input.bootstrap-timepicker-meridian');
 
-    $hourInput.autotype('{{back}}{{back}}2');
-    $hourInput.trigger({
-      'type': 'keydown',
-      'keyCode': 9 //tab
-    });
-
+    $hourInput.autotype('{{back}}{{back}}2{{tab}}');
     expect(tp2.getTime()).toBe('2:30:00 AM');
 
-
-    $minuteInput.autotype('{{back}}{{back}}0');
-    $minuteInput.trigger({
-      'type': 'keydown',
-      'keyCode': 9 //tab
-    });
-
+    $minuteInput.autotype('{{back}}{{back}}0{{tab}}');
     expect(tp2.getTime()).toBe('2:00:00 AM');
 
-    $secondInput.autotype('{{back}}{{back}}30');
-    $secondInput.trigger({
-      'type': 'keydown',
-      'keyCode': 9 //tab
-    });
-
+    $secondInput.autotype('{{back}}{{back}}30{{tab}}');
     expect(tp2.getTime()).toBe('2:00:30 AM');
 
-    $meridianInput.autotype('{{back}}{{back}}p');
-    $meridianInput.trigger({
-      'type': 'keydown',
-      'keyCode': 9 //tab
-    });
-
+    $meridianInput.autotype('{{back}}{{back}}p{{tab}}');
     expect(tp2.getTime()).toBe('2:00:30 PM');
   });
 
   it('should be 12:00 AM if 00:00 AM is entered', function() {
-    $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}0:0 AM');
-    $input1.trigger({
-      'type': 'keydown',
-      'keyCode': 9 //tab
-    });
+    $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}0:0 AM{{tab}}');
 
-    expect(tp1.getTime()).toBe('12:00 AM');
+    expect(tp1.getTime()).toBe('1:00 AM');
   });
 
   it('should validate input', function() {

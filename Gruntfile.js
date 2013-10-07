@@ -16,6 +16,7 @@ module.exports = function(grunt) {
     },
     'bump': {
       options: {
+        push: false,
         files: ['package.json', 'component.json', 'composer.json']
       }
     },
@@ -47,6 +48,7 @@ module.exports = function(grunt) {
         trailing: true,
         undef: true,
         unused: true,
+        laxcomma: true,
         white: false,
         globals: {
           jQuery: true,

@@ -1,6 +1,6 @@
 {
     "name": "bootstrap-timepicker",
-    "version": "0.2.4",
+    "version": "0.3.0",
     "description": "A timepicker component for Twitter Bootstrap 2.x",
     "repository": {
       "type": "git",

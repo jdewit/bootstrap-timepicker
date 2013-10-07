@@ -834,26 +834,22 @@
         return;
       }
 
-      var hour = this.hour < 10 ? '0' + this.hour : this.hour,
-          minute = this.minute < 10 ? '0' + this.minute : this.minute,
-          second = this.second < 10 ? '0' + this.second : this.second;
-
       if (this.showInputs) {
-        this.$widget.find('input.bootstrap-timepicker-hour').val(hour);
-        this.$widget.find('input.bootstrap-timepicker-minute').val(minute);
+        this.$widget.find('input.bootstrap-timepicker-hour').val(this.hour);
+        this.$widget.find('input.bootstrap-timepicker-minute').val(this.minute);
 
         if (this.showSeconds) {
-          this.$widget.find('input.bootstrap-timepicker-second').val(second);
+          this.$widget.find('input.bootstrap-timepicker-second').val(this.second);
         }
         if (this.showMeridian) {
           this.$widget.find('input.bootstrap-timepicker-meridian').val(this.meridian);
         }
       } else {
-        this.$widget.find('span.bootstrap-timepicker-hour').text(hour);
-        this.$widget.find('span.bootstrap-timepicker-minute').text(minute);
+        this.$widget.find('span.bootstrap-timepicker-hour').text(this.hour);
+        this.$widget.find('span.bootstrap-timepicker-minute').text(this.minute);
 
         if (this.showSeconds) {
-          this.$widget.find('span.bootstrap-timepicker-second').text(second);
+          this.$widget.find('span.bootstrap-timepicker-second').text(this.second);
         }
         if (this.showMeridian) {
           this.$widget.find('span.bootstrap-timepicker-meridian').text(this.meridian);

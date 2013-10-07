@@ -88,7 +88,8 @@ module.exports = function(grunt) {
           '* http://jdewit.github.com/bootstrap-timepicker \n' +
           '* Copyright (c) <%= grunt.template.today("yyyy") %> Joris de Wit \n' +
           '* MIT License \n' +
-          '*/'
+          '*/',
+        report: 'min'
       },
       build: {
         src: ['<banner:meta.banner>','js/<%= pkg.name %>.js'],

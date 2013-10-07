@@ -71,7 +71,6 @@ describe('Mouse events feature', function() {
     $input1.parents('div').find('.add-on').trigger('click');
 
     expect(tp1.isOpen).toBe(true);
-    expect($('.modal').length).toBe(1);
     expect(showEvents).toBe(1);
   });
 

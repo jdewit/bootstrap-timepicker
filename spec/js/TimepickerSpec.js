@@ -154,7 +154,7 @@ describe('Timepicker feature', function() {
     expect(tp2.second).toBe(20);
     expect(tp2.meridian).toBe('AM');
     expect($input2.val()).toBe('9:15:20 AM');
-    expect(tp2.$widget.find('.bootstrap-timepicker-hour').val()).toBe('09');
+    expect(tp2.$widget.find('.bootstrap-timepicker-hour').val()).toBe('9');
     expect(tp2.$widget.find('.bootstrap-timepicker-minute').val()).toBe('15');
     expect(tp2.$widget.find('.bootstrap-timepicker-second').val()).toBe('20');
     expect(tp2.$widget.find('.bootstrap-timepicker-meridian').val()).toBe('AM');

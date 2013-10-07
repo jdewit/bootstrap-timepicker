@@ -72,6 +72,7 @@ describe('Timepicker feature', function() {
     expect(tp1.modalBackdrop).toBe(false);
     expect(tp1.modalBackdrop).toBe(false);
     expect(tp1.isOpen).toBe(false);
+    expect(tp1.showWidgetOnAddonClick).toBe(true);
   });
 
   it('should allow user to configure defaults', function() {

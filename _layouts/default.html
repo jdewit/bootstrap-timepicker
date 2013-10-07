@@ -140,6 +140,14 @@
                 showInputs: false,
                 minuteStep: 5
             });
+
+            setTimeout(function() {
+              $('#timeDisplay').text($('#timepicker1').val());
+            }, 100);
+
+            $('#timepicker1').on('changeTime.timepicker', function(e) {
+              $('#timeDisplay').text(e.time.value);
+            });
         });
     </script>
 </body>

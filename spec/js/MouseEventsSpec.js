@@ -112,7 +112,7 @@ describe('Mouse events feature', function() {
     expect(count).toBe(1);
 
     tp2.$widget.find('a[data-action="incrementHour"]').trigger('click');
-    expect(tp2.getTime()).toBe('01:00:00 AM');
+    expect(tp2.getTime()).toBe('1:00:00 AM');
   });
 
   it('should decrement hour on button click and fire 1 changeTime event', function() {
@@ -132,7 +132,7 @@ describe('Mouse events feature', function() {
     tp2.$widget.find('a[data-action="incrementHour"]').trigger('click');
     tp2.$widget.find('a[data-action="incrementHour"]').trigger('click');
     tp2.$widget.find('a[data-action="decrementHour"]').trigger('click');
-    expect(tp2.getTime()).toBe('01:00:00 AM');
+    expect(tp2.getTime()).toBe('1:00:00 AM');
   });
 
   it('should increment minute on button click and fire 1 changeTime event', function() {
@@ -150,7 +150,7 @@ describe('Mouse events feature', function() {
     expect(tp1.getTime()).toBe('11:45 AM');
 
     tp2.$widget.find('a[data-action="incrementMinute"]').trigger('click');
-    expect(tp2.getTime()).toBe('00:30:00 AM');
+    expect(tp2.getTime()).toBe('0:30:00 AM');
 
     expect(count).toBe(1);
 
@@ -187,7 +187,7 @@ describe('Mouse events feature', function() {
     tp1.$widget.find('a[data-action="incrementHour"]').trigger('click');
     tp1.$widget.find('a[data-action="incrementHour"]').trigger('click');
 
-    expect(tp1.getTime()).toBe('01:00 PM');
+    expect(tp1.getTime()).toBe('1:00 PM');
 
     expect(count).toBe(2);
   });

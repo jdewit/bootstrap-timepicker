@@ -86,7 +86,7 @@
     },
 
     blurElement: function() {
-      this.highlightedUnit = undefined;
+      this.highlightedUnit = null;
       this.updateFromElementVal();
     },
 
@@ -157,27 +157,6 @@
     elementKeydown: function(e) {
       switch (e.keyCode) {
       case 9: //tab
-        this.updateFromElementVal();
-
-        switch (this.highlightedUnit) {
-        case 'hour':
-          e.preventDefault();
-          this.highlightNextUnit();
-          break;
-        case 'minute':
-          if (this.showMeridian || this.showSeconds) {
-            e.preventDefault();
-            this.highlightNextUnit();
-          }
-          break;
-        case 'second':
-          if (this.showMeridian) {
-            e.preventDefault();
-            this.highlightNextUnit();
-          }
-          break;
-        }
-        break;
       case 27: // escape
         this.updateFromElementVal();
         break;
@@ -237,7 +216,7 @@
     },
 
     formatTime: function(hour, minute, second, meridian) {
-      hour = hour !== null ? (hour < 10 ? '0' + hour : hour) : '';
+      hour = hour !== null ? (hour < 10 && this.showMeridian === false ? '0' + hour : hour) : '';
       minute = minute !== null ? (minute < 10 ? '0' + minute : minute) : '';
       second = second !== null ? (second < 10 ? '0' + second : second) : '';
 
@@ -678,9 +657,6 @@
     },
 
     setTime: function(time) {
-      var arr,
-        timeArray;
-
       if (!time) {
         this.clear();
         return;
@@ -704,40 +680,49 @@
           }
         }
       } else {
-        if (this.showMeridian) {
-          arr = time.split(' ');
-          timeArray = arr[0].split(':');
-          this.meridian = arr[1];
+        //
+        var timeArray,
+            hour,
+            minute,
+            second = 0;
+
+        if (time.match(/p/i) !== null) {
+          this.meridian = 'PM';
         } else {
-          timeArray = time.split(':');
+          this.meridian = 'AM';
         }
 
-        this.hour = parseInt(timeArray[0], 10);
-        this.minute = parseInt(timeArray[1], 10);
-        this.second = parseInt(timeArray[2], 10);
+        time = time.replace(/[^0-9\:]/g, '');
 
-        if (isNaN(this.hour)) {
-          this.hour = 0;
+        timeArray = time.split(':');
+
+        hour = timeArray[0] ? timeArray[0].toString() : timeArray.toString();
+        minute = timeArray[1] ? timeArray[1].toString() : '';
+        second = timeArray[2] ? timeArray[2].toString() : '';
+
+        // idiot proofing
+        if (hour.length > 4) {
+          second = hour.substr(4, 2);
         }
-        if (isNaN(this.minute)) {
-          this.minute = 0;
+        if (hour.length > 2) {
+          minute = hour.substr(2, 2);
+          hour = hour.substr(0, 2);
         }
+        if (minute.length > 2) {
+          second = minute.substr(2, 2);
+          minute = minute.substr(0, 2);
+        }
+        if (second.length > 2) {
+          second = second.substr(2, 2);
+        }
+
+        this.hour = parseInt(hour, 10);
+        this.minute = parseInt(minute, 10);
+        this.second = parseInt(second, 10);
 
         if (this.showMeridian) {
-          if (this.hour > 12) {
+          if (this.hour < 1 || this.hour > 12) {
             this.hour = 12;
-          } else if (this.hour < 1) {
-            this.hour = 12;
-          }
-
-          if (this.meridian === 'am' || this.meridian === 'a') {
-            this.meridian = 'AM';
-          } else if (this.meridian === 'pm' || this.meridian === 'p') {
-            this.meridian = 'PM';
-          }
-
-          if (this.meridian !== 'AM' && this.meridian !== 'PM') {
-            this.meridian = 'AM';
           }
         } else {
           if (this.hour >= 24) {
@@ -745,9 +730,12 @@
           } else if (this.hour < 0) {
             this.hour = 0;
           }
+          if (this.hour < 13 && this.meridian === 'PM') {
+            this.hour = this.hour + 12;
+          }
         }
 
-        if (this.minute < 0) {
+        if (!this.minute || this.minute < 0) {
           this.minute = 0;
         } else if (this.minute >= 60) {
           this.minute = 59;
@@ -838,11 +826,7 @@
     },
 
     updateFromElementVal: function() {
-			var val = this.$element.val();
-
-			if (val) {
-				this.setTime(val);
-			}
+      this.setTime(this.$element.val());
     },
 
     updateWidget: function() {
@@ -963,7 +947,6 @@
       }
     }
   };
-
 
   //TIMEPICKER PLUGIN DEFINITION
   $.fn.timepicker = function(option) {

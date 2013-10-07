@@ -147,13 +147,13 @@ describe('Timepicker feature', function() {
   });
 
   it('should update the element and widget with the setTime method', function() {
-    tp2.setTime('09:15:20 AM');
+    tp2.setTime('9:15:20 AM');
 
     expect(tp2.hour).toBe(9);
     expect(tp2.minute).toBe(15);
     expect(tp2.second).toBe(20);
     expect(tp2.meridian).toBe('AM');
-    expect($input2.val()).toBe('09:15:20 AM');
+    expect($input2.val()).toBe('9:15:20 AM');
     expect(tp2.$widget.find('.bootstrap-timepicker-hour').val()).toBe('09');
     expect(tp2.$widget.find('.bootstrap-timepicker-minute').val()).toBe('15');
     expect(tp2.$widget.find('.bootstrap-timepicker-second').val()).toBe('20');
@@ -161,12 +161,65 @@ describe('Timepicker feature', function() {
   });
 
   it('should be able to format time values into a string', function() {
-    expect(tp2.formatTime(3, 15, 45, 'PM')).toBe('03:15:45 PM');
+    expect(tp2.formatTime(3, 15, 45, 'PM')).toBe('3:15:45 PM');
   });
 
   it('should be able get & set the pickers time', function() {
+    tp1.setTime('11:15 PM');
+    expect(tp1.getTime()).toBe('11:15 PM');
     tp3.setTime('23:15:20');
     expect(tp3.getTime()).toBe('23:15:20');
+
+    tp1.setTime('11pm');
+    expect(tp1.getTime()).toBe('11:00 PM');
+    tp3.setTime('11pm');
+    expect(tp3.getTime()).toBe('23:00:00');
+
+    tp1.setTime('11a');
+    expect(tp1.getTime()).toBe('11:00 AM');
+    tp3.setTime('11a');
+    expect(tp3.getTime()).toBe('11:00:00');
+
+    tp1.setTime('1');
+    expect(tp1.getTime()).toBe('1:00 AM');
+    tp3.setTime('1');
+    expect(tp3.getTime()).toBe('01:00:00');
+
+    tp1.setTime('13');
+    expect(tp1.getTime()).toBe('12:00 AM');
+    tp3.setTime('13');
+    expect(tp3.getTime()).toBe('13:00:00');
+
+    tp1.setTime('10:20p');
+    expect(tp1.getTime()).toBe('10:20 PM');
+    tp3.setTime('10:20p');
+    expect(tp3.getTime()).toBe('22:20:00');
+
+    tp1.setTime('10:20 p.m.');
+    expect(tp1.getTime()).toBe('10:20 PM');
+    tp3.setTime('10:20 p.m.');
+    expect(tp3.getTime()).toBe('22:20:00');
+
+    tp1.setTime('10:20a');
+    expect(tp1.getTime()).toBe('10:20 AM');
+    tp3.setTime('10:20a');
+    expect(tp3.getTime()).toBe('10:20:00');
+
+    tp1.setTime('10:2010');
+    expect(tp1.getTime()).toBe('10:20 AM', 'setTime with 10:2010 on tp1');
+    tp3.setTime('10:2010');
+    expect(tp3.getTime()).toBe('10:20:10', 'setTime with 10:2010 on tp3');
+
+    tp1.setTime('102010');
+    expect(tp1.getTime()).toBe('10:20 AM', 'setTime with 102010 on tp1');
+    tp3.setTime('102010');
+    expect(tp3.getTime()).toBe('10:20:10', 'setTime with 102010 on tp3');
+
+    tp1.setTime('2320');
+    expect(tp1.getTime()).toBe('12:20 AM', 'setTime with 2320 on tp1');
+    tp3.setTime('2320');
+    expect(tp3.getTime()).toBe('23:20:00', 'setTime with 2320 on tp3');
+
   });
 
   it('should update picker on blur', function() {
@@ -286,7 +339,7 @@ describe('Timepicker feature', function() {
     tp1.incrementHour();
     tp1.incrementHour();
 
-    expect(tp1.getTime()).toBe('01:15 AM');
+    expect(tp1.getTime()).toBe('1:15 AM');
   });
 
   it('should set hour to 0 if hour increments on 23 for 24h clock', function() {

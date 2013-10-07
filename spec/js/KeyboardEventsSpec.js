@@ -53,7 +53,7 @@ describe('Keyboard events feature', function() {
     $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}9:45a{{tab}}');
 
     expect(tp1.highlightedUnit).not.toBe('minute');
-    expect(tp1.getTime()).toBe('09:45 AM');
+    expect(tp1.getTime()).toBe('9:45 AM');
     expect($input1.is(':focus')).toBe(false);
   });
 
@@ -223,7 +223,7 @@ describe('Keyboard events feature', function() {
       'keyCode': 9 //tab
     });
 
-    expect(tp2.getTime()).toBe('02:30:00 AM');
+    expect(tp2.getTime()).toBe('2:30:00 AM');
 
 
     $minuteInput.autotype('{{back}}{{back}}0');
@@ -232,7 +232,7 @@ describe('Keyboard events feature', function() {
       'keyCode': 9 //tab
     });
 
-    expect(tp2.getTime()).toBe('02:00:00 AM');
+    expect(tp2.getTime()).toBe('2:00:00 AM');
 
     $secondInput.autotype('{{back}}{{back}}30');
     $secondInput.trigger({
@@ -240,7 +240,7 @@ describe('Keyboard events feature', function() {
       'keyCode': 9 //tab
     });
 
-    expect(tp2.getTime()).toBe('02:00:30 AM');
+    expect(tp2.getTime()).toBe('2:00:30 AM');
 
     $meridianInput.autotype('{{back}}{{back}}p');
     $meridianInput.trigger({
@@ -248,7 +248,7 @@ describe('Keyboard events feature', function() {
       'keyCode': 9 //tab
     });
 
-    expect(tp2.getTime()).toBe('02:00:30 PM');
+    expect(tp2.getTime()).toBe('2:00:30 PM');
   });
 
   it('should be 12:00 AM if 00:00 AM is entered', function() {
@@ -270,24 +270,19 @@ describe('Keyboard events feature', function() {
     tp1.setTime('11:30 AM');
     tp1.update();
 
-    $hourInput.autotype('{{back}}{{back}}13');
-    tp1.updateFromWidgetInputs();
-    expect(tp1.getTime()).toBe('12:30 AM');
+    $hourInput.autotype('{{back}}{{back}}10{{tab}}');
+    expect(tp1.getTime()).toBe('10:30 AM');
 
-    $minuteInput.autotype('{{back}}{{back}}60');
-    tp1.updateFromWidgetInputs();
-    expect(tp1.getTime()).toBe('12:59 AM');
+    $minuteInput.autotype('{{back}}{{back}}60{{tab}}');
+    expect(tp1.getTime()).toBe('10:59 AM');
 
-    $meridianInput.autotype('{{back}}{{back}}dk');
-    tp1.updateFromWidgetInputs();
-    expect(tp1.getTime()).toBe('12:59 AM');
+    $meridianInput.autotype('{{back}}{{back}}dk{{tab}}');
+    expect(tp1.getTime()).toBe('10:59 AM');
 
-    $meridianInput.autotype('{{back}}{{back}}p');
-    tp1.updateFromWidgetInputs();
-    expect(tp1.getTime()).toBe('12:59 PM');
+    $meridianInput.autotype('{{back}}{{back}}p{{tab}}');
+    expect(tp1.getTime()).toBe('10:59 PM');
 
-    $input3.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}25:60:60');
-    tp3.updateFromElementVal();
+    $input3.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}25:60:60{{tab}}');
     expect(tp3.getTime()).toBe('23:59:59');
   });
 });

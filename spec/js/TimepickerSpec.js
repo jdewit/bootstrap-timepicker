@@ -160,10 +160,6 @@ describe('Timepicker feature', function() {
     expect(tp2.$widget.find('.bootstrap-timepicker-meridian').val()).toBe('AM');
   });
 
-  it('should be able to format time values into a string', function() {
-    expect(tp2.formatTime(3, 15, 45, 'PM')).toBe('3:15:45 PM');
-  });
-
   it('should be able get & set the pickers time', function() {
     tp1.setTime('11:15 PM');
     expect(tp1.getTime()).toBe('11:15 PM');
@@ -183,7 +179,7 @@ describe('Timepicker feature', function() {
     tp1.setTime('1');
     expect(tp1.getTime()).toBe('1:00 AM');
     tp3.setTime('1');
-    expect(tp3.getTime()).toBe('01:00:00');
+    expect(tp3.getTime()).toBe('1:00:00');
 
     tp1.setTime('13');
     expect(tp1.getTime()).toBe('12:00 AM');
@@ -457,7 +453,7 @@ describe('Timepicker feature', function() {
     tp1.updateElement();
 
     $input1.timepicker('setTime', null);
-    tp1.update();
+//    tp1.update();
     expect(tp1.getTime()).toBe('');
   });
 

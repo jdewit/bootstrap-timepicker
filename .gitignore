@@ -1,6 +1,7 @@
 *.swp
 _site/
 .grunt
+.idea
 node_modules
 gruntfile.js
 _site

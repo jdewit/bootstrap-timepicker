@@ -28,6 +28,8 @@
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
+    this.amDesignator = options.amDesignator ? options.amDesignator : 'AM';
+    this.pmDesignator = options.pmDesignator ? options.pmDesignator : 'PM';
 
     this._init();
   };
@@ -618,7 +620,7 @@
             hours = dTime.getHours(),
             minutes = dTime.getMinutes(),
             seconds = dTime.getSeconds(),
-            meridian = 'AM';
+            meridian = this.amDesignator;
 
           if (seconds !== 0) {
             seconds = Math.ceil(dTime.getSeconds() / this.secondStep) * this.secondStep;
@@ -643,9 +645,9 @@
               if (hours > 12) {
                 hours = hours - 12;
               }
-              meridian = 'PM';
+              meridian = this.pmDesignator;
             } else {
-              meridian = 'AM';
+              meridian = this.amDesignator;
             }
           }
 
@@ -660,7 +662,7 @@
           this.hour = 0;
           this.minute = 0;
           this.second = 0;
-          this.meridian = 'AM';
+          this.meridian = this.amDesignator;
         } else {
           this.setTime(defaultTime);
         }
@@ -688,21 +690,21 @@
         second  = time.getSeconds();
 
         if (this.showMeridian){
-          meridian = 'AM';
+          meridian = this.amDesignator;
           if (hour > 12){
-            meridian = 'PM';
+            meridian = this.pmDesignator;
             hour = hour % 12;
           }
 
           if (hour === 12){
-            meridian = 'PM';
+            meridian = this.pmDesignator;
           }
         }
       } else {
         if (time.match(/p/i) !== null) {
-          meridian = 'PM';
+          meridian = this.pmDesignator;
         } else {
-          meridian = 'AM';
+          meridian = this.amDesignator;
         }
 
         time = time.replace(/[^0-9\:]/g, '');
@@ -755,7 +757,7 @@
           } else if (hour < 0) {
             hour = 0;
           }
-          if (hour < 13 && meridian === 'PM') {
+          if (hour < 13 && meridian === this.pmDesignator) {
             hour = hour + 12;
           }
         }
@@ -838,7 +840,7 @@
     },
 
     toggleMeridian: function() {
-      this.meridian = this.meridian === 'AM' ? 'PM' : 'AM';
+      this.meridian = this.meridian === this.amDesignator ? this.pmDesignator : this.amDesignator;
     },
 
     update: function(ignoreWidget) {

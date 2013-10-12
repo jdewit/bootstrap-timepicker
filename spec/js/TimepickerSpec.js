@@ -4,12 +4,15 @@ describe('Timepicker feature', function() {
   var $input1,
     $input2,
     $input3,
+    $input4,
     $timepicker1,
     $timepicker2,
     $timepicker3,
+    $timepicker4,
     tp1,
     tp2,
-    tp3;
+    tp3,
+    tp4;
 
   beforeEach(function () {
     loadFixtures('timepicker.html');
@@ -35,6 +38,14 @@ describe('Timepicker feature', function() {
       defaultTime: '13:25:15'
     });
     tp3 = $timepicker3.data('timepicker');
+
+    $input4 = $('#timepicker4');
+    $timepicker4 = $input4.timepicker({
+      showMeridian: true,
+      amDesignator: 'xAM',
+      pmDesignator: 'xPM'
+    });
+    tp4 = $timepicker4.data('timepicker');
   });
 
   afterEach(function () {
@@ -47,9 +58,13 @@ describe('Timepicker feature', function() {
     if ($input3.data('timepicker') !== undefined) {
       $input3.data('timepicker').remove();
     }
+    if ($input4.data('timepicker') !== undefined) {
+      $input4.data('timepicker').remove();
+    }
     $input1.remove();
     $input2.remove();
     $input3.remove();
+    $input4.remove();
   });
 
   it('should be available on the jquery object', function() {
@@ -73,6 +88,8 @@ describe('Timepicker feature', function() {
     expect(tp1.modalBackdrop).toBe(false);
     expect(tp1.isOpen).toBe(false);
     expect(tp1.showWidgetOnAddonClick).toBe(true);
+    expect(tp1.amDesignator).toBe('AM');
+    expect(tp1.pmDesignator).toBe('PM');
   });
 
   it('should allow user to configure defaults', function() {
@@ -81,7 +98,7 @@ describe('Timepicker feature', function() {
   });
 
   it('should be configurable with data attributes', function() {
-    $('body').append('<div id="hi" class="bootstrap-timepicker"><input id="customTimepicker" data-template="modal" data-minute-step="30" data-modal-backdrop="true" data-show-meridian="true" type="text"/></div');
+    $('body').append('<div id="hi" class="bootstrap-timepicker"><input id="customTimepicker" data-am-designator="xAM" data-pm-designator="xPM" data-template="modal" data-minute-step="30" data-modal-backdrop="true" data-show-meridian="true" type="text"/></div>');
 
     var $customInput = $('body').find('#customTimepicker'),
         tpCustom = $customInput.timepicker().data('timepicker');
@@ -91,6 +108,8 @@ describe('Timepicker feature', function() {
     expect(tpCustom.minuteStep).toBe(30, 'data-minute-step not working');
     expect(tpCustom.modalBackdrop).toBe(true, 'data-modal-backdrop not working');
     expect(tpCustom.showMeridian).toBe(true, 'data-show-meridian not working');
+    expect(tpCustom.amDesignator).toBe('xAM', 'data-am-designator not working');
+    expect(tpCustom.pmDesignator).toBe('xPM', 'data-pm-designator not working');
 
     tpCustom.remove();
   });
@@ -378,7 +397,6 @@ describe('Timepicker feature', function() {
     expect(tp2.minute).toBe(30);
   });
 
-
   it('should increment hour if minutes increment past 59', function() {
     $input1.val('11:55 AM');
     tp1.updateFromElementVal();
@@ -416,7 +434,6 @@ describe('Timepicker feature', function() {
     expect(tp2.minute).toBe(59);
     expect(tp2.second).toBe(30);
   });
-
 
   it('should increment minute by 1 if seconds increment past 59', function() {
     $input2.val('11:55:30 AM');
@@ -458,12 +475,12 @@ describe('Timepicker feature', function() {
     expect(tp1.getTime()).toBe('');
   });
 
-
   it('should not have the widget in the DOM if remove method is called', function() {
     expect($('body')).toContain('.bootstrap-timepicker-widget');
     tp1.remove();
     tp2.remove();
     tp3.remove();
+    tp4.remove();
     expect($('body')).not.toContain('.bootstrap-timepicker-widget');
   });
 
@@ -479,4 +496,21 @@ describe('Timepicker feature', function() {
     expect(tp1.isOpen).toBe(true);
   });
 
+  it('should use AM designator specified in initialization options', function() {
+    $input4.val('11:00 xAM');
+    tp4.updateFromElementVal();
+
+    expect(tp4.hour).toBe(11);
+    expect(tp4.minute).toBe(0);
+    expect(tp4.meridian).toBe('xAM');
+  });
+
+  it('should use PM designator specified in initialization options', function() {
+    $input4.val('11:00 xPM');
+    tp4.updateFromElementVal();
+
+    expect(tp4.hour).toBe(11);
+    expect(tp4.minute).toBe(0);
+    expect(tp4.meridian).toBe('xPM');
+  });
 });

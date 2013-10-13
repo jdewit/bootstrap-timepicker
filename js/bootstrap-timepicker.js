@@ -842,6 +842,11 @@
     },
 
     update: function(ignoreWidget) {
+      this.updateElement();
+      if (!ignoreWidget) {
+        this.updateWidget();
+      }
+
       this.$element.trigger({
         'type': 'changeTime.timepicker',
         'time': {
@@ -852,11 +857,6 @@
           'meridian': this.meridian
         }
       });
-
-      this.updateElement();
-      if (!ignoreWidget) {
-        this.updateWidget();
-      }
     },
 
     updateElement: function() {

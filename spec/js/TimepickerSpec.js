@@ -217,6 +217,8 @@ describe('Timepicker feature', function() {
     tp3.setTime('2320');
     expect(tp3.getTime()).toBe('23:20:00', 'setTime with 2320 on tp3');
 
+    tp3.setTime('0:00');
+    expect(tp3.getTime()).toBe('0:00:00', 'setTime with 0:00 on tp3');
   });
 
   it('should update picker on blur', function() {

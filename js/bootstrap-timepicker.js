@@ -319,7 +319,7 @@
     },
 
     getTime: function() {
-      if (!this.hour && !this.minute && !this.second) {
+      if (this.hour === '') {
         return '';
       }
 
@@ -883,7 +883,7 @@
       }
 
       // widget shouldn't be empty on open
-      if (!this.hour) {
+      if (this.hour === '') {
         if (this.defaultTime) {
           this.setDefaultTime(this.defaultTime);
         } else {

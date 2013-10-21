@@ -1093,5 +1093,17 @@
   };
 
   $.fn.timepicker.Constructor = Timepicker;
+  
+  $(document).on(
+    'focus.timepicker.data-api click.timepicker.data-api',
+    '[data-provide="timepicker"]',
+    function(e){
+      var $this = $(this);
+      if ($this.data('timepicker')) return;
+      e.preventDefault();
+      // component click requires us to explicitly show it
+      $this.timepicker();
+    }
+  );
 
 })(jQuery, window, document);

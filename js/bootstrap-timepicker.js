@@ -432,15 +432,15 @@
 
       this.highlightedUnit = 'hour';
 
-			if ($element.setSelectionRange) {
-				setTimeout(function() {
+      if ($element.setSelectionRange) {
+        setTimeout(function() {
           if (self.hour < 10) {
             $element.setSelectionRange(0,1);
           } else {
             $element.setSelectionRange(0,2);
           }
-				}, 0);
-			}
+        }, 0);
+      }
     },
 
     highlightMinute: function() {
@@ -449,15 +449,15 @@
 
       this.highlightedUnit = 'minute';
 
-			if ($element.setSelectionRange) {
-				setTimeout(function() {
+      if ($element.setSelectionRange) {
+        setTimeout(function() {
           if (self.hour < 10) {
             $element.setSelectionRange(2,4);
           } else {
             $element.setSelectionRange(3,5);
           }
-				}, 0);
-			}
+        }, 0);
+      }
     },
 
     highlightSecond: function() {
@@ -466,15 +466,15 @@
 
       this.highlightedUnit = 'second';
 
-			if ($element.setSelectionRange) {
-				setTimeout(function() {
+      if ($element.setSelectionRange) {
+        setTimeout(function() {
           if (self.hour < 10) {
             $element.setSelectionRange(5,7);
           } else {
             $element.setSelectionRange(6,8);
           }
-				}, 0);
-			}
+        }, 0);
+      }
     },
 
     highlightMeridian: function() {
@@ -483,25 +483,25 @@
 
       this.highlightedUnit = 'meridian';
 
-			if ($element.setSelectionRange) {
-				if (this.showSeconds) {
-					setTimeout(function() {
+      if ($element.setSelectionRange) {
+        if (this.showSeconds) {
+          setTimeout(function() {
             if (self.hour < 10) {
               $element.setSelectionRange(8,10);
             } else {
               $element.setSelectionRange(9,11);
             }
-					}, 0);
-				} else {
-					setTimeout(function() {
+          }, 0);
+        } else {
+          setTimeout(function() {
             if (self.hour < 10) {
               $element.setSelectionRange(5,7);
             } else {
               $element.setSelectionRange(6,8);
             }
-					}, 0);
-				}
-			}
+          }, 0);
+        }
+      }
     },
 
     incrementHour: function() {
@@ -991,7 +991,10 @@
       this.update();
 
       if ($input.is('input')) {
-        $input.get(0).setSelectionRange(0,2);
+        var $element = $input.get(0);
+        if ($element.setSelectionRange) {
+          $element.setSelectionRange(0,2);
+        }
       }
     },
 
@@ -1025,7 +1028,10 @@
           break;
         }
         this.setTime(this.getTime());
-        $input.get(0).setSelectionRange(0,2);
+        var $element = $input.get(0);
+        if ($element.setSelectionRange) {
+          $element.setSelectionRange(0,2);
+        }
         break;
       case 40: // down arrow
         e.preventDefault();
@@ -1044,7 +1050,10 @@
           break;
         }
         this.setTime(this.getTime());
-        $input.get(0).setSelectionRange(0,2);
+        var $element = $input.get(0);
+        if ($element.setSelectionRange) {
+          $element.setSelectionRange(0,2);
+        }
         break;
       }
     },

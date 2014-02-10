@@ -161,6 +161,14 @@ describe('Timepicker feature', function() {
     expect(tp2.$widget.find('.bootstrap-timepicker-meridian').val()).toBe('AM');
   });
 
+  it('should ensure that 24 hour widgets pad the hours on display', function() {
+    tp3.setTime('2:04:05');
+    expect($input3.val()).toBe('02:04:05');
+    expect(tp3.$widget.find('.bootstrap-timepicker-hour').val()).toBe('02');
+    expect(tp3.$widget.find('.bootstrap-timepicker-minute').val()).toBe('04');
+    expect(tp3.$widget.find('.bootstrap-timepicker-second').val()).toBe('05');
+  });
+
   it('should be able get & set the pickers time', function() {
     tp1.setTime('11:15 PM');
     expect(tp1.getTime()).toBe('11:15 PM');
@@ -180,7 +188,7 @@ describe('Timepicker feature', function() {
     tp1.setTime('1');
     expect(tp1.getTime()).toBe('1:00 AM');
     tp3.setTime('1');
-    expect(tp3.getTime()).toBe('1:00:00');
+    expect(tp3.getTime()).toBe('01:00:00');
 
     tp1.setTime('13');
     expect(tp1.getTime()).toBe('12:00 AM');
@@ -218,7 +226,7 @@ describe('Timepicker feature', function() {
     expect(tp3.getTime()).toBe('23:20:00', 'setTime with 2320 on tp3');
 
     tp3.setTime('0:00');
-    expect(tp3.getTime()).toBe('0:00:00', 'setTime with 0:00 on tp3');
+    expect(tp3.getTime()).toBe('00:00:00', 'setTime with 0:00 on tp3');
   });
 
   it('should update picker on blur', function() {

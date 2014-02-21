@@ -13,21 +13,21 @@
 
   // TIMEPICKER PUBLIC CLASS DEFINITION
   var Timepicker = function(element, options) {
-    this.widget = '';
-    this.$element = $(element);
-    this.defaultTime = options.defaultTime;
-    this.disableFocus = options.disableFocus;
-    this.disableMousewheel = options.disableMousewheel;
-    this.isOpen = options.isOpen;
-    this.minuteStep = options.minuteStep;
-    this.modalBackdrop = options.modalBackdrop;
-    this.orientation = options.orientation;
-    this.secondStep = options.secondStep;
-    this.showInputs = options.showInputs;
-    this.showMeridian = options.showMeridian;
-    this.showSeconds = options.showSeconds;
-    this.template = options.template;
-    this.appendWidgetTo = options.appendWidgetTo;
+    this.widget                 = '';
+    this.$element               = $(element);
+    this.defaultTime            = options.defaultTime;
+    this.disableFocus           = options.disableFocus;
+    this.disableMousewheel      = options.disableMousewheel;
+    this.isOpen                 = options.isOpen;
+    this.minuteStep             = options.minuteStep;
+    this.modalBackdrop          = options.modalBackdrop;
+    this.orientation            = options.orientation;
+    this.secondStep             = options.secondStep;
+    this.showInputs             = options.showInputs;
+    this.showMeridian           = options.showMeridian;
+    this.showSeconds            = options.showSeconds;
+    this.template               = options.template;
+    this.appendWidgetTo         = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
 
     this._init();
@@ -39,15 +39,16 @@
     _init: function() {
       var self = this;
 
-      if (this.showWidgetOnAddonClick && (this.$element.parent().hasClass('input-append') || this.$element.parent().hasClass('input-prepend'))) {
-        this.$element.parent('.input-append, .input-prepend').find('.add-on').on({
-          'click.timepicker': $.proxy(this.showWidget, this)
+      if (this.showWidgetOnAddonClick && (this.$element.parent().hasClass('input-group.bootstrap-timepicker'))) {
+        this.$element.parent('.input-group.bootstrap-timepicker').find('input-group-addon').on({
+          'click.timepicker': $.proxy(this.showWidget, this),          
         });
+
         this.$element.on({
-          'focus.timepicker': $.proxy(this.highlightUnit, this),
-          'click.timepicker': $.proxy(this.highlightUnit, this),
+          'focus.timepicker'  : $.proxy(this.highlightUnit, this),
+          'click.timepicker'  : $.proxy(this.highlightUnit, this),
           'keydown.timepicker': $.proxy(this.elementKeydown, this),
-          'blur.timepicker': $.proxy(this.blurElement, this),
+          'blur.timepicker'   : $.proxy(this.blurElement, this),
           'mousewheel.timepicker DOMMouseScroll.timepicker': $.proxy(this.mousewheel, this)
         });
       } else {
@@ -78,7 +79,7 @@
       if (this.showInputs && this.$widget !== false) {
         this.$widget.find('input').each(function() {
           $(this).on({
-            'click.timepicker': function() { $(this).select(); },
+            'click.timepicker': function() {$(this).select(); },
             'keydown.timepicker': $.proxy(self.widgetKeydown, self),
             'keyup.timepicker': $.proxy(self.widgetKeyup, self)
           });
@@ -124,6 +125,7 @@
           this.hour--;
         }
       }
+
     },
 
     decrementMinute: function(step) {
@@ -255,16 +257,16 @@
 
       templateContent = '<table>'+
          '<tr>'+
-           '<td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>'+
+           '<td><a href="#" data-action="incrementHour"><i class="glyphicon glyphicon-chevron-up"></i></a></td>'+
            '<td class="separator">&nbsp;</td>'+
-           '<td><a href="#" data-action="incrementMinute"><i class="icon-chevron-up"></i></a></td>'+
+           '<td><a href="#" data-action="incrementMinute"><i class="glyphicon glyphicon-chevron-up"></i></a></td>'+
            (this.showSeconds ?
              '<td class="separator">&nbsp;</td>'+
-             '<td><a href="#" data-action="incrementSecond"><i class="icon-chevron-up"></i></a></td>'
+             '<td><a href="#" data-action="incrementSecond"><i class="glyphicon glyphicon-chevron-up"></i></a></td>'
            : '') +
            (this.showMeridian ?
              '<td class="separator">&nbsp;</td>'+
-             '<td class="meridian-column"><a href="#" data-action="toggleMeridian"><i class="icon-chevron-up"></i></a></td>'
+             '<td class="meridian-column"><a href="#" data-action="toggleMeridian"><i class="glyphicon glyphicon-chevron-up"></i></a></td>'
            : '') +
          '</tr>'+
          '<tr>'+
@@ -281,16 +283,16 @@
            : '') +
          '</tr>'+
          '<tr>'+
-           '<td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>'+
+           '<td><a href="#" data-action="decrementHour"><i class="glyphicon glyphicon-chevron-down"></i></a></td>'+
            '<td class="separator"></td>'+
-           '<td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>'+
+           '<td><a href="#" data-action="decrementMinute"><i class="glyphicon glyphicon-chevron-down"></i></a></td>'+
            (this.showSeconds ?
             '<td class="separator">&nbsp;</td>'+
-            '<td><a href="#" data-action="decrementSecond"><i class="icon-chevron-down"></i></a></td>'
+            '<td><a href="#" data-action="decrementSecond"><i class="glyphicon glyphicon-chevron-down"></i></a></td>'
            : '') +
            (this.showMeridian ?
             '<td class="separator">&nbsp;</td>'+
-            '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-down"></i></a></td>'
+            '<td><a href="#" data-action="toggleMeridian"><i class="glyphicon glyphicon-chevron-down"></i></a></td>'
            : '') +
          '</tr>'+
        '</table>';
@@ -942,6 +944,7 @@
           second = this.second.toString().length === 1 ? '0' + this.second : this.second;
 
       if (this.showInputs) {
+        alert('hello neelam');
         this.$widget.find('input.bootstrap-timepicker-hour').val(hour);
         this.$widget.find('input.bootstrap-timepicker-minute').val(minute);
 

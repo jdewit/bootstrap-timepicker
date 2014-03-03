@@ -944,7 +944,6 @@
           second = this.second.toString().length === 1 ? '0' + this.second : this.second;
 
       if (this.showInputs) {
-        alert('hello neelam');
         this.$widget.find('input.bootstrap-timepicker-hour').val(hour);
         this.$widget.find('input.bootstrap-timepicker-minute').val(minute);
 

@@ -4,12 +4,15 @@ describe('Timepicker feature', function() {
   var $input1,
     $input2,
     $input3,
+    $input4,
     $timepicker1,
     $timepicker2,
     $timepicker3,
+    $timepicker4,
     tp1,
     tp2,
-    tp3;
+    tp3,
+    tp4;
 
   beforeEach(function () {
     loadFixtures('timepicker.html');
@@ -35,6 +38,10 @@ describe('Timepicker feature', function() {
       defaultTime: '13:25:15'
     });
     tp3 = $timepicker3.data('timepicker');
+
+    $input4 = $('#timepicker-z-index');
+    $timepicker4 = $input4.timepicker();
+    tp4 = $timepicker4.data('timepicker');
   });
 
   afterEach(function () {
@@ -50,6 +57,7 @@ describe('Timepicker feature', function() {
     $input1.remove();
     $input2.remove();
     $input3.remove();
+    $input4.remove();
   });
 
   it('should be available on the jquery object', function() {
@@ -484,4 +492,10 @@ describe('Timepicker feature', function() {
     expect(tp1.isOpen).toBe(true);
   });
 
+  it('should place timepicker on top of parents', function() {
+    tp4.showWidget();
+    $('body').find('.bootstrap-timepicker-widget').css('position', 'relative');
+
+    expect($('body').find('.bootstrap-timepicker-widget').css('z-index')).toBe('1010');
+  });
 });

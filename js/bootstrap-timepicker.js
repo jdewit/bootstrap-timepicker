@@ -39,8 +39,8 @@
     _init: function() {
       var self = this;
 
-      if (this.showWidgetOnAddonClick && (this.$element.parent().hasClass('input-append') || this.$element.parent().hasClass('input-prepend'))) {
-        this.$element.parent('.input-append, .input-prepend').find('.add-on').on({
+      if (this.showWidgetOnAddonClick && (this.$element.parent().hasClass('input-group') || this.$element.parent().hasClass('input-append') || this.$element.parent().hasClass('input-prepend'))) {
+        this.$element.parent('.input-group, .input-append, .input-prepend').find('.add-on, .input-group-addon').on({
           'click.timepicker': $.proxy(this.showWidget, this)
         });
         this.$element.on({

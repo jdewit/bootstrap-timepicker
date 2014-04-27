@@ -6,6 +6,11 @@ Timepicker for Twitter Bootstrap 2.x [![Build Status](https://secure.travis-ci.o
 
 A simple timepicker component for Twitter Bootstrap.
 
+Status
+======
+This project is no longer maintained. Fork away or use some of the other excellent timepickers available.
+
+
 Demos & Documentation
 =====================
 

@@ -29,7 +29,7 @@
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
-
+    this.timeSeparator = options.timeSeparator;
     this._init();
   };
 
@@ -269,10 +269,10 @@
          '</tr>'+
          '<tr>'+
            '<td>'+ hourTemplate +'</td> '+
-           '<td class="separator">:</td>'+
+           '<td class="separator">' + this.timeSeparator + '</td>'+
            '<td>'+ minuteTemplate +'</td> '+
            (this.showSeconds ?
-            '<td class="separator">:</td>'+
+            '<td class="separator">' + this.timeSeparator + '</td>'+
             '<td>'+ secondTemplate +'</td>'
            : '') +
            (this.showMeridian ?
@@ -323,7 +323,7 @@
         return '';
       }
 
-      return this.hour + ':' + (this.minute.toString().length === 1 ? '0' + this.minute : this.minute) + (this.showSeconds ? ':' + (this.second.toString().length === 1 ? '0' + this.second : this.second) : '') + (this.showMeridian ? ' ' + this.meridian : '');
+      return this.hour + this.timeSeparator + (this.minute.toString().length === 1 ? '0' + this.minute : this.minute) + (this.showSeconds ? this.timeSeparator + (this.second.toString().length === 1 ? '0' + this.second : this.second) : '') + (this.showMeridian ? ' ' + this.meridian : '');
     },
 
     hideWidget: function() {
@@ -763,10 +763,9 @@
         } else {
           meridian = 'AM';
         }
-
-        time = time.replace(/[^0-9\:]/g, '');
-
-        timeArray = time.split(':');
+        // Don't know how to include dynamically a char do both [.:]
+        time = time.replace(/[^0-9\:\.]/g, '');
+        timeArray = time.split(this.timeSeparator);
 
         hour = timeArray[0] ? timeArray[0].toString() : timeArray.toString();
         minute = timeArray[1] ? timeArray[1].toString() : '';
@@ -887,7 +886,7 @@
         if (this.defaultTime) {
           this.setDefaultTime(this.defaultTime);
         } else {
-          this.setTime('0:0:0');
+          this.setTime('0' + this.timeSeparator + '0' + this.timeSeparator + '0');
         }
       }
 
@@ -969,9 +968,9 @@
         return;
       }
 
-      var t = this.$widget.find('input.bootstrap-timepicker-hour').val() + ':' +
+      var t = this.$widget.find('input.bootstrap-timepicker-hour').val() + this.timeSeparator +
               this.$widget.find('input.bootstrap-timepicker-minute').val() +
-              (this.showSeconds ? ':' + this.$widget.find('input.bootstrap-timepicker-second').val() : '') +
+              (this.showSeconds ? this.timeSeparator + this.$widget.find('input.bootstrap-timepicker-second').val() : '') +
               (this.showMeridian ? this.$widget.find('input.bootstrap-timepicker-meridian').val() : '')
       ;
 
@@ -1089,7 +1088,8 @@
     showMeridian: true,
     template: 'dropdown',
     appendWidgetTo: 'body',
-    showWidgetOnAddonClick: true
+    showWidgetOnAddonClick: true,
+    timeSeparator : ':'
   };
 
   $.fn.timepicker.Constructor = Timepicker;

@@ -807,7 +807,7 @@
           }
         } else {
           if (hour >= 24) {
-            hour = 23;
+            hour = 0;
           } else if (hour < 0) {
             hour = 0;
           }

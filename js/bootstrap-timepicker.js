@@ -799,8 +799,9 @@
         }
 
         if (this.showMeridian) {
-          if (hour < 1) {
-            hour = 1;
+          if (hour <= 0 || hour >= 24) {
+            meridian = this.amDesignator;
+            hour = 0;
           } else if (hour > 12) {
             meridian = this.pmDesignator;
             hour %= 12;

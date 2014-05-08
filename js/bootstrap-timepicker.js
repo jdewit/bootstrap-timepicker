@@ -802,7 +802,8 @@
           if (hour < 1) {
             hour = 1;
           } else if (hour > 12) {
-            hour = 12;
+            meridian = this.pmDesignator;
+            hour %= 12;
           }
         } else {
           if (hour >= 24) {

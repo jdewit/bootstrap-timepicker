@@ -338,7 +338,7 @@
       return sb.join('');
     },
     
-    getIso8601Time : function() {
+    getIso8601 : function() {
         if (this.hour === '') {
           return '';
         }
@@ -930,7 +930,7 @@
     	this.$element.trigger({
             'type': eventName,
             'time': {
-              'iso8601' : this.getIso8601Time(),
+              'iso8601' : this.getIso8601(),
               'value': this.getTime(),
               'hours': this.hour,
               'minutes': this.minute,
@@ -1071,12 +1071,15 @@
       }
     }
   };
-
+  // could make same stuff to allow only some (public) methods
+  var getters = {'getTime':1, 'getIso8601':1};
   //TIMEPICKER PLUGIN DEFINITION
   $.fn.timepicker = function(option) {
     var args = Array.apply(null, arguments);
     args.shift();
-    return this.each(function() {
+    // potential return values
+    var ret = [];
+    this.each(function() {	
       var $this = $(this),
         data = $this.data('timepicker'),
         options = typeof option === 'object' && option;
@@ -1086,9 +1089,16 @@
       }
 
       if (typeof option === 'string') {
-        data[option].apply(data, args);
+    	if(typeof data[option]=='undefined') throw 'Unknown method : ' + option;
+        var res = data[option].apply(data, args);
+        ret.push(res);
       }
     });
+    // If is a getter return first value 
+    // otherwise std chaining.
+    // Could return the array (all) but for what ?
+    // Also there is always at least one item, right ?
+    return getters[option] ? ret[0] : this;
   };
 
   $.fn.timepicker.defaults = {

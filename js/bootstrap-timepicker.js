@@ -339,18 +339,8 @@
       if (this.isOpen === false) {
         return;
       }
-
-      this.$element.trigger({
-        'type': 'hide.timepicker',
-        'time': {
-          'value': this.getTime(),
-          'hours': this.hour,
-          'minutes': this.minute,
-          'seconds': this.second,
-          'meridian': this.meridian
-        }
-      });
-
+      this.raiseTimeEvent('hide.timepicker');
+      
       if (this.template === 'modal' && this.$widget.modal) {
         this.$widget.modal('hide');
       } else {
@@ -865,17 +855,7 @@
           self.hideWidget();
         }
       });
-
-      this.$element.trigger({
-        'type': 'show.timepicker',
-        'time': {
-          'value': this.getTime(),
-          'hours': this.hour,
-          'minutes': this.minute,
-          'seconds': this.second,
-          'meridian': this.meridian
-        }
-      });
+      this.raiseTimeEvent('show.timepicker');
 
       this.place();
       if (this.disableFocus) {
@@ -911,17 +891,21 @@
       if (!ignoreWidget) {
         this.updateWidget();
       }
-
-      this.$element.trigger({
-        'type': 'changeTime.timepicker',
-        'time': {
-          'value': this.getTime(),
-          'hours': this.hour,
-          'minutes': this.minute,
-          'seconds': this.second,
-          'meridian': this.meridian
-        }
-      });
+      this.raiseTimeEvent('changeTime.timepicker');
+      
+    },
+    
+    raiseTimeEvent : function(eventName) {
+    	this.$element.trigger({
+            'type': eventName,
+            'time': {
+              'value': this.getTime(),
+              'hours': this.hour,
+              'minutes': this.minute,
+              'seconds': this.second,
+              'meridian': this.meridian
+            }
+          });
     },
 
     updateElement: function() {

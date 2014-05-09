@@ -14,7 +14,8 @@
   // TIMEPICKER PUBLIC CLASS DEFINITION
   var Timepicker = function(element, options) {
     this.widget = '';
-    this.$element = $(element);
+    var input = $(element);
+    this.$element = input;
     this.defaultTime = options.defaultTime;
     this.disableFocus = options.disableFocus;
     this.disableMousewheel = options.disableMousewheel;
@@ -24,15 +25,14 @@
     this.orientation = options.orientation;
     this.secondStep = options.secondStep;
     this.showInputs = options.showInputs;
-    this.showMeridian = options.showMeridian;
+    this.showMeridian = typeof input.data('meridian')!='undefined' ? input.data('meridian') : options.showMeridian;
     this.showSeconds = options.showSeconds;
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
-    this.timeSeparator = options.timeSeparator;
-    this.amDesignator = options.amDesignator ? options.amDesignator : 'AM';
-    this.pmDesignator = options.pmDesignator ? options.pmDesignator : 'PM';
-    
+    this.timeSeparator = input.data('time-separator') ? input.data('time-separator') : options.timeSeparator;
+    this.amDesignator = input.data('am') ? input.data('am') : options.amDesignator;
+    this.pmDesignator = input.data('pm') ? input.data('pm') : options.pmDesignator;
     this._init();
   };
 
@@ -620,6 +620,7 @@
       this.$widget.removeClass('timepicker-orient-top timepicker-orient-bottom timepicker-orient-right timepicker-orient-left');
 
       if (this.orientation.x !== 'auto') {
+        // Should prob be this.$widget #192 #181
         this.picker.addClass('datepicker-orient-' + this.orientation.x);
         if (this.orientation.x === 'right') {
           left -= widgetWidth - width;
@@ -801,7 +802,7 @@
         if (this.showMeridian) {
           if (hour <= 0 || hour >= 24) {
             meridian = this.amDesignator;
-            hour = 0;
+            hour = 12;
           } else if (hour > 12) {
             meridian = this.pmDesignator;
             hour %= 12;

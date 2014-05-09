@@ -326,15 +326,46 @@
       if (this.hour === '') {
         return '';
       }
-      return this.getFormattedHour() + this.timeSeparator + (this.minute.toString().length === 1 ? '0' + this.minute : this.minute) + (this.showSeconds ? this.timeSeparator + (this.second.toString().length === 1 ? '0' + this.second : this.second) : '') + (this.showMeridian ? ' ' + this.meridian : '');
+      var sb = [];
+      sb.push(this.getFormattedHour());
+      sb.push(this.timeSeparator);
+      sb.push(this.pad(this.minute));
+      if (this.showSeconds ) {
+          sb.push(this.timeSeparator);
+          sb.push(this.pad(this.second));
+      }
+      if (this.showMeridian) sb.push(' ' + this.meridian);
+      return sb.join('');
     },
+    
+    getIso8601Time : function() {
+        if (this.hour === '') {
+          return '';
+        }
+        var sb = [];
+        // not getFormattedHour
+        sb.push(this.pad(this.hour));
+        sb.push(this.timeSeparator);
+        sb.push(this.pad(this.minute));
+        sb.push(this.timeSeparator);
+        sb.push(this.pad(this.second));
+        return sb.join('');
+     },
     
     getFormattedHour : function() {
     	var h = "" + this.hour;
-        if (h.length==1 && this.twoDigitsHour===true) h = '0' + h;
-        return h;
+    	// careful here must go out string
+        return this.pad(h, !this.twoDigitsHour);
     },
-
+    
+    
+    // Takes a variant and outputs a string,
+    // use [ignore=true] to just convert
+    pad : function(v, ignore) {
+    	var f = "" + v;
+        return !ignore && f.length == 1 ? '0' + f : f;
+    },
+    
     hideWidget: function() {
       if (this.isOpen === false) {
         return;
@@ -899,6 +930,7 @@
     	this.$element.trigger({
             'type': eventName,
             'time': {
+              'iso8601' : this.getIso8601Time(),
               'value': this.getTime(),
               'hours': this.hour,
               'minutes': this.minute,

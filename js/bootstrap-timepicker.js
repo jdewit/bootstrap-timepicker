@@ -26,11 +26,11 @@
     this.secondStep = options.secondStep;
     this.showInputs = options.showInputs;
     this.showMeridian = typeof input.data('meridian')!='undefined' ? input.data('meridian') : options.showMeridian;
-    this.showSeconds = typeof input.data('show-seconds')!='undefined' ? input.data('show-seconds') : options.showSeconds;
+    this.showSeconds = options.showSeconds;
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
-    this.timeSeparator = input.data('time-separator') ? input.data('time-separator') : options.timeSeparator;
+    this.timeSeparator = options.timeSeparator;
     this.amDesignator = input.data('am') ? input.data('am') : options.amDesignator;
     this.pmDesignator = input.data('pm') ? input.data('pm') : options.pmDesignator;
     this.twoDigitsHour = input.data('two-digits-hour') ? input.data('two-digits-hour') : options.twoDigitsHour;
@@ -1085,7 +1085,9 @@
         options = typeof option === 'object' && option;
 
       if (!data) {
-        $this.data('timepicker', (data = new Timepicker(this, $.extend({}, $.fn.timepicker.defaults, options, $(this).data()))));
+    	// use data- attributes as config
+    	var conf = $.extend({}, $.fn.timepicker.defaults, options, $(this).data());
+    	$this.data('timepicker', (data = new Timepicker(this, conf)));
       }
 
       if (typeof option === 'string') {

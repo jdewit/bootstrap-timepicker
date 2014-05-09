@@ -31,9 +31,11 @@
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
     this.timeSeparator = options.timeSeparator;
+    this.meridianSeparator = options.meridianSeparator;
     this.amDesignator = input.data('am') ? input.data('am') : options.amDesignator;
     this.pmDesignator = input.data('pm') ? input.data('pm') : options.pmDesignator;
     this.twoDigitsHour = input.data('two-digits-hour') ? input.data('two-digits-hour') : options.twoDigitsHour;
+    this.submitMode = options.submitMode;
     this._init();
   };
 
@@ -72,6 +74,9 @@
           });
         }
       }
+      this.$element.parents('form').on({
+          'submit.timepicker': $.proxy(this.onsubmit, this),
+      })
 
       if (this.template !== false) {
         this.$widget = $(this.getTemplate()).on('click', $.proxy(this.widgetClick, this));
@@ -92,6 +97,16 @@
       this.setDefaultTime(this.defaultTime);
     },
 
+    onsubmit : function(e) {
+    	var sm = this.submitMode;
+    	if (sm=='default') {
+    		// do nothing
+    	} else if (sm == 'iso' || sm == 'iso8601') {
+    		this.$element.val(this.getIso8601());
+        } else {
+        	this.$element.val(this.getIso8601(true));
+        }
+    },
     blurElement: function() {
       this.highlightedUnit = null;
       this.updateFromElementVal();
@@ -334,11 +349,11 @@
           sb.push(this.timeSeparator);
           sb.push(this.pad(this.second));
       }
-      if (this.showMeridian) sb.push(' ' + this.meridian);
+      if (this.showMeridian) sb.push(this.meridianSeparator + this.meridian);
       return sb.join('');
     },
     
-    getIso8601 : function() {
+    getIso8601 : function(optionalSeconds) {
         if (this.hour === '') {
           return '';
         }
@@ -347,8 +362,10 @@
         sb.push(this.pad(this.hour));
         sb.push(this.timeSeparator);
         sb.push(this.pad(this.minute));
-        sb.push(this.timeSeparator);
-        sb.push(this.pad(this.second));
+        if (!optionalSeconds || this.showSeconds) {
+	        sb.push(this.timeSeparator);
+	        sb.push(this.pad(this.second));
+        }
         return sb.join('');
      },
     
@@ -1121,8 +1138,10 @@
     showWidgetOnAddonClick: true,
     twoDigitsHour : false,
     timeSeparator : ':',
+    meridianSeparator : ' ', // only sq, sq_AL (Albanian) has '.'
     amDesignator : 'AM',
     pmDesignator : 'PM',
+    submitMode : 'default', // 'default' (untouched display value) or 'iso' (ISO with seconds) or 'iso-auto' (ISO possibly without seconds)
   };
 
   $.fn.timepicker.Constructor = Timepicker;

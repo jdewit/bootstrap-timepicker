@@ -756,12 +756,13 @@
           }
         }
       } else {
-        if (time.match(/p/i) !== null) {
+    	  if (time.match(new RegExp(this.pmDesignator, "i")) !== null) {
           meridian = this.pmDesignator;
         } else {
           meridian = this.amDesignator;
         }
-        // Don't know how to include dynamically a char do both [.:]
+
+        // Remove both allowed separators [.:]
         time = time.replace(/[^0-9\:\.]/g, '');
         timeArray = time.split(this.timeSeparator);
 

@@ -935,7 +935,8 @@
               'hours': this.hour,
               'minutes': this.minute,
               'seconds': this.second,
-              'meridian': this.meridian
+              'meridian': this.meridian,
+              'am' : this.showMeridian ? this.meridian === this.amDesignator : undefined,
             }
           });
     },

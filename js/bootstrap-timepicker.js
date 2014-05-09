@@ -33,6 +33,7 @@
     this.timeSeparator = input.data('time-separator') ? input.data('time-separator') : options.timeSeparator;
     this.amDesignator = input.data('am') ? input.data('am') : options.amDesignator;
     this.pmDesignator = input.data('pm') ? input.data('pm') : options.pmDesignator;
+    this.twoDigitsHour = input.data('two-digits-hour') ? input.data('two-digits-hour') : options.twoDigitsHour;
     this._init();
   };
 
@@ -325,8 +326,13 @@
       if (this.hour === '') {
         return '';
       }
-
-      return this.hour + this.timeSeparator + (this.minute.toString().length === 1 ? '0' + this.minute : this.minute) + (this.showSeconds ? this.timeSeparator + (this.second.toString().length === 1 ? '0' + this.second : this.second) : '') + (this.showMeridian ? ' ' + this.meridian : '');
+      return this.getFormattedHour() + this.timeSeparator + (this.minute.toString().length === 1 ? '0' + this.minute : this.minute) + (this.showSeconds ? this.timeSeparator + (this.second.toString().length === 1 ? '0' + this.second : this.second) : '') + (this.showMeridian ? ' ' + this.meridian : '');
+    },
+    
+    getFormattedHour : function() {
+    	var h = "" + this.hour;
+        if (h.length==1 && this.twoDigitsHour===true) h = '0' + h;
+        return h;
     },
 
     hideWidget: function() {
@@ -437,11 +443,9 @@
 
 			if ($element.setSelectionRange) {
 				setTimeout(function() {
-          if (self.hour < 10) {
-            $element.setSelectionRange(0,1);
-          } else {
-            $element.setSelectionRange(0,2);
-          }
+		  var fh = self.getFormattedHour();
+          $element.setSelectionRange(0,fh.length);
+          
 				}, 0);
 			}
     },
@@ -454,11 +458,9 @@
 
 			if ($element.setSelectionRange) {
 				setTimeout(function() {
-          if (self.hour < 10) {
-            $element.setSelectionRange(2,4);
-          } else {
-            $element.setSelectionRange(3,5);
-          }
+			var fh = self.getFormattedHour();
+			var p = 1 + fh.length;           
+            $element.setSelectionRange(p,p+2);
 				}, 0);
 			}
     },
@@ -471,11 +473,9 @@
 
 			if ($element.setSelectionRange) {
 				setTimeout(function() {
-          if (self.hour < 10) {
-            $element.setSelectionRange(5,7);
-          } else {
-            $element.setSelectionRange(6,8);
-          }
+          var fh = self.getFormattedHour();
+          var p = 4+fh.length;
+          $element.setSelectionRange(p,p+2);
 				}, 0);
 			}
     },
@@ -488,10 +488,11 @@
 
 			if ($element.setSelectionRange) {
 				var start;
-				if (this.showSeconds) {
-					start = self.hour < 10 ? 8 : 9;
+				var fh = self.getFormattedHour();
+		        if (this.showSeconds) {
+					start = 7 + fh.length;
 				} else {
-					start = self.hour < 10 ? 5 : 6;
+					start = 4 + fh.length;
 				}
 				 
 					setTimeout(function() {
@@ -731,7 +732,6 @@
         this.clear();
         return;
       }
-
       var timeArray,
           hour,
           minute,
@@ -1090,6 +1090,7 @@
     template: 'dropdown',
     appendWidgetTo: 'body',
     showWidgetOnAddonClick: true,
+    twoDigitsHour : false,
     timeSeparator : ':',
     amDesignator : 'AM',
     pmDesignator : 'PM',

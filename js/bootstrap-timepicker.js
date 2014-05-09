@@ -26,7 +26,7 @@
     this.secondStep = options.secondStep;
     this.showInputs = options.showInputs;
     this.showMeridian = typeof input.data('meridian')!='undefined' ? input.data('meridian') : options.showMeridian;
-    this.showSeconds = options.showSeconds;
+    this.showSeconds = typeof input.data('show-seconds')!='undefined' ? input.data('show-seconds') : options.showSeconds;
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;

@@ -668,7 +668,7 @@
       this.$widget.removeClass('timepicker-orient-top timepicker-orient-bottom timepicker-orient-right timepicker-orient-left');
 
       if (this.orientation.x !== 'auto') {
-        this.$widget.addClass('datepicker-orient-' + this.orientation.x);
+        this.$widget.addClass('timepicker-orient-' + this.orientation.x);
         if (this.orientation.x === 'right') {
           left -= widgetWidth - width;
         }

@@ -36,6 +36,7 @@
     this.pmDesignator = input.data('pm') ? input.data('pm') : options.pmDesignator;
     this.twoDigitsHour = input.data('two-digits-hour') ? input.data('two-digits-hour') : options.twoDigitsHour;
     this.submitMode = options.submitMode;
+    this.suffix = input.data('suffix') ? input.data('suffix') : options.suffix; 
     this._init();
   };
 
@@ -350,6 +351,7 @@
           sb.push(this.pad(this.second));
       }
       if (this.showMeridian) sb.push(this.meridianSeparator + this.meridian);
+      sb.push(this.suffix);
       return sb.join('');
     },
     
@@ -660,7 +662,10 @@
 
       if (this.orientation.x !== 'auto') {
         // Should prob be this.$widget #192 #181
-        this.picker.addClass('datepicker-orient-' + this.orientation.x);
+    	// 20140523 now also https://github.com/jdewit/bootstrap-timepicker/pull/229 says same
+    	// I trust them ;-)
+        // this.picker.addClass('datepicker-orient-' + this.orientation.x);
+        this.$widget.addClass('timepicker-orient-' + this.orientation.x);
         if (this.orientation.x === 'right') {
           left -= widgetWidth - width;
         }
@@ -953,6 +958,7 @@
               'minutes': this.minute,
               'seconds': this.second,
               'meridian': this.meridian,
+              'suffix': this.suffix,
               'am' : this.showMeridian ? this.meridian === this.amDesignator : undefined,
             }
           });
@@ -1139,6 +1145,7 @@
     twoDigitsHour : false,
     timeSeparator : ':',
     meridianSeparator : ' ', // only sq, sq_AL (Albanian) has '.'
+    suffix : '', // only th
     amDesignator : 'AM',
     pmDesignator : 'PM',
     submitMode : 'default', // 'default' (untouched display value) or 'iso' (ISO with seconds) or 'iso-auto' (ISO possibly without seconds)

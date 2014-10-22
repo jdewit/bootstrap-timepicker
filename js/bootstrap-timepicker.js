@@ -29,7 +29,7 @@
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
-    this.timeSeperator = options.timeSeperator;
+    this.timeSeparator = options.timeSeparator;
 
     this._init();
   };
@@ -270,10 +270,10 @@
          '</tr>'+
          '<tr>'+
            '<td>'+ hourTemplate +'</td> '+
-           '<td class="separator">' + this.timeSeperator + '</td>'+
+           '<td class="separator">' + this.timeSeparator + '</td>'+
            '<td>'+ minuteTemplate +'</td> '+
            (this.showSeconds ?
-            '<td class="separator">' + this.timeSeperator + '</td>'+
+            '<td class="separator">' + this.timeSeparator + '</td>'+
             '<td>'+ secondTemplate +'</td>'
            : '') +
            (this.showMeridian ?
@@ -1090,7 +1090,8 @@
     showMeridian: true,
     template: 'dropdown',
     appendWidgetTo: 'body',
-    showWidgetOnAddonClick: true
+    showWidgetOnAddonClick: true,
+    timeSeparator: ':'
   };
 
   $.fn.timepicker.Constructor = Timepicker;

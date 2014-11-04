@@ -226,7 +226,7 @@ describe('Keyboard events feature', function() {
   it('should be 12:00 AM if 00:00 AM is entered', function() {
     $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}0:0 AM{{tab}}');
 
-    expect(tp1.getTime()).toBe('1:00 AM');
+    expect(tp1.getTime()).toBe('12:00 AM');
   });
 
   it('should snap to nearest step or overflow to zero if snapToStep is true', function() {

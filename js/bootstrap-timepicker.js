@@ -459,15 +459,15 @@
 
       this.highlightedUnit = 'hour';
 
-			if ($element.setSelectionRange) {
-				setTimeout(function() {
+      if ($element.setSelectionRange) {
+        setTimeout(function() {
           if (self.hour < 10) {
             $element.setSelectionRange(0,1);
           } else {
             $element.setSelectionRange(0,2);
           }
-				}, 0);
-			}
+        }, 0);
+      }
     },
 
     highlightMinute: function() {
@@ -476,15 +476,15 @@
 
       this.highlightedUnit = 'minute';
 
-			if ($element.setSelectionRange) {
-				setTimeout(function() {
+      if ($element.setSelectionRange) {
+        setTimeout(function() {
           if (self.hour < 10) {
             $element.setSelectionRange(2,4);
           } else {
             $element.setSelectionRange(3,5);
           }
-				}, 0);
-			}
+        }, 0);
+      }
     },
 
     highlightSecond: function() {
@@ -493,15 +493,15 @@
 
       this.highlightedUnit = 'second';
 
-			if ($element.setSelectionRange) {
-				setTimeout(function() {
+      if ($element.setSelectionRange) {
+        setTimeout(function() {
           if (self.hour < 10) {
             $element.setSelectionRange(5,7);
           } else {
             $element.setSelectionRange(6,8);
           }
-				}, 0);
-			}
+        }, 0);
+      }
     },
 
     highlightMeridian: function() {
@@ -510,25 +510,25 @@
 
       this.highlightedUnit = 'meridian';
 
-			if ($element.setSelectionRange) {
-				if (this.showSeconds) {
-					setTimeout(function() {
+      if ($element.setSelectionRange) {
+        if (this.showSeconds) {
+          setTimeout(function() {
             if (self.hour < 10) {
               $element.setSelectionRange(8,10);
             } else {
               $element.setSelectionRange(9,11);
             }
-					}, 0);
-				} else {
-					setTimeout(function() {
+          }, 0);
+        } else {
+          setTimeout(function() {
             if (self.hour < 10) {
               $element.setSelectionRange(5,7);
             } else {
               $element.setSelectionRange(6,8);
             }
-					}, 0);
-				}
-			}
+          }, 0);
+        }
+      }
     },
 
     incrementHour: function() {
@@ -820,9 +820,15 @@
           second = hour.slice(-2);
           hour = hour.slice(0, -2);
         }
+
         if (hour.length > 2) {
           minute = hour.slice(-2);
           hour = hour.slice(0, -2);
+        }
+
+        if (minute.length > 2) {
+          second = minute.slice(-2);
+          minute = minute.slice(0, -2);
         }
 
         hour = parseInt(hour, 10);
@@ -841,19 +847,17 @@
 
         // Adjust the time based upon unit boundary.
         // NOTE: Negatives will never occur due to time.replace() above.
-        if (second >= 60) {
-          minute += Math.floor(second / 60);
-          second = second % 60;
+        if (second > 59) {
+          second = 59;
         }
 
-        if (minute >= 60) {
-          hour += Math.floor(minute / 60);
-          minute = minute % 60;
+        if (minute > 59) {
+          minute = 59;
         }
 
         if (hour >= this.maxHours) {
           // No day/date handling.
-          hour = hour % this.maxHours;
+          hour = this.maxHours - 1;
         }
 
         if (this.showMeridian) {
@@ -869,6 +873,8 @@
             hour = 12; // AM or PM, reset to 12.  0 AM = 12 AM.  0 PM = 12 PM, etc.
           }
           meridian = timeMode === 1 ? "AM" : "PM";
+        } else if (hour < 12 && timeMode === 2) {
+          hour += 12;
         } else {
           if (hour >= this.maxHours) {
             hour = this.maxHours - 1;

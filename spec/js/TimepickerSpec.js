@@ -229,7 +229,7 @@ describe('Timepicker feature', function() {
     expect(tp3.getTime()).toBe('1:00:00');
 
     tp1.setTime('13');
-    expect(tp1.getTime()).toBe('12:00 AM');
+    expect(tp1.getTime()).toBe('1:00 PM');
     tp3.setTime('13');
     expect(tp3.getTime()).toBe('13:00:00');
 
@@ -259,7 +259,7 @@ describe('Timepicker feature', function() {
     expect(tp3.getTime()).toBe('10:20:10', 'setTime with 102010 on tp3');
 
     tp1.setTime('2320');
-    expect(tp1.getTime()).toBe('12:20 AM', 'setTime with 2320 on tp1');
+    expect(tp1.getTime()).toBe('11:20 PM', 'setTime with 2320 on tp1');
     tp3.setTime('2320');
     expect(tp3.getTime()).toBe('23:20:00', 'setTime with 2320 on tp3');
 

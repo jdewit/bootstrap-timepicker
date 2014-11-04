@@ -779,9 +779,15 @@
 					second = hour.slice(-2);
 					hour = hour.slice(0, -2);
 				}
+
 				if (hour.length > 2) {
 					minute = hour.slice(-2);
 					hour = hour.slice(0, -2);
+				}
+
+				if (minute.length > 2) {
+					second = minute.slice(-2);
+					minute = minute.slice(0, -2);
 				}
 
 				hour = parseInt(hour, 10);
@@ -801,19 +807,16 @@
 				// Adjust the time based upon unit boundary.
 				// NOTE: Negatives will never occur due to time.replace() above.
 
-				if (second >= 60) {
-					minute += Math.floor(second / 60);
-					second = second % 60;
+				if (second > 59) {
+					second = 59;
 				}
 
-				if (minute >= 60) {
-					hour += Math.floor(minute / 60);
-					minute = minute % 60;
+				if (minute > 59) {
+					minute = 59;
 				}
 
-				if (hour >= 24) {
-					// No day/date handling.
-					hour = hour % 24;
+				if (hour > 23) {
+					hour = 23;
 				}
 
 
@@ -837,8 +840,14 @@
 					meridian = timeMode === 1 ? 'AM' : 'PM';
 
 				}
+				else {
+					if(hour<12 && timeMode===2) {
+						hour += 12;
+					}
+				}
 
 			}
+
 
 			this.hour = hour;
 			this.minute = minute;

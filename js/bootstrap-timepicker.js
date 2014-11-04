@@ -30,7 +30,7 @@
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
-    this.maxHours = options.maxHours - 1;
+    this.maxHours = options.maxHours;
 
     this.handleDocumentClick = function (e) {
       var self = e.data.scope;
@@ -131,7 +131,7 @@
         }
       } else {
         if (this.hour <= 0) {
-          this.hour = this.maxHours;
+          this.hour = this.maxHours - 1;
         } else {
           this.hour--;
         }
@@ -540,7 +540,7 @@
           this.hour = 0;
         }
       }
-      if (this.hour === this.maxHours) {
+      if (this.hour === this.maxHours - 1) {
         this.hour = 0;
 
         return;
@@ -778,7 +778,8 @@
         return;
       }
 
-      var timeArray,
+      var timeMode,
+          timeArray,
           hour,
           minute,
           second,
@@ -802,34 +803,26 @@
           }
         }
       } else {
-        if (time.match(/p/i) !== null) {
-          meridian = 'PM';
-        } else {
-          meridian = 'AM';
+        timeMode = ((/a/i).test(time) ? 1 : 0) + ((/p/i).test(time) ? 2 : 0); // 0 = none, 1 = AM, 2 = PM, 3 = BOTH.
+        if (timeMode > 2) { // If both are present, fail.
+          this.clear();
+          return;
         }
 
-        time = time.replace(/[^0-9\:]/g, '');
-
-        timeArray = time.split(':');
+        timeArray = time.replace(/[^0-9\:]/g, '').split(':');
 
         hour = timeArray[0] ? timeArray[0].toString() : timeArray.toString();
         minute = timeArray[1] ? timeArray[1].toString() : '';
         second = timeArray[2] ? timeArray[2].toString() : '';
 
-        // idiot proofing
+        // adaptive time parsing
         if (hour.length > 4) {
-          second = hour.substr(4, 2);
+          second = hour.slice(-2);
+          hour = hour.slice(0, -2);
         }
         if (hour.length > 2) {
-          minute = hour.substr(2, 2);
-          hour = hour.substr(0, 2);
-        }
-        if (minute.length > 2) {
-          second = minute.substr(2, 2);
-          minute = minute.substr(0, 2);
-        }
-        if (second.length > 2) {
-          second = second.substr(2, 2);
+          minute = hour.slice(-2);
+          hour = hour.slice(0, -2);
         }
 
         hour = parseInt(hour, 10);
@@ -846,36 +839,41 @@
           second = 0;
         }
 
+        // Adjust the time based upon unit boundary.
+        // NOTE: Negatives will never occur due to time.replace() above.
+        if (second >= 60) {
+          minute += Math.floor(second / 60);
+          second = second % 60;
+        }
+
+        if (minute >= 60) {
+          hour += Math.floor(minute / 60);
+          minute = minute % 60;
+        }
+
+        if (hour >= this.maxHours) {
+          // No day/date handling.
+          hour = hour % this.maxHours;
+        }
+
         if (this.showMeridian) {
-          if (hour < 1) {
-            hour = 1;
-          } else if (hour > 12) {
-            hour = 12;
+          if (hour > 12) {
+            // Force PM.
+            timeMode = 2;
+            hour -= 12;
           }
+          if (!timeMode) {
+            timeMode = 1;
+          }
+          if (hour === 0) {
+            hour = 12; // AM or PM, reset to 12.  0 AM = 12 AM.  0 PM = 12 PM, etc.
+          }
+          meridian = timeMode === 1 ? "AM" : "PM";
         } else {
-          if (hour > this.maxHours) {
-            hour = this.maxHours;
+          if (hour >= this.maxHours) {
+            hour = this.maxHours - 1;
           } else if (hour < 0) {
             hour = 0;
-          }
-          if (hour < 13 && meridian === 'PM') {
-            hour = hour + 12;
-          }
-        }
-
-        if (minute < 0) {
-          minute = 0;
-        } else if (minute >= 60) {
-          minute = 59;
-        }
-
-        if (this.showSeconds) {
-          if (isNaN(second)) {
-            second = 0;
-          } else if (second < 0) {
-            second = 0;
-          } else if (second >= 60) {
-            second = 59;
           }
         }
       }

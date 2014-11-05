@@ -283,6 +283,11 @@ title: Timepicker for Twitter Bootstrap
                     <td>Specify a maximum number of hours the TimePicker can handle. showMeridian must be set to false</td>
                 </tr>
                 <tr>
+                    <td>snapToStep</td>
+                    <td>false</td>
+                    <td>If true, setting the time will snap it to the closest "step", either minute or second, depending on which unit is currently highlighted. If the number would otherwise snap to 60 higher, the unit "overflows" to 0.</td>
+                </tr>
+                <tr>
                     <td>minuteStep</td>
                     <td>15</td>
                     <td>Specify a step for the minute field.</td>
@@ -351,6 +356,11 @@ title: Timepicker for Twitter Bootstrap
                     <td>appendWidgetTo</td>
                     <td>.bootstrap-timepicker</td>
                     <td>Allow for custom placing of the widget</td>
+                </tr>
+                <tr>
+                    <td>explicitMode</td>
+                    <td>false</td>
+                    <td>When true, user can type "123" to set time to "1:23" or "12345" to set time to "1:23:45".</td>
                 </tr>
             </tbody>
         </table>

@@ -29,7 +29,11 @@
 		this.template = options.template;
 		this.appendWidgetTo = options.appendWidgetTo;
 		this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
+		this.retainInvalid = options.retainInvalid; // Instead of clearing/changing the value, retain, and set the flag.
 		this.explicitMode = options.explicitMode; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
+
+
+		this.isValid = true;
 
 		this._init();
 	};
@@ -732,7 +736,23 @@
 			}
 		},
 
+		invalidate:function(onlyIfRetaining){
+			// onlyIfRetaining ommitted or false >>> set isValid to false and clear if not retaining.
+			// onlyIfRetaining true >>> set to false only if retaining and do not clear.
+			var ri = this.retainInvalid;
+			if(ri || !onlyIfRetaining) {
+				this.isValid = false;
+			}
+			if(!ri && !onlyIfRetaining) {
+				this.clear();
+			}
+			return ri; // Return the retaining value...
+		},
+
 		setTime: function (time, ignoreWidget) {
+
+			this.isValid = true; // Start by assuming valid and invalidate later. (covers both time types)
+
 			if (!time) {
 				this.clear();
 				return;
@@ -765,7 +785,7 @@
 
 				var timeMode = ((/a/i).test(time) ? 1 : 0) + ((/p/i).test(time) ? 2 : 0); // 0 = none, 1 = AM, 2 = PM, 3 = BOTH.
 				if (timeMode > 2) { // If both are present, fail.
-					this.clear();
+					this.invalidate();
 					return;
 				}
 
@@ -774,7 +794,7 @@
 				hour = timeArray[0] ? timeArray[0].toString() : timeArray.toString();
 
 				if(this.explicitMode && hour.length>2 && (hour.length % 2) !== 0 ) {
-					this.clear();
+					this.invalidate();
 					return;
 				}
 
@@ -815,14 +835,23 @@
 				// NOTE: Negatives will never occur due to time.replace() above.
 
 				if (second > 59) {
+					if(this.invalidate(true)) {
+						return;
+					}
 					second = 59;
 				}
 
 				if (minute > 59) {
+					if(this.invalidate(true)) {
+						return;
+					}
 					minute = 59;
 				}
 
 				if (hour > 23) {
+					if(this.invalidate(true)) {
+						return;
+					}
 					hour = 23;
 				}
 

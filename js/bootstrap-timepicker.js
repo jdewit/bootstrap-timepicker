@@ -29,6 +29,7 @@
 		this.template = options.template;
 		this.appendWidgetTo = options.appendWidgetTo;
 		this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
+		this.explicitMode = false; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
 
 		this._init();
 	};
@@ -771,6 +772,12 @@
 				timeArray = time.replace(/[^0-9\:]/g, '').split(':');
 
 				hour = timeArray[0] ? timeArray[0].toString() : timeArray.toString();
+
+				if(this.explicitMode && hour.length>2 && (hour.length % 2) !== 0 ) {
+					this.clear();
+					return;
+				}
+
 				minute = timeArray[1] ? timeArray[1].toString() : '';
 				second = timeArray[2] ? timeArray[2].toString() : '';
 

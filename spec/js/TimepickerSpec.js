@@ -484,4 +484,29 @@ describe('Timepicker feature', function() {
     expect(tp1.isOpen).toBe(true);
   });
 
+	it('should allow for dismissing invalid values', function() {
+		tp3.retainInvalid = true;
+
+		function validate(value, shouldBeValid, validString) {
+			tp3.$element.val(value);
+			tp3.updateFromElementVal();
+			expect(tp3.isValid).toBe(shouldBeValid ? true : false);
+			expect(tp3.$element.val()).toBe(validString===undefined?value:validString);
+		}
+
+		validate('10:15:20 ap');
+		validate('37:15:20');
+		validate('23:15:20', true);
+		validate('23:60:20');
+
+		tp3.explicitMode = true;
+		validate('404');
+		validate('04040');
+		tp3.explicitMode = false;
+		validate('404',true,'4:04:00');
+		validate('04040',true,'0:40:40');
+
+		tp3.retainInvalid = false;
+	});
+
 });

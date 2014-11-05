@@ -29,7 +29,7 @@
 		this.template = options.template;
 		this.appendWidgetTo = options.appendWidgetTo;
 		this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
-		this.explicitMode = false; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
+		this.explicitMode = options.explicitMode; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
 
 		this._init();
 	};

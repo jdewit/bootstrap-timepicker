@@ -96,8 +96,14 @@
 		},
 
 		blurElement: function () {
-			this.highlightedUnit = null;
-			this.updateFromElementVal();
+			var s = this;
+			s.highlightedUnit = null;
+			s.updateFromElementVal();
+			if(!s.isValid) {
+				setTimeout(function () {
+					s.$element.select();
+				});
+			}
 		},
 
 		clear: function () {
@@ -164,6 +170,7 @@
 		elementKeydown: function (e) {
 			switch (e.keyCode) {
 			case 9: //tab
+			case 13: // enter
 			case 27: // escape
 				this.updateFromElementVal();
 				break;
@@ -1138,7 +1145,9 @@
 		showMeridian: true,
 		template: 'dropdown',
 		appendWidgetTo: 'body',
-		showWidgetOnAddonClick: true
+		showWidgetOnAddonClick: true,
+		retainInvalid: false,
+		explicitMode: false
 	};
 
 	$.fn.timepicker.Constructor = Timepicker;

@@ -31,6 +31,7 @@
 		this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
 		this.retainInvalid = options.retainInvalid; // Instead of clearing/changing the value, retain, and set the flag.
 		this.explicitMode = options.explicitMode; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
+		this.invalidClass = options.invalidClass;
 
 
 		this.isValid = true;
@@ -743,12 +744,19 @@
 			}
 		},
 
+		_setValid: function(valid) {
+			this.isValid = valid;
+			if(this.invalidClass) {
+				this.$element.toggleClass(this.invalidClass, !valid);
+			}
+		},
+
 		invalidate:function(onlyIfRetaining){
 			// onlyIfRetaining ommitted or false >>> set isValid to false and clear if not retaining.
 			// onlyIfRetaining true >>> set to false only if retaining and do not clear.
 			var ri = this.retainInvalid;
 			if(ri || !onlyIfRetaining) {
-				this.isValid = false;
+				this._setValid(false);
 			}
 			if(!ri && !onlyIfRetaining) {
 				this.clear();
@@ -758,7 +766,7 @@
 
 		setTime: function (time, ignoreWidget) {
 
-			this.isValid = true; // Start by assuming valid and invalidate later. (covers both time types)
+			this._setValid(true); // Start by assuming valid and invalidate later. (covers both time types)
 
 			if (!time) {
 				this.clear();
@@ -1147,7 +1155,8 @@
 		appendWidgetTo: 'body',
 		showWidgetOnAddonClick: true,
 		retainInvalid: false,
-		explicitMode: false
+		explicitMode: false,
+		invalidClass: 'error'
 	};
 
 	$.fn.timepicker.Constructor = Timepicker;

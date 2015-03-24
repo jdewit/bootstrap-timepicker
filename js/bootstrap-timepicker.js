@@ -48,6 +48,7 @@
           'click.timepicker': $.proxy(this.highlightUnit, this),
           'keydown.timepicker': $.proxy(this.elementKeydown, this),
           'blur.timepicker': $.proxy(this.blurElement, this),
+          'focusout.timepicker': $.proxy(this.focusout, this),
           'mousewheel.timepicker DOMMouseScroll.timepicker': $.proxy(this.mousewheel, this)
         });
       } else {
@@ -56,6 +57,7 @@
             'focus.timepicker': $.proxy(this.showWidget, this),
             'click.timepicker': $.proxy(this.showWidget, this),
             'blur.timepicker': $.proxy(this.blurElement, this),
+            'focusout.timepicker': $.proxy(this.focusout, this),
             'mousewheel.timepicker DOMMouseScroll.timepicker': $.proxy(this.mousewheel, this)
           });
         } else {
@@ -64,6 +66,7 @@
             'click.timepicker': $.proxy(this.highlightUnit, this),
             'keydown.timepicker': $.proxy(this.elementKeydown, this),
             'blur.timepicker': $.proxy(this.blurElement, this),
+            'focusout.timepicker': $.proxy(this.focusout, this),
             'mousewheel.timepicker DOMMouseScroll.timepicker': $.proxy(this.mousewheel, this)
           });
         }
@@ -92,6 +95,10 @@
       this.highlightedUnit = null;
       this.updateFromElementVal();
     },
+    
+    focusout: function () {    
+           this.hideWidget();
+        },
 
     clear: function() {
       this.hour = '';

@@ -29,7 +29,16 @@
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
-
+    this.handleDocumentClick = function (e) {
+      var self = e.data.this;
+      // This condition was inspired by bootstrap-datepicker.
+      // The element the timepicker is invoked on is the input but it has a sibling for addon/button.
+      if (!(self.$element.parent().find(e.target).length ||
+          self.$widget.is(e.target) ||
+          self.$widget.find(e.target).length)) {
+        self.hideWidget();
+      }
+    };
     this._init();
   };
 
@@ -348,7 +357,7 @@
         this.$widget.removeClass('open');
       }
 
-      $(document).off('mousedown.timepicker, touchend.timepicker');
+      $(document).off('mousedown.timepicker, touchend.timepicker', this.handleDocumentClick);
 
       this.isOpen = false;
       // show/hide approach taken by datepicker
@@ -855,16 +864,7 @@
 
       // show/hide approach taken by datepicker
       this.$widget.appendTo(this.appendWidgetTo);
-      var self = this;
-      $(document).on('mousedown.timepicker, touchend.timepicker', function (e) {
-        // This condition was inspired by bootstrap-datepicker.
-        // The element the timepicker is invoked on is the input but it has a sibling for addon/button.
-        if (!(self.$element.parent().find(e.target).length ||
-            self.$widget.is(e.target) ||
-            self.$widget.find(e.target).length)) {
-          self.hideWidget();
-        }
-      });
+      $(document).on('mousedown.timepicker, touchend.timepicker', {this : this}, this.handleDocumentClick);
 
       this.$element.trigger({
         'type': 'show.timepicker',

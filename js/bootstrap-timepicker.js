@@ -514,8 +514,8 @@
           this.hour = 0;
         }
       }
-      if (this.hour === 23) {
-        this.hour = this.maxHours;
+      if (this.hour === this.maxHours) {
+        this.hour = 0;
 
         return;
       }

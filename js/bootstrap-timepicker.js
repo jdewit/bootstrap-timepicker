@@ -29,7 +29,7 @@
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
-    this.maxHours = options.maxHours
+    this.maxHours = options.maxHours-1;
 
     this._init();
   };
@@ -1091,7 +1091,7 @@
     template: 'dropdown',
     appendWidgetTo: 'body',
     showWidgetOnAddonClick: true,
-    maxHours: 23,
+    maxHours: 24
   };
 
   $.fn.timepicker.Constructor = Timepicker;

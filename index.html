@@ -371,8 +371,8 @@ title: Timepicker for Twitter Bootstrap
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('show.timepicker', function(e) {
     console.log('The time is ' + e.time.value);
-    console.log('The hour is ' + e.time.hour);
-    console.log('The minute is ' + e.time.minute);
+    console.log('The hour is ' + e.time.hours);
+    console.log('The minute is ' + e.time.minutes);
     console.log('The meridian is ' + e.time.meridian);
   });
 </pre>
@@ -380,8 +380,8 @@ title: Timepicker for Twitter Bootstrap
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('hide.timepicker', function(e) {
     console.log('The time is ' + e.time.value);
-    console.log('The hour is ' + e.time.hour);
-    console.log('The minute is ' + e.time.minute);
+    console.log('The hour is ' + e.time.hours);
+    console.log('The minute is ' + e.time.minutes);
     console.log('The meridian is ' + e.time.meridian);
   });
 </pre>
@@ -389,8 +389,8 @@ title: Timepicker for Twitter Bootstrap
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('changeTime.timepicker', function(e) {
     console.log('The time is ' + e.time.value);
-    console.log('The hour is ' + e.time.hour);
-    console.log('The minute is ' + e.time.minute);
+    console.log('The hour is ' + e.time.hours);
+    console.log('The minute is ' + e.time.minutes);
     console.log('The meridian is ' + e.time.meridian);
   });
 </pre>

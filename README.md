@@ -8,7 +8,9 @@ A simple timepicker component for Twitter Bootstrap.
 
 Status
 ======
-This project is no longer maintained. If you'd like to help maintain this plugin just let me know and I will make you a collaborator. Otherwise, fork away or use some of the other excellent timepickers available.
+This project is alive again. While the maintainers clean things up, it would be best if you download a release
+archive from the Releases tab instead of using the HEAD code. The maintainers will be preparing new releases
+to take care of longstanding issues. Otherwise, fork away or use some of the other excellent timepickers available.
 
 
 Demos & Documentation

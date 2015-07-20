@@ -96,6 +96,20 @@ describe('Timepicker feature', function() {
     tpCustom.remove();
   });
 
+  it('should be initialized on click with data-provide attribute', function() {
+    $('body').append('<div id="foo" class="bootstrap-timepicker"><input id="fooTimepicker" data-provide="timepicker" type="text" /></div>');
+    $('#fooTimepicker').trigger('click');
+
+    expect($('#fooTimepicker').data('timepicker')).toBeDefined();
+  });
+
+  it('should be initialized on focus with data-provide attribute', function() {
+    $('body').append('<div id="bar" class="bootstrap-timepicker"><input id="barTimepicker" data-provide="timepicker" type="text" /></div>');
+    $('#barTimepicker').trigger('focus');
+
+    expect($('#barTimepicker').data('timepicker')).toBeDefined();
+  });
+
   it('should have current time by default', function() {
     var dTime = new Date(),
       hour = dTime.getHours(),

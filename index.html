@@ -354,7 +354,7 @@ title: Timepicker for Twitter Bootstrap
         <h3>Data Attributes</h3>
         <p>Configuration options can also be set with the use of data attributes. </p>
 <pre class="prettyprint linenums">
-  &lt;div class="bootstrap-timepicker"/&gt;&lt;input id="timepicker" data-template="modal" data-minute-step="1" data-modal-backdrop="true" type="text"/&gt;&lt;/div&gt;
+  &lt;div class="bootstrap-timepicker"&gt;&lt;input id="timepicker" data-template="modal" data-minute-step="1" data-modal-backdrop="true" type="text"/&gt;&lt;/div&gt;
 </pre>
     </div>
     <hr>
@@ -376,8 +376,8 @@ title: Timepicker for Twitter Bootstrap
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('show.timepicker', function(e) {
     console.log('The time is ' + e.time.value);
-    console.log('The hour is ' + e.time.hour);
-    console.log('The minute is ' + e.time.minute);
+    console.log('The hour is ' + e.time.hours);
+    console.log('The minute is ' + e.time.minutes);
     console.log('The meridian is ' + e.time.meridian);
   });
 </pre>
@@ -385,8 +385,8 @@ title: Timepicker for Twitter Bootstrap
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('hide.timepicker', function(e) {
     console.log('The time is ' + e.time.value);
-    console.log('The hour is ' + e.time.hour);
-    console.log('The minute is ' + e.time.minute);
+    console.log('The hour is ' + e.time.hours);
+    console.log('The minute is ' + e.time.minutes);
     console.log('The meridian is ' + e.time.meridian);
   });
 </pre>
@@ -394,8 +394,8 @@ title: Timepicker for Twitter Bootstrap
 <pre class="prettyprint linenums">
   $('#timepicker').timepicker().on('changeTime.timepicker', function(e) {
     console.log('The time is ' + e.time.value);
-    console.log('The hour is ' + e.time.hour);
-    console.log('The minute is ' + e.time.minute);
+    console.log('The hour is ' + e.time.hours);
+    console.log('The minute is ' + e.time.minutes);
     console.log('The meridian is ' + e.time.meridian);
   });
 </pre>

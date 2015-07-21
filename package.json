@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-timepicker",
-  "description": "Timepicker widget for Twitter Bootstrap 2.*",
+  "description": "Timepicker widget for Twitter Bootstrap",
   "version": "0.3.0",
   "license": "MIT",
   "homepage": "http://jdewit.github.com/bootstrap-timepicker",

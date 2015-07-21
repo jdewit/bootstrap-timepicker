@@ -29,6 +29,7 @@
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
+    this.maxHours = options.maxHours-1;
 
     this._init();
   };
@@ -119,7 +120,7 @@
         }
       } else {
         if (this.hour <= 0) {
-          this.hour = 23;
+          this.hour = this.maxHours;
         } else {
           this.hour--;
         }
@@ -513,7 +514,7 @@
           this.hour = 0;
         }
       }
-      if (this.hour === 23) {
+      if (this.hour === this.maxHours) {
         this.hour = 0;
 
         return;
@@ -809,8 +810,8 @@
             hour = 12;
           }
         } else {
-          if (hour >= 24) {
-            hour = 23;
+          if (hour > this.maxHours) {
+            hour = this.maxHours;
           } else if (hour < 0) {
             hour = 0;
           }
@@ -1089,7 +1090,8 @@
     showMeridian: true,
     template: 'dropdown',
     appendWidgetTo: 'body',
-    showWidgetOnAddonClick: true
+    showWidgetOnAddonClick: true,
+    maxHours: 24
   };
 
   $.fn.timepicker.Constructor = Timepicker;

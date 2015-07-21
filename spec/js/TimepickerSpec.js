@@ -32,7 +32,8 @@ describe('Timepicker feature', function() {
     $timepicker3 = $input3.timepicker({
       showMeridian: false,
       showSeconds: true,
-      defaultTime: '13:25:15'
+      defaultTime: '13:25:15',
+      maxHours: 100
     });
     tp3 = $timepicker3.data('timepicker');
   });
@@ -124,7 +125,7 @@ describe('Timepicker feature', function() {
       minutes = 0;
     }
 
-    if (hour < 13) {
+    if (hour < 12) {
       meridian = 'AM';
     } else {
       meridian = 'PM';
@@ -180,6 +181,8 @@ describe('Timepicker feature', function() {
     expect(tp1.getTime()).toBe('11:15 PM');
     tp3.setTime('23:15:20');
     expect(tp3.getTime()).toBe('23:15:20');
+    tp3.setTime('60:00:00');
+    expect(tp3.getTime()).toBe('60:00:00');
 
     tp1.setTime('11pm');
     expect(tp1.getTime()).toBe('11:00 PM');
@@ -355,8 +358,8 @@ describe('Timepicker feature', function() {
     expect(tp1.getTime()).toBe('1:15 AM');
   });
 
-  it('should set hour to 0 if hour increments on 23 for 24h clock', function() {
-    $input3.val('22:15:30');
+  it('should set hour to 0 if hour increments on "maxHours-1" for 24h clock', function() {
+    $input3.val('98:15:30');
     tp3.updateFromElementVal();
     tp3.incrementHour();
     tp3.incrementHour();

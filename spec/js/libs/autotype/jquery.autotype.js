@@ -177,9 +177,9 @@
             };
 
             // build out 3 event instances for all the steps of a key entry
-            var keyDownEvent = $.extend($.Event(), evnt, {type:'keydown', keyCode: code.keyCode, charCode: 0, which: code.keyCode});
-            var keyPressEvent = $.extend($.Event(), evnt, {type:'keypress', keyCode: 0, charCode: code.charCode, which: code.charCode || code.keyCode});
-            var keyUpEvent = $.extend($.Event(), evnt, {type:'keyup', keyCode: code.keyCode, charCode: 0, which: code.keyCode});
+            var keyDownEvent = $.extend($.Event(), evnt, {type:'keydown', keyCode: code.keyCode, charCode: 0});
+            var keyPressEvent = $.extend($.Event(), evnt, {type:'keypress', keyCode: 0, charCode: code.charCode});
+            var keyUpEvent = $.extend($.Event(), evnt, {type:'keyup', keyCode: code.keyCode, charCode: 0});
         
             // go ahead and trigger the first 2 (down and press)         
             // a keyup of a modifier shouldn't also re-trigger a keydown       

@@ -1,13 +1,14 @@
 {
-  "name": "autotype",
-  "_cacheHeaders": {
-    "ETag": "\"ec9107b73f90f905384d2f75516a50fb\"",
-    "Content-Length": "13286",
-    "Content-Type": "text/plain; charset=utf-8",
-    "Content-Disposition": "inline"
+  "name": "jquery.autotype",
+  "homepage": "https://github.com/mmonteleone/jquery.autotype",
+  "version": "0.5.0",
+  "_release": "0.5.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.5.0",
+    "commit": "a667565848c0498f87c1635b0f40f00013cf3160"
   },
-  "_release": "e-tag:ec9107b73",
-  "main": "index.js",
-  "_source": "https://raw.github.com/mmonteleone/jquery.autotype/master/jquery.autotype.js",
-  "_target": "*"
+  "_source": "git://github.com/mmonteleone/jquery.autotype.git",
+  "_target": "*",
+  "_originalSource": "mmonteleone/jquery.autotype"
 }

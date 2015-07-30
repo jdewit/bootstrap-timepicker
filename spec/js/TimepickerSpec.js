@@ -4,12 +4,15 @@ describe('Timepicker feature', function() {
   var $input1,
     $input2,
     $input3,
+    $input4,
     $timepicker1,
     $timepicker2,
     $timepicker3,
+    $timepicker4,
     tp1,
     tp2,
-    tp3;
+    tp3,
+    tp4;
 
   beforeEach(function () {
     loadFixtures('timepicker.html');
@@ -36,6 +39,10 @@ describe('Timepicker feature', function() {
       maxHours: 100
     });
     tp3 = $timepicker3.data('timepicker');
+
+    $input4 = $('#timepicker-z-index');
+    $timepicker4 = $input4.timepicker();
+    tp4 = $timepicker4.data('timepicker');
   });
 
   afterEach(function () {
@@ -48,9 +55,13 @@ describe('Timepicker feature', function() {
     if ($input3.data('timepicker') !== undefined) {
       $input3.data('timepicker').remove();
     }
+    if ($input4.data('timepicker') !== undefined) {
+      $input4.data('timepicker').remove();
+    }
     $input1.remove();
     $input2.remove();
     $input3.remove();
+    $input4.remove();
   });
 
   it('should be available on the jquery object', function() {
@@ -461,6 +472,7 @@ describe('Timepicker feature', function() {
     tp1.remove();
     tp2.remove();
     tp3.remove();
+    tp4.remove();
 
     $('body').trigger('click');
     expect(hideEvents).toBe(1);
@@ -473,19 +485,25 @@ describe('Timepicker feature', function() {
     tp1.updateElement();
 
     $input1.timepicker('setTime', null);
-//    tp1.update();
     expect(tp1.getTime()).toBe('');
   });
 
+  it('should place timepicker on top of parents', function() {
+    tp4.showWidget();
+    $('body').find('.bootstrap-timepicker-widget').css('position', 'relative');
+    expect($('body').find('.bootstrap-timepicker-widget').css('z-index')).toBe('1010');
+  });
 
   it('should not have the widget in the DOM if remove method is called', function() {
     tp1.showWidget();
     tp2.showWidget();
     tp3.showWidget();
+    tp4.showWidget();
     expect($('body')).toContain('.bootstrap-timepicker-widget');
     tp1.remove();
     tp2.remove();
     tp3.remove();
+    tp4.remove();
     expect($('body')).not.toContain('.bootstrap-timepicker-widget');
   });
 

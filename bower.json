@@ -12,7 +12,7 @@
     ],
     "dependencies": {
         "bootstrap": "~3.0",
-        "jquery": "~2.0",
+        "jquery": "~2.0"
     },
     "devDependencies": {
         "autotype": "https://raw.github.com/mmonteleone/jquery.autotype/master/jquery.autotype.js"

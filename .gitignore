@@ -2,7 +2,6 @@
 _site/
 .grunt
 node_modules
-gruntfile.js
 _site
 _SpecRunner.html
 
@@ -10,3 +9,6 @@ _SpecRunner.html
 js/bootstrap-timepicker.min.js
 css/bootstrap-timepicker.css
 css/bootstrap-timepicker.min.css
+
+# bower artifacts for test
+spec/js/libs

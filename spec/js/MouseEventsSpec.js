@@ -24,10 +24,6 @@ describe('Mouse events feature', function() {
     $timepicker1 = $input1.timepicker();
     tp1 = $timepicker1.data('timepicker');
 
-    $input5 = $('#timepicker5');
-    $timepicker5 = $input1.timepicker({showWidgetOnAddonClick: false});
-    tp5 = $timepicker5.data('timepicker');
-
     $input2 = $('#timepicker2');
     $timepicker2 = $input2.timepicker({
       template: 'modal',
@@ -55,6 +51,12 @@ describe('Mouse events feature', function() {
 			disableFocus: true
     });
     tp4 = $timepicker4.data('timepicker');
+
+    $input5 = $('#timepicker5');
+    $timepicker5 = $input5.timepicker({
+      showWidgetOnAddonClick: false
+    });
+    tp5 = $timepicker5.data('timepicker');
   });
 
   afterEach(function () {
@@ -62,10 +64,12 @@ describe('Mouse events feature', function() {
     $input2.data('timepicker').remove();
     $input3.data('timepicker').remove();
     $input4.data('timepicker').remove();
+    $input5.data('timepicker').remove();
     $input1.remove();
     $input2.remove();
     $input3.remove();
     $input4.remove();
+    $input5.remove();
   });
 
   it('should be shown and trigger show events on input click', function() {
@@ -75,7 +79,7 @@ describe('Mouse events feature', function() {
       showEvents++;
     });
 
-    $input1.parents('div').find('.add-on').trigger('click');
+    $input1.parents('div').find('.input-group-addon').trigger('click');
 
     expect(tp1.isOpen).toBe(true);
     expect(showEvents).toBe(1);
@@ -93,10 +97,9 @@ describe('Mouse events feature', function() {
       time = e.time.value;
     });
 
-    $input1.parents('div').find('.add-on').trigger('click');
+    $input1.parents('div').find('.input-group-addon').trigger('click');
     expect(tp1.isOpen).toBe(true);
 
-    //tp1.$widget.find('.bootstrap-timepicker-hour').trigger('mousedown');
     $('body').trigger('mousedown');
 
     expect(tp1.isOpen).toBe(false, 'widget is still open');
@@ -105,9 +108,9 @@ describe('Mouse events feature', function() {
 
   });
 
-  it('should not show widget when clicking add-on icon if showWidgetOnAddonClick is false', function() {
+  it('should not show widget when clicking input-group-addon icon if showWidgetOnAddonClick is false', function() {
     expect(tp5.isOpen).toBe(false);
-    $input5.parents('div').find('.add-on').trigger('click');
+    $input5.parents('div').find('.input-group-addon').trigger('click');
     expect(tp5.isOpen).toBe(false);
   });
 
@@ -306,28 +309,42 @@ describe('Mouse events feature', function() {
     expect(tp1.getTime()).toBe('12:45 PM');
   });
 
+  it('should close all open widgets on document mousedown or touchend', function() {
+    tp1.showWidget();
+    tp2.showWidget();
+    expect(tp1.isOpen).toBe(true);
+    expect(tp2.isOpen).toBe(true);
+    $(document).trigger('mousedown');
+    expect(tp1.isOpen).toBe(false);
+    expect(tp2.isOpen).toBe(false);
+
+    tp1.showWidget();
+    tp2.showWidget();
+    expect(tp1.isOpen).toBe(true);
+    expect(tp2.isOpen).toBe(true);
+    $(document).trigger('touchend');
+    expect(tp1.isOpen).toBe(false);
+    expect(tp2.isOpen).toBe(false);
+  });
+
   it('should highlight widget inputs on click', function() {
-      //TODO;
-      //tp1.setTime('11:55 AM');
-      //tp1.update();
+    tp1.setTime('11:55 AM');
+    tp1.update();
 
-      //$input1.parents('.bootstrap-timepicker').find('.add-on').trigger('click');
-      //expect(tp1.isOpen).toBe(true);
-      //expect(tp1.$widget.find('.bootstrap-timepicker-hour').val()).toBe('11');
-      //tp1.$widget.find('.bootstrap-timepicker-hour').trigger('click');
-      //var hour1 = window.getSelection().toString();
-////var range = window.getSelection().getRangeAt(0);
-////var hour1 = range.extractContents();
+    $input1.parents('.bootstrap-timepicker').find('.input-group-addon').trigger('click');
+    expect(tp1.isOpen).toBe(true);
+    expect(tp1.$widget.find('.bootstrap-timepicker-hour').val()).toBe('11');
+    tp1.$widget.find('.bootstrap-timepicker-hour').trigger('click');
+    var hour1 = window.getSelection().toString();
 
-      //expect(hour1).toBe('11', 'hour input not being highlighted');
+    expect(hour1).toBe('11', 'hour input not being highlighted');
 
-      //tp1.$widget.find('.bootstrap-timepicker-minute').trigger('click');
-      //var minute1 = window.getSelection().toString();
-      //expect(minute1).toBe('55', 'minute input not being highlighted');
+    tp1.$widget.find('.bootstrap-timepicker-minute').trigger('click');
+    var minute1 = window.getSelection().toString();
+    expect(minute1).toBe('55', 'minute input not being highlighted');
 
-      //tp1.$widget.find('.bootstrap-timepicker-meridian').trigger('click');
-      //var meridian1 = window.getSelection().toString();
-      //expect(meridian1).toBe('AM', 'meridian input not being highlighted');
+    tp1.$widget.find('.bootstrap-timepicker-meridian').trigger('click');
+    var meridian1 = window.getSelection().toString();
+    expect(meridian1).toBe('AM', 'meridian input not being highlighted');
   });
 });
-

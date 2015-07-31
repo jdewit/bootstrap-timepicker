@@ -23,13 +23,14 @@
     this.modalBackdrop = options.modalBackdrop;
     this.orientation = options.orientation;
     this.secondStep = options.secondStep;
+    this.snapToStep = options.snapToStep;
     this.showInputs = options.showInputs;
     this.showMeridian = options.showMeridian;
     this.showSeconds = options.showSeconds;
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
-    this.maxHours = options.maxHours-1;
+    this.maxHours = options.maxHours - 1;
 
     this._init();
   };
@@ -156,14 +157,28 @@
     },
 
     elementKeydown: function(e) {
-      switch (e.keyCode) {
+      switch (e.which) {
       case 9: //tab
+        if (e.shiftKey) {
+          if (this.highlightedUnit === 'hour') {
+            break;
+          }
+          this.highlightPrevUnit();
+        } else if ((this.showMeridian && this.highlightedUnit === 'meridian') || (this.showSeconds && this.highlightedUnit === 'second') || (!this.showMeridian && !this.showSeconds && this.highlightedUnit ==='minute')) {
+          break;
+        } else {
+          this.highlightNextUnit();
+        }
+        e.preventDefault();
+        this.updateFromElementVal();
+        break;
       case 27: // escape
         this.updateFromElementVal();
         break;
       case 37: // left arrow
         e.preventDefault();
         this.highlightPrevUnit();
+        this.updateFromElementVal();
         break;
       case 38: // up arrow
         e.preventDefault();
@@ -190,6 +205,7 @@
       case 39: // right arrow
         e.preventDefault();
         this.highlightNextUnit();
+        this.updateFromElementVal();
         break;
       case 40: // down arrow
         e.preventDefault();
@@ -607,6 +623,23 @@
       return false;
     },
 
+    /**
+     * Given a segment value like 43, will round and snap the segment
+     * to the nearest "step", like 45 if step is 15. Segment will
+     * "overflow" to 0 if it's larger than 59 or would otherwise
+     * round up to 60.
+     */
+    changeToNearestStep: function (segment, step) {
+      if (segment % step === 0) {
+        return segment;
+      }
+      if (Math.round((segment % step) / step)) {
+        return (segment + (step - segment % step)) % 60;
+      } else {
+        return segment - segment % step;
+      }
+    },
+
     // This method was adapted from bootstrap-datepicker.
     place : function() {
       if (this.isInline) {
@@ -838,8 +871,13 @@
       }
 
       this.hour = hour;
-      this.minute = minute;
-      this.second = second;
+      if (this.snapToStep) {
+        this.minute = this.changeToNearestStep(minute, this.minuteStep);
+        this.second = this.changeToNearestStep(second, this.secondStep);
+      } else {
+        this.minute = minute;
+        this.second = second;
+      }
       this.meridian = meridian;
 
       this.update(ignoreWidget);
@@ -1000,9 +1038,13 @@
       var $input = $(e.target),
           name = $input.attr('class').replace('bootstrap-timepicker-', '');
 
-      switch (e.keyCode) {
+      switch (e.which) {
       case 9: //tab
-        if ((this.showMeridian && name === 'meridian') || (this.showSeconds && name === 'second') || (!this.showMeridian && !this.showSeconds && name === 'minute')) {
+        if (e.shiftKey) {
+          if (name === 'hour') {
+            return this.hideWidget();
+          }
+        } else if ((this.showMeridian && name === 'meridian') || (this.showSeconds && name === 'second') || (!this.showMeridian && !this.showSeconds && name === 'minute')) {
           return this.hideWidget();
         }
         break;
@@ -1051,7 +1093,7 @@
     },
 
     widgetKeyup: function(e) {
-      if ((e.keyCode === 65) || (e.keyCode === 77) || (e.keyCode === 80) || (e.keyCode === 46) || (e.keyCode === 8) || (e.keyCode >= 46 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+      if ((e.which === 65) || (e.which === 77) || (e.which === 80) || (e.which === 46) || (e.which === 8) || (e.which >= 48 && e.which <= 57) || (e.which >= 96 && e.which <= 105)) {
         this.updateFromWidgetInputs();
       }
     }
@@ -1085,6 +1127,7 @@
     modalBackdrop: false,
     orientation: { x: 'auto', y: 'auto'},
     secondStep: 15,
+    snapToStep: false,
     showSeconds: false,
     showInputs: true,
     showMeridian: true,

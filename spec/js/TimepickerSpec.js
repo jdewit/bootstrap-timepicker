@@ -5,14 +5,17 @@ describe('Timepicker feature', function() {
     $input2,
     $input3,
     $input4,
+    $input5,
     $timepicker1,
     $timepicker2,
     $timepicker3,
     $timepicker4,
+    $timepicker5,
     tp1,
     tp2,
     tp3,
-    tp4;
+    tp4,
+    tp5;
 
   beforeEach(function () {
     loadFixtures('timepicker.html');
@@ -43,6 +46,14 @@ describe('Timepicker feature', function() {
     $input4 = $('#timepicker-z-index');
     $timepicker4 = $input4.timepicker();
     tp4 = $timepicker4.data('timepicker');
+
+    $input5 = $('#timepicker-snapper');
+    $timepicker5 = $input5.timepicker({
+      snapToStep: true,
+      minuteStep: 30,
+      defaultTime: '12:00 AM'
+    });
+    tp5 = $timepicker5.data('timepicker');
   });
 
   afterEach(function () {
@@ -58,10 +69,14 @@ describe('Timepicker feature', function() {
     if ($input4.data('timepicker') !== undefined) {
       $input4.data('timepicker').remove();
     }
+    if ($input5.data('timepicker') !== undefined) {
+      $input5.data('timepicker').remove();
+    }
     $input1.remove();
     $input2.remove();
     $input3.remove();
     $input4.remove();
+    $input5.remove();
   });
 
   it('should be available on the jquery object', function() {
@@ -76,15 +91,18 @@ describe('Timepicker feature', function() {
     expect(tp1.defaultTime).toBeTruthy();
     expect(tp1.minuteStep).toBe(15);
     expect(tp1.secondStep).toBe(15);
+    expect(tp1.snapToStep).toBe(false);
     expect(tp1.disableFocus).toBe(false);
     expect(tp1.showSeconds).toBe(false);
     expect(tp1.showInputs).toBe(true);
     expect(tp1.showMeridian).toBe(true);
     expect(tp1.template).toBe('dropdown');
+    expect(tp1.appendWidgetTo).toBe('body');
     expect(tp1.modalBackdrop).toBe(false);
     expect(tp1.modalBackdrop).toBe(false);
     expect(tp1.isOpen).toBe(false);
     expect(tp1.showWidgetOnAddonClick).toBe(true);
+    expect(tp1.maxHours).toBe(23);
   });
 
   it('should allow user to configure defaults', function() {
@@ -484,6 +502,11 @@ describe('Timepicker feature', function() {
 
     $input1.timepicker('setTime', null);
     expect(tp1.getTime()).toBe('');
+  });
+
+  it('should snap minutes to multiple of step when using setTime', function() {
+    tp5.setTime('2:33 AM');
+    expect(tp5.getTime()).toBe('2:30 AM');
   });
 
   it('should place timepicker on top of parents', function() {

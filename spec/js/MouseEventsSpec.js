@@ -24,10 +24,6 @@ describe('Mouse events feature', function() {
     $timepicker1 = $input1.timepicker();
     tp1 = $timepicker1.data('timepicker');
 
-    $input5 = $('#timepicker5');
-    $timepicker5 = $input1.timepicker({showWidgetOnAddonClick: false});
-    tp5 = $timepicker5.data('timepicker');
-
     $input2 = $('#timepicker2');
     $timepicker2 = $input2.timepicker({
       template: 'modal',
@@ -55,6 +51,12 @@ describe('Mouse events feature', function() {
 			disableFocus: true
     });
     tp4 = $timepicker4.data('timepicker');
+
+    $input5 = $('#timepicker5');
+    $timepicker5 = $input5.timepicker({
+      showWidgetOnAddonClick: false
+    });
+    tp5 = $timepicker5.data('timepicker');
   });
 
   afterEach(function () {
@@ -62,10 +64,12 @@ describe('Mouse events feature', function() {
     $input2.data('timepicker').remove();
     $input3.data('timepicker').remove();
     $input4.data('timepicker').remove();
+    $input5.data('timepicker').remove();
     $input1.remove();
     $input2.remove();
     $input3.remove();
     $input4.remove();
+    $input5.remove();
   });
 
   it('should be shown and trigger show events on input click', function() {

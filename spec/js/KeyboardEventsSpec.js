@@ -48,9 +48,9 @@ describe('Keyboard events feature', function() {
   });
 
   it('should be able to set time via input', function() {
-
     $input1.trigger('focus');
-    $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}9:45a{{tab}}');
+    expect(tp1.highlightedUnit).toBe('hour');
+    $input1.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}9:45a{{tab}}');
 
     expect(tp1.highlightedUnit).not.toBe('minute');
     expect(tp1.getTime()).toBe('9:45 AM');
@@ -171,7 +171,7 @@ describe('Keyboard events feature', function() {
     time;
 
     tp1.setTime('9:30 AM');
-    $input1.parents('div').find('.add-on').click();
+    $input1.parents('div').find('.input-group-addon').click();
 
     $input1.timepicker().on('changeTime.timepicker', function(e) {
       eventCount++;
@@ -212,7 +212,7 @@ describe('Keyboard events feature', function() {
   it('should allow time to be changed via widget inputs in a modal', function() {
     tp2.setTime('9:30 AM');
     tp2.update();
-    $input2.parents('div').find('.add-on').click();
+    $input2.parents('div').find('.input-group-addon').click();
 
     var $hourInput = $('body').find('input.bootstrap-timepicker-hour'),
         $minuteInput = $('body').find('input.bootstrap-timepicker-minute'),

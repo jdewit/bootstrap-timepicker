@@ -408,7 +408,6 @@ describe('Timepicker feature', function() {
     expect(tp2.minute).toBe(30);
   });
 
-
   it('should increment hour if minutes increment past 59', function() {
     $input1.val('11:55 AM');
     tp1.updateFromElementVal();
@@ -447,7 +446,6 @@ describe('Timepicker feature', function() {
     expect(tp2.second).toBe(30);
   });
 
-
   it('should increment minute by 1 if seconds increment past 59', function() {
     $input2.val('11:55:30 AM');
     tp2.updateFromElementVal();
@@ -464,7 +462,7 @@ describe('Timepicker feature', function() {
       hideEvents++;
     });
 
-    $input1.parents('div').find('.add-on').trigger('click');
+    $input1.parents('div').find('.input-group-addon').trigger('click');
     $('body').trigger('mousedown');
 
     expect(hideEvents).toBe(1);

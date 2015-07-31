@@ -309,6 +309,24 @@ describe('Mouse events feature', function() {
     expect(tp1.getTime()).toBe('12:45 PM');
   });
 
+  it('should close all open widgets on document mousedown or touchend', function() {
+    tp1.showWidget();
+    tp2.showWidget();
+    expect(tp1.isOpen).toBe(true);
+    expect(tp2.isOpen).toBe(true);
+    $(document).trigger('mousedown');
+    expect(tp1.isOpen).toBe(false);
+    expect(tp2.isOpen).toBe(false);
+
+    tp1.showWidget();
+    tp2.showWidget();
+    expect(tp1.isOpen).toBe(true);
+    expect(tp2.isOpen).toBe(true);
+    $(document).trigger('touchend');
+    expect(tp1.isOpen).toBe(false);
+    expect(tp2.isOpen).toBe(false);
+  });
+
   it('should highlight widget inputs on click', function() {
       //TODO;
       //tp1.setTime('11:55 AM');

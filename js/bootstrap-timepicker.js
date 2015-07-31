@@ -872,7 +872,7 @@
           if (hour === 0) {
             hour = 12; // AM or PM, reset to 12.  0 AM = 12 AM.  0 PM = 12 PM, etc.
           }
-          meridian = timeMode === 1 ? "AM" : "PM";
+          meridian = timeMode === 1 ? 'AM' : 'PM';
         } else if (hour < 12 && timeMode === 2) {
           hour += 12;
         } else {

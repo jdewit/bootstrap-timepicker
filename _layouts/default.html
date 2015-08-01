@@ -11,7 +11,7 @@
     <link rel="stylesheet/less" type="text/css" href="less/timepicker.less" />
     <style type="text/css">
         body {
-            padding-bottom: 40px;
+            padding-top: 50px;
             font-size: 16px;
             background: url('assets/images/bg.png');
         }
@@ -24,12 +24,12 @@
             height: 1px;
             margin: 15px 0;
         }
-        .input-append {
+        .input-group {
             display: inline-block;
             vertical-align: middle;
             margin-bottom: 10px;
         }
-        .hero-unit {
+        .jumbotron {
             color: #ffffff;
             text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
             background-color: #363636;
@@ -47,7 +47,7 @@
         }
 
         @media (max-width: 480px) {
-            .hero-unit h1 {
+            .jumbotron h1 {
                 font-size: 50px;
             }
             table.options-table td:nth-child(3), table th:nth-child(3) {
@@ -75,23 +75,23 @@
 /* ]]> */</script>
 </head>
 <body onload="prettyPrint()" data-target=".subnav" data-spy="scroll" data-twttr-rendered="true" >
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="glyphicon glyphicon-bar"></span>
+            <span class="glyphicon glyphicon-bar"></span>
+            <span class="glyphicon glyphicon-bar"></span>
+          </button>
           <a class="brand" href="http://jdewit.github.com/bootstrap-timepicker">Bootstrap-Timepicker</a>
-          <div class="nav-collapse">
-            <ul class="nav">
+          <div class="nav-collapse collapse">
+            <ul class="nav navbar-nav">
               <li><a href="index.html">Documentation</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
-    </div>
+    </nav>
     <div class="container">
         {{ content }}
     </div> <!-- /container -->

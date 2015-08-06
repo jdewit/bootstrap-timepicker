@@ -52,7 +52,7 @@
     _init: function() {
       var self = this;
 
-      if (this.showWidgetOnAddonClick && (this.$element.parent().hasClass('input-group bootstrap-timepicker'))) {
+      if (this.showWidgetOnAddonClick && (this.$element.parent().hasClass('input-group') && this.$element.parent().hasClass('bootstrap-timepicker'))) {
         this.$element.parent('.input-group.bootstrap-timepicker').find('.input-group-addon').on({
           'click.timepicker': $.proxy(this.showWidget, this)
         });

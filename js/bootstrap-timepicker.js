@@ -31,7 +31,7 @@
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
     this.maxHours = options.maxHours;
-		this.explicitMode = options.explicitMode; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
+    this.explicitMode = options.explicitMode; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
 
     this.handleDocumentClick = function (e) {
       var self = e.data.scope;
@@ -668,7 +668,7 @@
       this.$widget.removeClass('timepicker-orient-top timepicker-orient-bottom timepicker-orient-right timepicker-orient-left');
 
       if (this.orientation.x !== 'auto') {
-        this.picker.addClass('datepicker-orient-' + this.orientation.x);
+        this.$widget.addClass('timepicker-orient-' + this.orientation.x);
         if (this.orientation.x === 'right') {
           left -= widgetWidth - width;
         }

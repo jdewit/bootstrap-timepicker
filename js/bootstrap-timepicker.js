@@ -31,7 +31,7 @@
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
     this.maxHours = options.maxHours;
-		this.explicitMode = options.explicitMode; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
+    this.explicitMode = options.explicitMode; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
 
     this.handleDocumentClick = function (e) {
       var self = e.data.scope;

@@ -12,6 +12,17 @@ This project is alive again. While the maintainers clean things up, it would be 
 archive from the Releases tab instead of using the HEAD code. The maintainers will be preparing new releases
 to take care of longstanding issues. Otherwise, fork away or use some of the other excellent timepickers available.
 
+Installation
+============
+
+This project is registered as a <a href="http://bower.io">Bower</a> package, and can be insalled with the following command:
+
+```bash
+$ bower install bootstrap-timepicker
+```
+
+You can also download our latest release (and any previous release) 
+<a href="https://github.com/jdewit/bootstrap-timepicker/releases">here</a>.
 
 Demos & Documentation
 =====================

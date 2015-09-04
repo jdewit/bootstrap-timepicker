@@ -349,11 +349,28 @@
     },
 
     getTime: function() {
+      var timestr;
       if (this.hour === '') {
         return '';
       }
 
-      return this.hour + ':' + (this.minute.toString().length === 1 ? '0' + this.minute : this.minute) + (this.showSeconds ? ':' + (this.second.toString().length === 1 ? '0' + this.second : this.second) : '') + (this.showMeridian ? ' ' + this.meridian : '');
+      timestr = this.paddedTime(this.hour) + ':' + this.paddedTime(this.minute, true);
+      if (this.showSeconds) {
+        timestr = timestr + ':' + this.paddedTime(this.second, true);
+      }
+      if (this.showMeridian) {
+        timestr = timestr + ' ' + this.meridian;
+      }
+      return timestr;
+    },
+
+    paddedTime: function(val, override) {
+      if (!this.showMeridian || override) {
+        // ensure that given value is padded with zeros
+        return ('0' + val).slice(-2);
+      } else {
+        return val;
+      }
     },
 
     hideWidget: function() {
@@ -990,9 +1007,9 @@
         return;
       }
 
-      var hour = this.hour,
-          minute = this.minute.toString().length === 1 ? '0' + this.minute : this.minute,
-          second = this.second.toString().length === 1 ? '0' + this.second : this.second;
+      var hour = this.paddedTime(this.hour),
+          minute = this.paddedTime(this.minute, true),
+          second = this.paddedTime(this.second, true);
 
       if (this.showInputs) {
         this.$widget.find('input.bootstrap-timepicker-hour').val(hour);

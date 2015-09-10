@@ -887,7 +887,7 @@
         } else {
           if (hour >= this.maxHours) {
             hour = this.maxHours - 1;
-          } else if (hour < 0) {
+          } else if ((hour < 0) || (hour === 12 && timeMode === 1)){
             hour = 0;
           }
         }

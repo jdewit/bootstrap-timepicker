@@ -15,7 +15,7 @@ to take care of longstanding issues. Otherwise, fork away or use some of the oth
 Installation
 ============
 
-This project is registered as a <a href="http://bower.io">Bower</a> package, and can be insalled with the following command:
+This project is registered as a <a href="http://bower.io">Bower</a> package, and can be installed with the following command:
 
 ```bash
 $ bower install bootstrap-timepicker

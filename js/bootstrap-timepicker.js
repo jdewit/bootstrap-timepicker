@@ -914,6 +914,10 @@
       if (this.$element.is(':disabled')) {
         return;
       }
+      
+      if (this.$element.is('[readonly]')) {
+        return;
+      }
 
       // show/hide approach taken by datepicker
       this.$widget.appendTo(this.appendWidgetTo);

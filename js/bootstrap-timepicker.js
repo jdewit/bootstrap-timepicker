@@ -76,7 +76,7 @@
         }
       }
       this.$element.parents('form').on({
-          'submit.timepicker': $.proxy(this.onsubmit, this),
+          'submit.timepicker': $.proxy(this.onsubmit, this)
       })
 
       if (this.template !== false) {
@@ -959,7 +959,7 @@
               'seconds': this.second,
               'meridian': this.meridian,
               'suffix': this.suffix,
-              'am' : this.showMeridian ? this.meridian === this.amDesignator : undefined,
+              'am' : this.showMeridian ? this.meridian === this.amDesignator : undefined
             }
           });
     },
@@ -1148,7 +1148,7 @@
     suffix : '', // only th
     amDesignator : 'AM',
     pmDesignator : 'PM',
-    submitMode : 'default', // 'default' (untouched display value) or 'iso' (ISO with seconds) or 'iso-auto' (ISO possibly without seconds)
+    submitMode : 'default' // 'default' (untouched display value) or 'iso' (ISO with seconds) or 'iso-auto' (ISO possibly without seconds)
   };
 
   $.fn.timepicker.Constructor = Timepicker;

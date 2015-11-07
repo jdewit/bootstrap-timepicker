@@ -174,16 +174,12 @@
       case 9: //tab
         if (e.shiftKey) {
           if (this.highlightedUnit === 'hour') {
-            if (this.isOpen) {
-              this.hideWidget();
-            }
+            this.hideWidget();
             break;
           }
           this.highlightPrevUnit();
         } else if ((this.showMeridian && this.highlightedUnit === 'meridian') || (this.showSeconds && this.highlightedUnit === 'second') || (!this.showMeridian && !this.showSeconds && this.highlightedUnit ==='minute')) {
-          if (this.isOpen) {
-            this.hideWidget();
-          }
+          this.hideWidget();
           break;
         } else {
           this.highlightNextUnit();

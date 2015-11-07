@@ -261,4 +261,42 @@ describe('Keyboard events feature', function() {
     $input3.autotype('{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}{{back}}25:60:60{{tab}}');
     expect(tp3.getTime()).toBe('23:59:59');
   });
+
+  it('should close timepicker widget on TAB out of field', function() {
+    $input1.trigger('focus');
+    tp1.showWidget();
+    expect(tp1.isOpen).toBe(true);
+    expect(tp1.highlightedUnit).toBe('hour');
+
+    $input1.autotype('{{tab}}');
+    expect(tp1.highlightedUnit).toBe('minute');
+
+    $input1.autotype('{{tab}}');
+    expect(tp1.highlightedUnit).toBe('meridian');
+
+    $input1.autotype('{{tab}}');
+    expect(tp1.isOpen).toBe(false);
+  });
+
+  it('should close timepicker widget on SHIFT+TAB out of field', function() {
+    $input1.trigger('focus');
+    tp1.showWidget();
+    expect(tp1.isOpen).toBe(true);
+    expect(tp1.highlightedUnit).toBe('hour');
+
+    $input1.autotype('{{tab}}');
+    expect(tp1.highlightedUnit).toBe('minute');
+
+    $input1.autotype('{{tab}}');
+    expect(tp1.highlightedUnit).toBe('meridian');
+
+    $input1.autotype('{{shift}}{{tab}}{{/shift}}');
+    expect(tp1.highlightedUnit).toBe('minute');
+
+    $input1.autotype('{{shift}}{{tab}}{{/shift}}');
+    expect(tp1.highlightedUnit).toBe('hour');
+
+    $input1.autotype('{{shift}}{{tab}}{{/shift}}');
+    expect(tp1.isOpen).toBe(false);
+  });
 });

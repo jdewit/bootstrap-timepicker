@@ -8,7 +8,7 @@
     },
     "main": [
         "js/bootstrap-timepicker.js",
-        "less/bootstrap-timepicker.less"
+        "less/timepicker.less"
     ],
     "dependencies": {
         "bootstrap": "~3.0",

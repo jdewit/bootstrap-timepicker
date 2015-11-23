@@ -9,7 +9,8 @@
     "email": "joris.w.dewit@gmail.com",
     "url": "http://jorisdewit.ca"
   },
-  "main": "js/bootstrap-timepicker",
+  "main": "js/bootstrap-timepicker.js",
+  "files": ["js", "css", "less"],
   "repository": {
     "type": "git",
     "url": "git://github.com/jdewit/bootstrap-timepicker"

@@ -151,11 +151,12 @@
         if (this.minuteStep > 60) {
           var hourStep = Math.floor(this.minuteStep / 60);
           minuteStep -= (hourStep * 60);
-          if (minuteStep == 0) {
+          if (minuteStep === 0) {
             minuteStep = 60;
           }
 
-          for (var i = 0; i<hourStep-(minuteStep == 60 ? 1 : 0); i++) {
+          var decrementHours = hourStep - (minuteStep == 60 ? 1 : 0);
+          for (var i = 0; i < decrementHours; i++) {
             this.decrementHour();
           }
         }
@@ -576,11 +577,12 @@
         if (this.minuteStep > 60) {
           var hourStep = Math.floor(this.minuteStep / 60);
           minuteStep -= (hourStep * 60);
-          if (minuteStep == 0) {
+          if (minuteStep === 0) {
             minuteStep = 60;
           }
 
-          for (var i = 0; i<hourStep-(minuteStep == 60 ? 1 : 0); i++) {
+          var incrementHours = hourStep - (minuteStep == 60 ? 1 : 0);
+          for (var i = 0; i < incrementHours; i++) {
             this.incrementHour();
           }
         }

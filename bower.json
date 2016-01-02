@@ -2,13 +2,13 @@
     "name": "bootstrap-timepicker",
     "version": "0.5.1",
     "description": "A timepicker component for Twitter Bootstrap",
+    "license": "MIT",
     "repository": {
       "type": "git",
       "url": "https://github.com/jdewit/bootstrap-timepicker"
     },
     "main": [
-        "js/bootstrap-timepicker.js",
-        "less/timepicker.less"
+        "js/bootstrap-timepicker.js"
     ],
     "dependencies": {
         "bootstrap": "^3.0",

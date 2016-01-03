@@ -1,7 +1,7 @@
 {
     "name": "bootstrap-timepicker",
     "description": "A timepicker component for Twitter Bootstrap",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "main": "js/bootstrap-timepicker.js",
     "license": "MIT",
     "ignore": [

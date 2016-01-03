@@ -1,9 +1,35 @@
 # Changelog
 
 All notable changes will be documented in this file.  This project
-does not currently conform to Semantic Versioning.
+sort of conforms to Semantic Versioning. Since we're still pre-1.0,
+it's like the Wild West up in here!
 
 ## Unreleased
+
+### Added (not started)
+- Still planning out how to include i18n data and functionality.
+
+### Deprecated (not started)
+- Incorrect usage of the word "meridian" will be deprecated. It should
+  be "meridiem".
+
+
+
+## 0.5.2 - 2016-01-02
+### Added
+- Tabbing out of the timepicker widget will now close it.
+- You can specify your own icon classes. See docs for the option.
+
+### Changed
+- Cleaned up `package.json` and `bower.json` files. The npm/bower package
+  should be cleaner now.
+- `timepicker.less` now lives in the `css/` directory of the package.
+- bootstrap-timepicker now uses the latest minor releases for jQuery 2 and
+  Bootstrap 3
+
+### Fixed
+- Fixed bad interaction between `setTime("12:00 AM")` and `showMeridian`
+- Various documentation issues were fixed.
 
 ## 0.5.1 - 2015-08-06
 ### Changed

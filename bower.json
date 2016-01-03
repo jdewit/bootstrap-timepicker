@@ -6,7 +6,8 @@
     "license": "MIT",
     "ignore": [
         "**/.*",
-        "_layout",
+        "_layouts",
+        "node_modules",
         "_config.yml",
         "assets",
         "spec",

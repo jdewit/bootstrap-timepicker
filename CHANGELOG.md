@@ -5,15 +5,14 @@ sort of conforms to Semantic Versioning. Since we're still pre-1.0,
 it's like the Wild West up in here!
 
 ## Unreleased
-
 ### Added (not started)
 - Still planning out how to include i18n data and functionality.
 
 ### Deprecated (not started)
 - Incorrect usage of the word "meridian" will be deprecated. It should
   be "meridiem".
-
-
+- `showWidgetOnAddonClick`'s current behavior is not intuitive. Clicking
+  the input addon should _toggle_ the widget instead of showing it.
 
 ## 0.5.2 - 2016-01-02
 ### Added

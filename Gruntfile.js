@@ -71,7 +71,7 @@ module.exports = function(grunt) {
           paths: ['css']
         },
         files: {
-          'css/bootstrap-timepicker.css': ['less/*.less']
+          'css/bootstrap-timepicker.css': ['css/*.less']
         }
       },
       prod: {
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
           yuicompress: true
         },
         files: {
-          'css/bootstrap-timepicker.min.css': ['less/*.less']
+          'css/bootstrap-timepicker.min.css': ['css/*.less']
         }
       }
     },
@@ -107,7 +107,7 @@ module.exports = function(grunt) {
         }
       },
       less: {
-        files: ['less/timepicker.less'],
+        files: ['css/timepicker.less'],
         tasks: ['less:dev'],
         options: {
           livereload: true

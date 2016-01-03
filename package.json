@@ -10,7 +10,7 @@
     "url": "http://jorisdewit.ca"
   },
   "main": "js/bootstrap-timepicker.js",
-  "files": ["js", "css", "less"],
+  "files": ["js", "css"],
   "repository": {
     "type": "git",
     "url": "git://github.com/jdewit/bootstrap-timepicker"

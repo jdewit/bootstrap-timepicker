@@ -88,7 +88,7 @@ module.exports = function(grunt) {
       options: {
         banner: '/*! <%= pkg.name %> v<%= pkg.version %> \n' +
           '* http://jdewit.github.com/bootstrap-timepicker \n' +
-          '* Copyright (c) <%= grunt.template.today("yyyy") %> Joris de Wit \n' +
+          '* Copyright (c) <%= grunt.template.today("yyyy") %> Joris de Wit and bootstrap-timepicker contributors \n' +
           '* MIT License \n' +
           '*/',
         report: 'min'

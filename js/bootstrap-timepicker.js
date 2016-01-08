@@ -147,7 +147,12 @@
       if (step) {
         newVal = this.minute - step;
       } else {
-        newVal = this.minute - this.minuteStep;
+        if(this.minuteStep > 0 && (this.minute % this.minuteStep) > 0) {
+          newVal = this.minute - (this.minute % this.minuteStep);
+        }
+        else {
+          newVal = this.minute - this.minuteStep;
+        }
       }
 
       if (newVal < 0) {

@@ -412,7 +412,37 @@ describe('Timepicker feature', function() {
 
     expect(tp2.minute).toBe(30);
   });
+  
+  it('should increment minutes with incrementMinute method using Step and Rounding when initial value is not a Multiple of the Step', function () {
+      expect(tp1).toBeDefined();
+      expect(tp1.minuteStep).toBe(15);
 
+      tp1.setTime('11:00');                         //Quick test to verify expected results
+      var currentTime = tp1.getTime();
+      expect(currentTime).toBeDefined();
+      expect(currentTime).toBe('11:00 AM');
+
+      tp1.incrementMinute();
+      currentTime = tp1.getTime();
+      expect(currentTime).toBeDefined();
+      expect(currentTime).toBe('11:15 AM');
+
+      tp1.setTime('11:02');                         //Setup test with a time that is not a multiple of step
+      currentTime = tp1.getTime();
+      expect(currentTime).toBeDefined();
+      expect(currentTime).toBe('11:02 AM');
+
+      tp1.incrementMinute();
+      currentTime = tp1.getTime();
+      expect(currentTime).toBeDefined();
+      expect(currentTime).toBe('11:15 AM');
+
+      tp1.incrementMinute();                        //After the first rounded-increment, make sure further increments follow step
+      currentTime = tp1.getTime();
+      expect(currentTime).toBeDefined();
+      expect(currentTime).toBe('11:30 AM');
+  });
+  
   it('should decrement minutes with decrementMinute method', function() {
     tp1.hour = 11;
     tp1.minute = 0;
@@ -428,7 +458,37 @@ describe('Timepicker feature', function() {
     expect(tp2.hour).toBe(10);
     expect(tp2.minute).toBe(30);
   });
+  
+  it('should decrement minutes with decrementMinute method using Step and Rounding when initial value is not a Multiple of the Step', function () {
+      expect(tp1).toBeDefined();
+      expect(tp1.minuteStep).toBe(15);
 
+      tp1.setTime('11:00');                         //Quick test to verify expected results
+      var currentTime = tp1.getTime();
+      expect(currentTime).toBeDefined();
+      expect(currentTime).toBe('11:00 AM');
+
+      tp1.decrementMinute();
+      currentTime = tp1.getTime();
+      expect(currentTime).toBeDefined();
+      expect(currentTime).toBe('10:45 AM');
+
+      tp1.setTime('11:02');                         //Setup test with a time that is not a multiple of step
+      currentTime = tp1.getTime();
+      expect(currentTime).toBeDefined();
+      expect(currentTime).toBe('11:02 AM');
+
+      tp1.decrementMinute();
+      currentTime = tp1.getTime();
+      expect(currentTime).toBeDefined();
+      expect(currentTime).toBe('11:00 AM');
+
+      tp1.decrementMinute();                        //After the first rounded-decrement, make sure further decrements follow step
+      currentTime = tp1.getTime();
+      expect(currentTime).toBeDefined();
+      expect(currentTime).toBe('10:45 AM');
+  });
+  
   it('should increment hour if minutes increment past 59', function() {
     $input1.val('11:55 AM');
     tp1.updateFromElementVal();

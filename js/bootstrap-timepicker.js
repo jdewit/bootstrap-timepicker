@@ -33,6 +33,7 @@
     this.icons = options.icons;
     this.maxHours = options.maxHours;
     this.explicitMode = options.explicitMode; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
+    this.clearText = options.clearText;//the text (if any) to show the clear button
 
     this.handleDocumentClick = function (e) {
       var self = e.data.scope;
@@ -98,6 +99,7 @@
             'keyup.timepicker': $.proxy(self.widgetKeyup, self)
           });
         });
+		this.$widget.find('.timepicker-empty-btn').on('click', $.proxy(this.clear, this));
       }
 
       this.setDefaultTime(this.defaultTime);
@@ -325,7 +327,8 @@
             '<td><a href="#" data-action="toggleMeridian"><span class="'+ this.icons.down +'"></span></a></td>'
            : '') +
          '</tr>'+
-       '</table>';
+       '</table>' + 
+	   (this.clearText ? '<span class="btn btn-xs btn-primary btn-block timepicker-empty-btn">' + this.clearText + '</span>' : '');
 
       switch(this.template) {
       case 'modal':

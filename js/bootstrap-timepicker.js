@@ -661,7 +661,7 @@
         return;
       }
       var widgetWidth = this.$widget.outerWidth(), widgetHeight = this.$widget.outerHeight(), visualPadding = 10, windowWidth =
-        $(window).width(), windowHeight = $(window).height(), scrollTop = $(window).scrollTop();
+        $(window).width(), windowHeight = $(window).height(), scrollTop = $(window).scrollTop(), scrollLeft = $(window).scrollLeft();
 
       var zIndex = parseInt(this.$element.parents().filter(function() { return $(this).css('z-index') !== 'auto'; }).first().css('z-index'), 10) + 10;
       var offset = this.component ? this.component.parent().offset() : this.$element.offset();
@@ -682,8 +682,8 @@
         this.$widget.addClass('timepicker-orient-left');
         if (offset.left < 0) {
           left -= offset.left - visualPadding;
-        } else if (offset.left + widgetWidth > windowWidth) {
-          left = windowWidth - widgetWidth - visualPadding;
+        } else if (offset.left + widgetWidth > windowWidth + scrollLeft) {
+          left = windowWidth + scrollLeft - widgetWidth - visualPadding;
         }
       }
       // auto y orientation is best-situation: top or bottom, no fudging, decision based on which shows more of the widget

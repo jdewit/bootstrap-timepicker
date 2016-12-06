@@ -62,6 +62,7 @@
           'focus.timepicker': $.proxy(this.highlightUnit, this),
           'click.timepicker': $.proxy(this.highlightUnit, this),
           'keydown.timepicker': $.proxy(this.elementKeydown, this),
+          'keypress.timepicker': $.proxy(this.checkKeypress, this),
           'blur.timepicker': $.proxy(this.blurElement, this),
           'mousewheel.timepicker DOMMouseScroll.timepicker': $.proxy(this.mousewheel, this)
         });
@@ -78,6 +79,7 @@
             'focus.timepicker': $.proxy(this.highlightUnit, this),
             'click.timepicker': $.proxy(this.highlightUnit, this),
             'keydown.timepicker': $.proxy(this.elementKeydown, this),
+            'keypress.timepicker': $.proxy(this.checkKeypress, this),
             'blur.timepicker': $.proxy(this.blurElement, this),
             'mousewheel.timepicker DOMMouseScroll.timepicker': $.proxy(this.mousewheel, this)
           });
@@ -95,6 +97,7 @@
           $(this).on({
             'click.timepicker': function() { $(this).select(); },
             'keydown.timepicker': $.proxy(self.widgetKeydown, self),
+            'keypress.timepicker': $.proxy(self.checkKeypress, self),
             'keyup.timepicker': $.proxy(self.widgetKeyup, self)
           });
         });
@@ -167,6 +170,15 @@
       } else {
         this.second = newVal;
       }
+    },
+
+    checkKeypress: function (e) {
+        var regex = new RegExp("[0-9]"),
+            key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (!regex.test(key)) {
+            e.preventDefault();
+            return false;
+        }
     },
 
     elementKeydown: function(e) {

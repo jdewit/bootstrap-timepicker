@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-less');
@@ -99,6 +100,14 @@ module.exports = function(grunt) {
         dest: 'js/<%= pkg.name %>.min.js'
       }
     },
+    'copy': {
+      copy: {
+        files: [
+          { expand: true, cwd: 'js', src: '**', dest: 'dist/' },
+          { expand: true, cwd: 'css', src: '**', dest: 'dist/' }
+        ]
+      }
+    },
     'watch': {
       js: {
         files: ['js/bootstrap-timepicker.js', 'spec/js/*Spec.js'],
@@ -121,4 +130,5 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['jasmine', 'jshint']);
   grunt.registerTask('compile', ['jshint', 'jasmine', 'uglify', 'less:prod']);
   grunt.registerTask('compileAll', ['jshint', 'jasmine', 'uglify', 'less:dev', 'less:prod']);
+  grunt.registerTask('compileDist', ['compileAll', 'copy']);
 };

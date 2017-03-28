@@ -274,7 +274,11 @@
         templateContent;
 
       if (this.showInputs) {
-        hourTemplate = '<input type="text" class="bootstrap-timepicker-hour" maxlength="2"/>';
+        var maxLength = '';
+        if (isFinite(this.maxHours)) {
+            maxLength = 'maxlength="'+this.maxHours.toString().length+'"';
+        }
+        hourTemplate = '<input type="text" class="bootstrap-timepicker-hour" '+maxLength+'/>';
         minuteTemplate = '<input type="text" class="bootstrap-timepicker-minute" maxlength="2"/>';
         secondTemplate = '<input type="text" class="bootstrap-timepicker-second" maxlength="2"/>';
         meridianTemplate = '<input type="text" class="bootstrap-timepicker-meridian" maxlength="2"/>';
@@ -827,19 +831,21 @@
         second = timeArray[2] ? timeArray[2].toString() : '';
 
         // adaptive time parsing
-        if (hour.length > 4) {
-          second = hour.slice(-2);
-          hour = hour.slice(0, -2);
-        }
+        if (+hour > this.maxHours) { 
+            if (hour.length > 4) {
+              second = hour.slice(-2);
+              hour = hour.slice(0, -2);
+            }
 
-        if (hour.length > 2) {
-          minute = hour.slice(-2);
-          hour = hour.slice(0, -2);
-        }
+            if (hour.length > 2) {
+              minute = hour.slice(-2);
+              hour = hour.slice(0, -2);
+            }
 
-        if (minute.length > 2) {
-          second = minute.slice(-2);
-          minute = minute.slice(0, -2);
+            if (minute.length > 2) {
+              second = minute.slice(-2);
+              minute = minute.slice(0, -2);
+            }
         }
 
         hour = parseInt(hour, 10);

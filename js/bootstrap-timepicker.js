@@ -634,7 +634,7 @@
         this.highlightHour();
         break;
       }
-
+      this.update();
       return false;
     },
 

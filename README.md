@@ -61,7 +61,7 @@ grunt compile // minify the js and css files
 ```
 
 - Please make it easy on me by covering any new features or issues 
-  with <a href="http://pivotal.github.com/jasmine">Jasmine</a> tests.
+  with <a href="https://jasmine.github.io/">Jasmine</a> tests.
 - If your changes need documentation, please take the time to update the docs.
 
 Acknowledgements

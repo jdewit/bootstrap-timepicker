@@ -1,5 +1,8 @@
 Timepicker for Twitter Bootstrap
-=======
+================================
+
+WARNING: This project is no longer maintained.
+
 [![Build Status](https://travis-ci.org/jdewit/bootstrap-timepicker.svg?branch=gh-pages)](https://travis-ci.org/jdewit/bootstrap-timepicker)
 
 A simple timepicker component for Twitter Bootstrap.

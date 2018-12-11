@@ -6,16 +6,19 @@ describe('Timepicker feature', function() {
     $input3,
     $input4,
     $input5,
+    $input6,
     $timepicker1,
     $timepicker2,
     $timepicker3,
     $timepicker4,
     $timepicker5,
+    $timepicker6,
     tp1,
     tp2,
     tp3,
     tp4,
-    tp5;
+    tp5,
+    tp6;
 
   beforeEach(function () {
     loadFixtures('timepicker.html');
@@ -54,6 +57,16 @@ describe('Timepicker feature', function() {
       defaultTime: '12:00 AM'
     });
     tp5 = $timepicker5.data('timepicker');
+
+    $input6 = $('#timepicker6');
+    $timepicker6 = $input6.timepicker({
+      showMeridian: false,
+      showSeconds: true,
+      defaultTime: '13:25:15',
+      minHours: 12
+    });
+    tp6 = $timepicker6.data('timepicker');
+
   });
 
   afterEach(function () {
@@ -72,11 +85,15 @@ describe('Timepicker feature', function() {
     if ($input5.data('timepicker') !== undefined) {
       $input5.data('timepicker').remove();
     }
+    if ($input6.data('timepicker') !== undefined) {
+      $input6.data('timepicker').remove();
+    }
     $input1.remove();
     $input2.remove();
     $input3.remove();
     $input4.remove();
     $input5.remove();
+    $input6.remove();
   });
 
   it('should be available on the jquery object', function() {
@@ -102,6 +119,7 @@ describe('Timepicker feature', function() {
     expect(tp1.modalBackdrop).toBe(false);
     expect(tp1.isOpen).toBe(false);
     expect(tp1.showWidgetOnAddonClick).toBe(true);
+    expect(tp1.minHours).toBe(0);
     expect(tp1.maxHours).toBe(24);
   });
 
@@ -399,6 +417,28 @@ describe('Timepicker feature', function() {
     expect(tp3.hour).toBe(0);
     expect(tp3.minute).toBe(15);
     expect(tp3.second).toBe(30);
+  });
+
+  it('should set hour to minHours if hour increments on "maxHours-1" for 24h clock', function() {
+    $input6.val('22:15:30');
+    tp6.updateFromElementVal();
+    tp6.incrementHour();
+    tp6.incrementHour();
+
+    expect(tp6.hour).toBe(12);
+    expect(tp6.minute).toBe(15);
+    expect(tp6.second).toBe(30);
+  });
+
+  it('should set hour to "maxHours-1" if hour decrement on "minHours-1" for 24h clock', function() {
+    $input6.val('13:15:30');
+    tp6.updateFromElementVal();
+    tp6.decrementHour();
+    tp6.decrementHour();
+
+    expect(tp6.hour).toBe(23);
+    expect(tp6.minute).toBe(15);
+    expect(tp6.second).toBe(30);
   });
 
   it('should increment minutes with incrementMinute method', function() {

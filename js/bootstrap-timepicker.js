@@ -32,6 +32,7 @@
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
     this.icons = options.icons;
     this.maxHours = options.maxHours;
+    this.minHours = options.minHours;
     this.explicitMode = options.explicitMode; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
 
     this.handleDocumentClick = function (e) {
@@ -133,7 +134,7 @@
           this.hour--;
         }
       } else {
-        if (this.hour <= 0) {
+        if (this.hour <= this.minHours) {
           this.hour = this.maxHours - 1;
         } else {
           this.hour--;
@@ -542,11 +543,11 @@
           this.hour++;
           return this.toggleMeridian();
         } else if (this.hour === 12) {
-          this.hour = 0;
+          this.hour = this.minHours;
         }
       }
       if (this.hour === this.maxHours - 1) {
-        this.hour = 0;
+        this.hour = this.minHours;
 
         return;
       }
@@ -870,6 +871,10 @@
           // No day/date handling.
           hour = this.maxHours - 1;
         }
+        if (hour <= this.minHours) {
+          // No day/date handling.
+          hour = this.minHours;
+        }
 
         if (this.showMeridian) {
           if (hour > 12) {
@@ -890,7 +895,7 @@
           if (hour >= this.maxHours) {
             hour = this.maxHours - 1;
           } else if ((hour < 0) || (hour === 12 && timeMode === 1)){
-            hour = 0;
+            hour = this.minHours;
           }
         }
       }
@@ -1155,6 +1160,7 @@
       down: 'glyphicon glyphicon-chevron-down'
     },
     maxHours: 24,
+    minHours: 0,
     explicitMode: false
   };
 

@@ -1046,7 +1046,10 @@
       this.update();
 
       if ($input.is('input')) {
-        $input.get(0).setSelectionRange(0,2);
+        var $element = $input.get(0);
+        if ($element.setSelectionRange) {
+          $element.setSelectionRange(0,2);
+        }
       }
     },
 
@@ -1084,7 +1087,10 @@
           break;
         }
         this.setTime(this.getTime());
-        $input.get(0).setSelectionRange(0,2);
+        var $element = $input.get(0);
+        if ($element.setSelectionRange) {
+          $element.setSelectionRange(0,2);
+        }
         break;
       case 40: // down arrow
         e.preventDefault();
@@ -1103,7 +1109,10 @@
           break;
         }
         this.setTime(this.getTime());
-        $input.get(0).setSelectionRange(0,2);
+        var $element = $input.get(0);
+        if ($element.setSelectionRange) {
+          $element.setSelectionRange(0,2);
+        }
         break;
       }
     },

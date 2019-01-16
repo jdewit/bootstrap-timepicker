@@ -910,6 +910,7 @@
 
     showWidget: function() {
       if (this.isOpen) {
+        this.hideWidget();
         return;
       }
 

@@ -147,7 +147,21 @@
       if (step) {
         newVal = this.minute - step;
       } else {
-        newVal = this.minute - this.minuteStep;
+        var minuteStep = this.minuteStep;
+        if (this.minuteStep > 60) {
+          var hourStep = Math.floor(this.minuteStep / 60);
+          minuteStep -= (hourStep * 60);
+          if (minuteStep === 0) {
+            minuteStep = 60;
+          }
+
+          var decrementHours = hourStep - (minuteStep == 60 ? 1 : 0);
+          for (var i = 0; i < decrementHours; i++) {
+            this.decrementHour();
+          }
+        }
+
+        newVal = this.minute - minuteStep;
       }
 
       if (newVal < 0) {
@@ -559,7 +573,21 @@
       if (step) {
         newVal = this.minute + step;
       } else {
-        newVal = this.minute + this.minuteStep - (this.minute % this.minuteStep);
+        var minuteStep = this.minuteStep;
+        if (this.minuteStep > 60) {
+          var hourStep = Math.floor(this.minuteStep / 60);
+          minuteStep -= (hourStep * 60);
+          if (minuteStep === 0) {
+            minuteStep = 60;
+          }
+
+          var incrementHours = hourStep - (minuteStep == 60 ? 1 : 0);
+          for (var i = 0; i < incrementHours; i++) {
+            this.incrementHour();
+          }
+        }
+
+        newVal = this.minute + minuteStep - (this.minute % minuteStep);
       }
 
       if (newVal > 59) {

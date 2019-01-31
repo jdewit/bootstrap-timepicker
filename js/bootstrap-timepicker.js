@@ -32,6 +32,7 @@
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
     this.icons = options.icons;
     this.maxHours = options.maxHours;
+    this.hoursOnTwoDigits = options.hoursOnTwoDigits;
     this.explicitMode = options.explicitMode; // If true 123 = 1:23, 12345 = 1:23:45, else invalid.
 
     this.handleDocumentClick = function (e) {
@@ -355,7 +356,10 @@
         return '';
       }
 
-      return this.hour + ':' + (this.minute.toString().length === 1 ? '0' + this.minute : this.minute) + (this.showSeconds ? ':' + (this.second.toString().length === 1 ? '0' + this.second : this.second) : '') + (this.showMeridian ? ' ' + this.meridian : '');
+      return (this.hoursOnTwoDigits && this.hour.toString().length === 1 ? '0' + this.hour : this.hour) + ':' +
+        (this.minute.toString().length === 1 ? '0' + this.minute : this.minute) +
+        (this.showSeconds ? ':' + (this.second.toString().length === 1 ? '0' + this.second : this.second) : '') +
+        (this.showMeridian ? ' ' + this.meridian : '');
     },
 
     hideWidget: function() {
@@ -466,7 +470,7 @@
 
       if ($element.setSelectionRange) {
         setTimeout(function() {
-          if (self.hour < 10) {
+          if (self.hour < 10 && !self.hoursOnTwoDigits) {
             $element.setSelectionRange(0,1);
           } else {
             $element.setSelectionRange(0,2);
@@ -483,7 +487,7 @@
 
       if ($element.setSelectionRange) {
         setTimeout(function() {
-          if (self.hour < 10) {
+          if (self.hour < 10 && !self.hoursOnTwoDigits) {
             $element.setSelectionRange(2,4);
           } else {
             $element.setSelectionRange(3,5);
@@ -500,7 +504,7 @@
 
       if ($element.setSelectionRange) {
         setTimeout(function() {
-          if (self.hour < 10) {
+          if (self.hour < 10 && !self.hoursOnTwoDigits) {
             $element.setSelectionRange(5,7);
           } else {
             $element.setSelectionRange(6,8);
@@ -518,7 +522,7 @@
       if ($element.setSelectionRange) {
         if (this.showSeconds) {
           setTimeout(function() {
-            if (self.hour < 10) {
+            if (self.hour < 10 && !self.hoursOnTwoDigits) {
               $element.setSelectionRange(8,10);
             } else {
               $element.setSelectionRange(9,11);
@@ -526,7 +530,7 @@
           }, 0);
         } else {
           setTimeout(function() {
-            if (self.hour < 10) {
+            if (self.hour < 10 && !self.hoursOnTwoDigits) {
               $element.setSelectionRange(5,7);
             } else {
               $element.setSelectionRange(6,8);
@@ -1155,6 +1159,7 @@
       down: 'glyphicon glyphicon-chevron-down'
     },
     maxHours: 24,
+    hoursOnTwoDigits: false,
     explicitMode: false
   };
 

@@ -345,6 +345,8 @@
       case 'dropdown':
         template = '<div class="bootstrap-timepicker-widget dropdown-menu">'+ templateContent +'</div>';
         break;
+      default:
+        template = this.template;
       }
 
       return template;

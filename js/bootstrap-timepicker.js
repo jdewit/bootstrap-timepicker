@@ -907,6 +907,11 @@
 
       this.update(ignoreWidget);
     },
+    
+    setMinuteStep: function(step, ignoreWidget) {
+    	this.minuteStep = step;
+        this.update(ignoreWidget);
+    },
 
     showWidget: function() {
       if (this.isOpen) {

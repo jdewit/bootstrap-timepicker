@@ -1,4 +1,4 @@
-Timepicker for Twitter Bootstrap
+TimePicker for Twitter Bootstrap
 ================================
 
 WARNING: This project is no longer maintained.

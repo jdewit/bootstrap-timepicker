@@ -28,7 +28,7 @@ You can also download our latest release (and any previous release)
 Demos & Documentation
 =====================
 
-View <a href="http://jdewit.github.com/bootstrap-timepicker">demos & documentation</a>.
+View <a href="http://jdewit.github.io/bootstrap-timepicker">demos & documentation</a>.
 
 Support
 =======
